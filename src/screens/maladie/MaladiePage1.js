@@ -50,7 +50,7 @@ const MaladiePage1 = ({navigation}) => {
         {showDatePicker && (
           <DateTimePicker
             testID="dateTimePicker"
-            // value={date}
+            value={date}
             mode="date"
             display="default"
             onChange={handleDateChange}
