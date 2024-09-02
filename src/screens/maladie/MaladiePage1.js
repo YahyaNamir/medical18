@@ -51,7 +51,7 @@ const MaladiePage1 = ({navigation}) => {
           <DateTimePicker
             testID="dateTimePicker"
             value={date}
-            // mode="date"
+            mode="date"
             display="default"
             onChange={handleDateChange}
           />
@@ -107,13 +107,15 @@ const MaladiePage1 = ({navigation}) => {
             <Picker.Item style={styles.input} label="Mois" value="mois" />
           </Picker>
         </View>
+      </ScrollView>
+      <View style={styles.stepperContainer}>
       <Stepper
         steps={[1, 2, 3, 4]}
         currentStep={0}
         onStepChange={handleStepChange}
         style={styles.stepper}
-      />
-      </ScrollView>
+        />
+        </View>
     </View>
   );
 };
@@ -121,7 +123,9 @@ const MaladiePage1 = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    justifyContent: 'space-between',
+    padding: 20,
+    backgroundColor: '#fff',
   },
   scrollContainer: {
     flexGrow: 1,
@@ -178,11 +182,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     fontFamily: 'Poppins-Regular',
   },
-  stepper: {
+  stepperContainer: {
+    padding: 10,
     borderTopWidth: 1,
     borderTopColor: '#ccc',
     backgroundColor: '#fff',
-    padding: 10,
   },
 });
 

@@ -1,29 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  ScrollView,
-  StyleSheet,
-} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TextInput, ScrollView, StyleSheet} from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import prescriptionData from '../../../API MALADIE/prescription.json';
 import Stepper from '../blessure/Stepper';
 
-const MaladiePage2 = ({ navigation }) => {
+const MaladiePage3 = ({navigation}) => {
   const [consultations, setConsultations] = useState([]);
   const [selectedConsultations, setSelectedConsultations] = useState([]);
   const [soinsPodologiques, setSoinsPodologiques] = useState([]);
-  const [selectedSoinsPodologiques, setSelectedSoinsPodologiques] = useState([]);
+  const [selectedSoinsPodologiques, setSelectedSoinsPodologiques] = useState(
+    [],
+  );
   const [commentaire, setCommentaire] = useState('');
   const [commentaireSpecialises, setCommentaireSpecialises] = useState('');
 
   useEffect(() => {
     const consultationsData = prescriptionData.find(
-      item => item.label === 'CONSULTATIONS MEDICALES'
+      item => item.label === 'CONSULTATIONS MEDICALES',
     );
     const soinsPodologiquesData = prescriptionData.find(
-      item => item.label === 'SOINS PODOLOGIQUES'
+      item => item.label === 'SOINS PODOLOGIQUES',
     );
 
     if (consultationsData) {
@@ -31,7 +27,7 @@ const MaladiePage2 = ({ navigation }) => {
         consultationsData.children.map(child => ({
           id: child.child_id,
           name: child.child,
-        }))
+        })),
       );
     }
 
@@ -40,7 +36,7 @@ const MaladiePage2 = ({ navigation }) => {
         soinsPodologiquesData.children.map(child => ({
           id: child.child_id,
           name: child.child,
-        }))
+        })),
       );
     }
   }, []);
@@ -57,10 +53,10 @@ const MaladiePage2 = ({ navigation }) => {
           <View style={styles.multiSelectContainer}>
             <MultiSelect
               hideTags
-              items={consultations}
+              items={soinsPodologiques}
               uniqueKey="id"
-              onSelectedItemsChange={setSelectedConsultations}
-              selectedItems={selectedConsultations}
+              onSelectedItemsChange={setSelectedSoinsPodologiques}
+              selectedItems={selectedSoinsPodologiques}
               selectText="Pick Items"
               searchInputPlaceholderText="Search Items..."
               submitButtonText="Submit"
@@ -68,13 +64,11 @@ const MaladiePage2 = ({ navigation }) => {
               tagRemoveIconColor="#CCC"
               tagBorderColor="#CCC"
               tagTextColor="#000"
-              selectedItemTextColor="#000"
-              selectedItemIconColor="#000"
               itemTextColor="#000"
               displayKey="name"
-              searchInputStyle={{ color: '#000' }}
+              searchInputStyle={{color: '#000'}}
               submitButtonColor="#7979f7"
-              submitButtonTextStyle={{ color: '#fff' }}
+              submitButtonTextStyle={{color: '#fff'}}
               styleDropdownMenuSubsection={styles.multiSelect}
             />
           </View>
@@ -94,13 +88,11 @@ const MaladiePage2 = ({ navigation }) => {
               tagRemoveIconColor="#CCC"
               tagBorderColor="#CCC"
               tagTextColor="#000"
-              selectedItemTextColor="#000"
-              selectedItemIconColor="#000"
               itemTextColor="#000"
               displayKey="name"
-              searchInputStyle={{ color: '#000' }}
+              searchInputStyle={{color: '#000'}}
               submitButtonColor="#7979f7"
-              submitButtonTextStyle={{ color: '#fff' }}
+              submitButtonTextStyle={{color: '#fff'}}
               styleDropdownMenuSubsection={styles.multiSelect}
             />
           </View>
@@ -111,7 +103,7 @@ const MaladiePage2 = ({ navigation }) => {
             onChangeText={setCommentaire}
             placeholder="Ecrire..."
             multiline
-            numberOfLines={2}
+            numberOfLines={1}
             style={styles.textInput}
           />
           <Text style={styles.label}>Commentaire d'avis Spécialisés</Text>
@@ -120,12 +112,12 @@ const MaladiePage2 = ({ navigation }) => {
             onChangeText={setCommentaireSpecialises}
             placeholder="Ecrire..."
             multiline
-            numberOfLines={2}
+            numberOfLines={1}
             style={styles.textInput}
           />
         </View>
       </ScrollView>
-      
+
       <View style={styles.stepperContainer}>
         <Stepper
           steps={[1, 2, 3, 4]}
@@ -141,7 +133,9 @@ const MaladiePage2 = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    justifyContent: 'space-between',
+    padding: 20,
+    backgroundColor: '#fff',
   },
   scrollContainer: {
     flexGrow: 1,
@@ -155,7 +149,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginVertical: 10,
     color: 'black',
-    fontFamily: 'Poppins-Bold', 
+    fontFamily: 'Poppins-Bold',
   },
   multiSelectContainer: {
     marginVertical: 10,
@@ -173,11 +167,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#fff',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
-    fontFamily: 'Poppins-Regular', 
+    fontFamily: 'Poppins-Regular',
     fontSize: 16,
     color: '#000',
     marginVertical: 10,
@@ -190,4 +184,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MaladiePage2;
+export default MaladiePage3;

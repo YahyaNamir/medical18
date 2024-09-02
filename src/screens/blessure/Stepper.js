@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 5,
     backgroundColor: '#007BFF',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'center',
   },
   buttonText: {
