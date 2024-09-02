@@ -1,0 +1,314 @@
+[
+    {
+        "id": 16,
+        "label": "CONSULTATIONS MEDICALES",
+        "parent": "CONSULTATIONS MEDICALES",
+        "title": "CONSULTATIONS MEDICALES",
+        "prix": null,
+        "created_at": "2024-04-04T12:05:02.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": "Pack 5 (Acupuncture, Sujok, Hijama,  cupping)",
+                "child_id": 54
+            },
+            {
+                "child": "Pack 4 rééducation : AGENTS PHYSIOTHERAPIQUES (Presso/Vacuo Thérapie séche/ Balnéothérapie/HILT/Radiofréquence/OC/Cryo-Thérapie-Choc Thermique), thécarthérapie",
+                "child_id": 53
+            },
+            {
+                "child": "Pack 3 rééducation : REEDUCATIONS SPECIALES (Rééducation Maxillo-Faciale /Neuro-Vestibulaire /Cardio Vasculaire /Vésico-sphinctérienne)",
+                "child_id": 52
+            },
+            {
+                "child": "Pack 2 rééducation : TECHNIQUE SPECIALE (manipulations spécifique, proprioceptives, vertébrales, respiratoires, relaxation, psychomotrices, massothérapies, drainage lymphatique manuel)",
+                "child_id": 51
+            },
+            {
+                "child": "Pack 1 rééducation : techniques fondamentales (rééducation fonctionnelle de base) (EMS US IR ETI RENF ...)",
+                "child_id": 50
+            },
+            {
+                "child": "Consultation spécialisée Gynécologie",
+                "child_id": 49
+            },
+            {
+                "child": "Consultation psychologue ou mentale",
+                "child_id": 48
+            },
+            {
+                "child": "Consultation nutritionniste",
+                "child_id": 47
+            },
+            {
+                "child": "Consultation spécialisée traumato-orthopédie",
+                "child_id": 46
+            },
+            {
+                "child": "Consultation spécialisée médecine de sport",
+                "child_id": 45
+            }
+        ]
+    },
+    {
+        "id": 17,
+        "label": "SOINS DE REEDUCATION",
+        "parent": "SOINS DE REEDUCATION",
+        "title": "SOINS DE REEDUCATION",
+        "prix": null,
+        "created_at": "2024-04-04T12:08:30.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": null,
+                "child_id": null
+            }
+        ]
+    },
+    {
+        "id": 18,
+        "label": "SOINS PODOLOGIQUES",
+        "parent": "SOINS PODOLOGIQUES",
+        "title": "SOINS PODOLOGIQUES",
+        "prix": null,
+        "created_at": "2024-04-04T12:13:31.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": "TRAITEMENTS DES VERRUES",
+                "child_id": 68
+            },
+            {
+                "child": "Soins des cors\r",
+                "child_id": 67
+            },
+            {
+                "child": "Soins des Angles incarnés avec onéchoplastie\r",
+                "child_id": 66
+            },
+            {
+                "child": "Soins des Angles incarnés\r",
+                "child_id": 65
+            },
+            {
+                "child": "Soins des Angles champignons\r",
+                "child_id": 64
+            },
+            {
+                "child": "SOINS DECOLLEMENT INGUIAL AVEC REPARATION\r",
+                "child_id": 63
+            },
+            {
+                "child": "Soins de l'hyperkératose\r",
+                "child_id": 62
+            },
+            {
+                "child": "Semelles podologiques thermo formables de sport pro\r",
+                "child_id": 61
+            },
+            {
+                "child": "Semelles podologiques thermo formables\r",
+                "child_id": 60
+            },
+            {
+                "child": "Rachimetrie\r",
+                "child_id": 59
+            },
+            {
+                "child": "ORTHOPLASTIE CORRECTEUR\r",
+                "child_id": 58
+            },
+            {
+                "child": "Fraisage de angles\r",
+                "child_id": 57
+            },
+            {
+                "child": "Bilan podologique avec analyse posturale\r",
+                "child_id": 56
+            },
+            {
+                "child": "Bilan podologique\r",
+                "child_id": 55
+            }
+        ]
+    },
+    {
+        "id": 19,
+        "label": "SOINS MEDICAUX et INFIRMIERS",
+        "parent": "SOINS MEDICAUX et INFIRMIERS",
+        "title": "SOINS MEDICAUX et INFIRMIERS",
+        "prix": null,
+        "created_at": "2024-04-04T12:15:23.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": "TRAITEMENTS DES VERRUES",
+                "child_id": 82
+            },
+            {
+                "child": "Soins des cors\r",
+                "child_id": 81
+            },
+            {
+                "child": "Soins des Angles incarnés avec onéchoplastie\r",
+                "child_id": 80
+            },
+            {
+                "child": "Soins des Angles incarnés\r",
+                "child_id": 79
+            },
+            {
+                "child": "Soins des Angles champignons\r",
+                "child_id": 78
+            },
+            {
+                "child": "SOINS DECOLLEMENT INGUIAL AVEC REPARATION\r",
+                "child_id": 77
+            },
+            {
+                "child": "Soins de l'hyperkératose\r",
+                "child_id": 76
+            },
+            {
+                "child": "Suture\r",
+                "child_id": 75
+            },
+            {
+                "child": "Soins infirmiers pratiqués par l'infirmier\r",
+                "child_id": 74
+            },
+            {
+                "child": "PONCTION SIMPLE\r",
+                "child_id": 73
+            },
+            {
+                "child": "Plâtre américain\r",
+                "child_id": 72
+            },
+            {
+                "child": "INJECTION ARTICULAIRE ET PERIARTICULAIRE\r",
+                "child_id": 71
+            },
+            {
+                "child": "ACTE ECHOGUIDE\r",
+                "child_id": 70
+            },
+            {
+                "child": "Soins infirmiers\r",
+                "child_id": 69
+            }
+        ]
+    },
+    {
+        "id": 20,
+        "label": "SOINS DE RECUPERATION",
+        "parent": "SOINS DE RECUPERATION",
+        "title": "SOINS DE RECUPERATION",
+        "prix": null,
+        "created_at": "2024-04-04T12:16:36.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": "TRAITEMENTS DES VERRUES",
+                "child_id": 96
+            },
+            {
+                "child": "Soins des cors",
+                "child_id": 95
+            },
+            {
+                "child": "Soins des Angles incarnés avec onéchoplastie",
+                "child_id": 94
+            },
+            {
+                "child": "Soins des Angles incarnés",
+                "child_id": 93
+            },
+            {
+                "child": "Soins des Angles champignons",
+                "child_id": 92
+            },
+            {
+                "child": "SOINS DECOLLEMENT INGUIAL AVEC REPARATION",
+                "child_id": 91
+            },
+            {
+                "child": "Soins de l'hyperkératose",
+                "child_id": 90
+            },
+            {
+                "child": "Suture",
+                "child_id": 89
+            },
+            {
+                "child": "Soins infirmiers pratiqués par l'infirmier",
+                "child_id": 88
+            },
+            {
+                "child": "SEANCE DE RECUPERATION massage",
+                "child_id": 87
+            },
+            {
+                "child": "Séance de récupération sauna, jacuzzi pour toute l’équipe",
+                "child_id": 86
+            },
+            {
+                "child": "Séance de récupération immersion eau froide pour toute l’équipe",
+                "child_id": 85
+            },
+            {
+                "child": "Séance de récupération cryothérapie corps entier pour toute l’équipe",
+                "child_id": 84
+            },
+            {
+                "child": "Pressothérapie ET VACUOTHERAPIE SËCHE",
+                "child_id": 83
+            }
+        ]
+    },
+    {
+        "id": 21,
+        "label": "SOINS OSTEOPATHIQUES",
+        "parent": "SOINS OSTEOPATHIQUES",
+        "title": "SOINS OSTEOPATHIQUES",
+        "prix": null,
+        "created_at": "2024-04-04T12:17:32.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": "Soins ostéopathiques",
+                "child_id": 97
+            }
+        ]
+    },
+    {
+        "id": 22,
+        "label": "EVALUATIONS",
+        "parent": "EVALUATIONS",
+        "title": "EVALUATIONS",
+        "prix": null,
+        "created_at": "2024-04-04T12:18:09.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": "PLIS CUTANNES POUR MESURE DE LA MASSE GRASSE",
+                "child_id": 100
+            },
+            {
+                "child": "Impédancemétrie",
+                "child_id": 99
+            },
+            {
+                "child": "Bilan ostéo-densitométrique DEXA (%MG)",
+                "child_id": 98
+            }
+        ]
+    }
+]

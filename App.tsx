@@ -1,118 +1,194 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import ConsultationTypePopup from './src/ConsultationTypePopup';
+import BlessurePage1 from './src/screens/blessure/BlessurePage1';
+import BlessurePage2 from './src/screens/blessure/BlessurePage2';
+import BlessurePage3 from './src/screens/blessure/BlessurePage3';
+import BlessurePage4 from './src/screens/blessure/BlessurePage4';
+import MaladiePage1 from './src/screens/maladie/MaladiePage1';
+import MaladiePage2 from './src/screens/maladie/MaladiePage2';
+import MaladiePage3 from './src/screens/maladie/MaladiePage3';
+import MaladiePage4 from './src/screens/maladie/MaladiePage4';
+import CheckUpPage1 from './src/screens/checkUp/CheckUpPage1';
+import CheckUpPage2 from './src/screens/checkUp/CheckUpPage2';
+import CheckUpPage3 from './src/screens/checkUp/CheckUpPage3';
+import CheckUpPage4 from './src/screens/checkUp/CheckUpPage4';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const Stack = createStackNavigator();
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const App = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        options={{
+          headerShown: true,
+          headerTitle: 'Home',
+          headerStyle: {backgroundColor: '#1545c9'},
+          headerTintColor: '#fff',
+          headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+          headerTitleAlign: 'center',
+        }}
+        initialRouteName="ConsultationTypePopup">
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'Home',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="ConsultationTypePopup"
+          component={ConsultationTypePopup}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'Blessure 1/4',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="BlessurePage1"
+          component={BlessurePage1}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'Blessure 2/4',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="BlessurePage2"
+          component={BlessurePage2}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'Blessure 3/4',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="BlessurePage3"
+          component={BlessurePage3}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'Blessure 4/4',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="BlessurePage4"
+          component={BlessurePage4}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'Infos 1/4',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="MaladiePage1"
+          component={MaladiePage1}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'Prescription 2/4',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="MaladiePage2"
+          component={MaladiePage2}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'Bilan Complémentaire et Avis Spécialisée 3/4',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="MaladiePage3"
+          component={MaladiePage3}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'Informations additionnelles 4/4',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="MaladiePage4"
+          component={MaladiePage4}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'CheckUp 1/4',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="CheckUpPage1"
+          component={CheckUpPage1}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'CheckUp 2/4',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="CheckUpPage2"
+          component={CheckUpPage2}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'CheckUp 3/4',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="CheckUpPage3"
+          component={CheckUpPage3}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'CheckUp 4/4',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="CheckUpPage4"
+          component={CheckUpPage4}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+};
 
 export default App;
