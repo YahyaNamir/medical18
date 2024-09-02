@@ -59,10 +59,10 @@ const styles = StyleSheet.create({
   },
   buttons: {
     flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
+    width: '-10%',
+    justifyContent: 'flex-start',
+    // alignItems: 'center',
+    paddingHorizontal: 50,
   },
   button: {
     paddingVertical: 10,

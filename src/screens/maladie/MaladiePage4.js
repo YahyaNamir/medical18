@@ -11,7 +11,7 @@ import MultiSelect from 'react-native-multiple-select';
 import prescriptionData from '../../../API MALADIE/prescription.json';
 import Stepper from '../blessure/Stepper';
 
-const MaladiePage4 = ({ navigation }) => {
+const MaladiePage4 = ({navigation}) => {
   const [consultations, setConsultations] = useState([]);
   const [selectedConsultations, setSelectedConsultations] = useState([]);
   const [soinsPodologiques, setSoinsPodologiques] = useState([]);
@@ -46,7 +46,7 @@ const MaladiePage4 = ({ navigation }) => {
       );
     }
   }, []);
-  const handleStepChange = (step) => {
+  const handleStepChange = step => {
     if (step === 2) {
       navigation.navigate('MaladiePage3');
     }
@@ -54,13 +54,12 @@ const MaladiePage4 = ({ navigation }) => {
 
   const handleFinish = () => {
     alert('Form submitted !');
-    navigation.navigate('ConsultationTypePopup'); 
+    navigation.navigate('ConsultationTypePopup');
   };
 
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-
         <Text style={styles.label}>Rapport Medical</Text>
         <TextInput
           value={commentaire}
@@ -70,13 +69,15 @@ const MaladiePage4 = ({ navigation }) => {
           numberOfLines={2}
           style={styles.textInput}
         />
-        
-        <Stepper
-          steps={[1, 2, 3, 4]}
-          currentStep={3}
-          onStepChange={handleStepChange}
-          style={styles.stepper}
-        />
+
+        <View style={styles.stepperContainer}>
+          <Stepper
+            steps={[1, 2, 3, 4]}
+            currentStep={3}
+            onStepChange={handleFinish}
+            style={styles.stepper}
+          />
+        </View>
       </ScrollView>
     </View>
   );

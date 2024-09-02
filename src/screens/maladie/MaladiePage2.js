@@ -153,12 +153,14 @@ const MaladiePage2 = ({navigation}) => {
           numberOfLines={2}
           style={styles.textInput}
         />
+        <View style={styles.stepperContainer}>
         <Stepper
           steps={[1, 2, 3, 4]}
           currentStep={1}
           onStepChange={handleStepChange}
           style={styles.stepper}
         />
+      </View>
       </ScrollView>
     </View>
   );
@@ -231,11 +233,11 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#000000',
   },
-  stepper: {
+  stepperContainer: {
+    padding: 10,
     borderTopWidth: 1,
     borderTopColor: '#ccc',
     backgroundColor: '#fff',
-    padding: 10,
   },
 });
 
