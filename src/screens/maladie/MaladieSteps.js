@@ -42,8 +42,8 @@ export default function MaladieSteps({navigation}) {
           label="Bilan Complémentaire et Avis Spécialisée"
           previousBtnStyle={styles.button}
           previousBtnTextStyle={styles.buttonText}
-          // nextBtnStyle={styles.button}
-          nextBtnTextStyle={styles.buttonText}>
+          nextBtnStyle={styles.button}
+          // nextBtnTextStyle={styles.buttonText}>
           <View style={styles.stepContainer}>
             <MaladiePage3 />
           </View>
