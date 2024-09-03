@@ -40,7 +40,7 @@ export default function MaladieSteps({navigation}) {
         </ProgressStep>
         <ProgressStep
           label="Bilan Complémentaire et Avis Spécialisée"
-          previousBtnStyle={styles.button}
+          // previousBtnStyle={styles.button}
           previousBtnTextStyle={styles.buttonText}
           nextBtnStyle={styles.button}
           nextBtnTextStyle={styles.buttonText}>
