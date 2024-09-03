@@ -1,0 +1,306 @@
+[
+    {
+        "id": 1,
+        "parent": "Blessures musculaires",
+        "type_consultation": "blessure",
+        "created_at": "2022-12-01T13:02:35.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": "contusion musculaire",
+                "child_id": 246
+            },
+            {
+                "child": "contracture ischions jambiers",
+                "child_id": 245
+            },
+            {
+                "child": "lésion musculaire grade 2",
+                "child_id": 244
+            },
+            {
+                "child": "contracture",
+                "child_id": 243
+            },
+            {
+                "child": "rupture totale",
+                "child_id": 242
+            },
+            {
+                "child": "rupture partielle",
+                "child_id": 241
+            },
+            {
+                "child": "élongation",
+                "child_id": 240
+            },
+            {
+                "child": "déchirure",
+                "child_id": 239
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "parent": "Blessures articulaires et ligamentaires",
+        "type_consultation": "blessure",
+        "created_at": "2022-12-01T13:02:35.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": "dd",
+                "child_id": 251
+            },
+            {
+                "child": "pubalgie",
+                "child_id": 232
+            },
+            {
+                "child": "entorse du gros orteil",
+                "child_id": 231
+            },
+            {
+                "child": "désinsertion totale",
+                "child_id": 230
+            },
+            {
+                "child": "désinsertion partielle",
+                "child_id": 229
+            },
+            {
+                "child": "distension ligamentaire",
+                "child_id": 228
+            },
+            {
+                "child": "luxation",
+                "child_id": 227
+            },
+            {
+                "child": "entorse (lli, entorse externe g1, entorse proximale interphalangienne du 3ème doigt)",
+                "child_id": 226
+            },
+            {
+                "child": "pubalgie",
+                "child_id": 225
+            },
+            {
+                "child": "entorse du gros orteil",
+                "child_id": 224
+            },
+            {
+                "child": "désinsertion totale",
+                "child_id": 223
+            },
+            {
+                "child": "désinsertion partielle",
+                "child_id": 222
+            },
+            {
+                "child": "distension ligamentaire",
+                "child_id": 221
+            },
+            {
+                "child": "luxation",
+                "child_id": 220
+            },
+            {
+                "child": "entorse (lli, entorse externe g1, entorse proximale interphalangienne du 3ème doigt)",
+                "child_id": 219
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "parent": "Blessures Tendineuses",
+        "type_consultation": "blessure",
+        "created_at": "2022-12-01T13:02:35.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": "traumatisme au niveau des yeux (si lié à une blessure tendineuse)",
+                "child_id": 250
+            },
+            {
+                "child": "élongation minime",
+                "child_id": 249
+            },
+            {
+                "child": "tendinite",
+                "child_id": 248
+            },
+            {
+                "child": "tendinopathie",
+                "child_id": 247
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "parent": "Lésion ischionjambiers",
+        "type_consultation": "blessure",
+        "created_at": "2023-03-09T22:38:13.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": null,
+                "child_id": null
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "parent": "élongation",
+        "type_consultation": "blessure",
+        "created_at": "2023-04-11T02:36:50.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": null,
+                "child_id": null
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "parent": "Blessures chroniques",
+        "type_consultation": "blessure",
+        "created_at": "2022-12-02T19:40:25.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": "fracture de fatigue",
+                "child_id": 238
+            },
+            {
+                "child": "lesion minime infra clinique",
+                "child_id": 237
+            },
+            {
+                "child": "charge droite et gauche + périostite",
+                "child_id": 236
+            },
+            {
+                "child": "œdème osseux",
+                "child_id": 235
+            },
+            {
+                "child": "tendinite",
+                "child_id": 234
+            },
+            {
+                "child": "tendinopathie",
+                "child_id": 233
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "parent": "Entorse ",
+        "type_consultation": "blessure",
+        "created_at": "2023-10-28T10:07:35.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": null,
+                "child_id": null
+            }
+        ]
+    },
+    {
+        "id": 19,
+        "parent": "MALADIE",
+        "type_consultation": "maladie",
+        "created_at": "2023-11-17T12:43:18.000Z",
+        "user_id": 0,
+        "sub_id": null,
+        "children": [
+            {
+                "child": "rhinopharyngite",
+                "child_id": 179
+            },
+            {
+                "child": "rhinite allergique",
+                "child_id": 178
+            },
+            {
+                "child": "rhinite",
+                "child_id": 177
+            },
+            {
+                "child": "pneumopathie",
+                "child_id": 176
+            },
+            {
+                "child": "ostéo-arthrite",
+                "child_id": 175
+            },
+            {
+                "child": "migraines",
+                "child_id": 174
+            },
+            {
+                "child": "malaise",
+                "child_id": 173
+            },
+            {
+                "child": "gastro-entérite aigue",
+                "child_id": 172
+            },
+            {
+                "child": "infection virale",
+                "child_id": 171
+            },
+            {
+                "child": "infection urinaire",
+                "child_id": 170
+            },
+            {
+                "child": "otite",
+                "child_id": 169
+            },
+            {
+                "child": "bronchite",
+                "child_id": 168
+            },
+            {
+                "child": "angine",
+                "child_id": 167
+            },
+            {
+                "child": "pharyngite",
+                "child_id": 166
+            },
+            {
+                "child": "abces dentaire",
+                "child_id": 165
+            },
+            {
+                "child": "dysmenorrhee",
+                "child_id": 164
+            },
+            {
+                "child": "céphalées",
+                "child_id": 163
+            },
+            {
+                "child": "grippe",
+                "child_id": 162
+            },
+            {
+                "child": "covid +",
+                "child_id": 161
+            },
+            {
+                "child": "covid 19",
+                "child_id": 160
+            }
+        ]
+    }
+]

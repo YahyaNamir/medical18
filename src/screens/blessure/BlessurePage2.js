@@ -1,30 +1,10 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Stepper from './Stepper';
+import { View, Text } from 'react-native'
+import React from 'react'
 
-const BlessurePage2 = ({ navigation }) => {
-  const handleStepChange = (step) => {
-    navigation.navigate(`Page${step + 1}`);
-  };
-
+export default function BlessurePage2() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Page 2</Text>
-      <Stepper steps={[1, 2, 3]} currentStep={1} onStepChange={handleStepChange} />
+    <View>
+      <Text>BlessurePage2</Text>
     </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-});
-
-export default BlessurePage2;
+  )
+}

@@ -14,7 +14,8 @@ import CheckUpPage1 from './src/screens/checkUp/CheckUpPage1';
 import CheckUpPage2 from './src/screens/checkUp/CheckUpPage2';
 import CheckUpPage3 from './src/screens/checkUp/CheckUpPage3';
 import CheckUpPage4 from './src/screens/checkUp/CheckUpPage4';
-import MaladieSteps from './src/MaladieSteps';
+import BlessureSteps from './src/screens/blessure/BlessureSteps';
+import MaladieSteps from './src/screens/maladie/MaladieSteps';
 
 const Stack = createStackNavigator();
 
@@ -105,8 +106,7 @@ const App = () => {
         />
         <Stack.Screen
           options={{
-            headerShown: true,
-            headerTitle: 'Infos 1/4',
+            headerTitle: 'Maladie',
             headerStyle: {backgroundColor: '#1545c9'},
             headerTintColor: '#fff',
             headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
@@ -114,6 +114,18 @@ const App = () => {
           }}
           name="MaladieSteps"
           component={MaladieSteps}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'Blessure',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="BlessureSteps"
+          component={BlessureSteps}
         />
         <Stack.Screen
           options={{

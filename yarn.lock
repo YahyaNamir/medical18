@@ -4434,6 +4434,11 @@ react-native-document-picker@^9.3.1:
   dependencies:
     invariant "^2.2.4"
 
+react-native-file-selector@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/react-native-file-selector/-/react-native-file-selector-1.0.2.tgz"
+  integrity sha512-7DLZ+7tOx+Q9haSgjVe3CpM+sbhqFpIWHC7r5GtX9VadqKPDLYyU8aJJ2MpqKd7xkcsTPwi+biBtSw35LQMUnA==
+
 react-native-gesture-handler@^2.18.1, "react-native-gesture-handler@>= 1.0.0":
   version "2.18.1"
   resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.18.1.tgz"

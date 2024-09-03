@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
-
 const MaladiePage4 = ({navigation}) => {
   const [commentaireSpecialises, setCommentaireSpecialises] = useState('');
 
@@ -12,16 +11,12 @@ const MaladiePage4 = ({navigation}) => {
 
   const selectDoc = async () => {
     try {
-      const doc = await DocumentPicker.pick({
-        type: [DocumentPicker.types.allFiles],
-      });
+      const doc = await DocumentPicker.pick();
       console.log(doc);
-    } catch (error) {
-      if (DocumentPicker.isCancel(error)) {
-        console.log('User canceled the picker');
-      } else {
-        console.log('Unknown Error: ', error);
-      }
+    } catch (err) {
+      if (DocumentPicker.isCancel('User cancelled the upload', e))
+        console.log(e);
+      else console.log(err);
     }
   };
 
@@ -41,7 +36,7 @@ const MaladiePage4 = ({navigation}) => {
 
       <Text style={styles.label}>Choisir une document : </Text>
       <View style={{marginHorizontal: 40}}>
-        <Button title="Select Document" onPress={selectDoc} />
+        <Button title="Select Document" onPress={() => {}} />
       </View>
     </View>
   );

@@ -47,7 +47,7 @@ const MaladiePage1 = ({ navigation }) => {
           />
         )}
 
-        <Text style={styles.label}>Diagnostic (Maladie)</Text>
+        <Text style={styles.label}>Location : </Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={diagnostic}

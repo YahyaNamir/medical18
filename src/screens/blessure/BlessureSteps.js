@@ -1,12 +1,13 @@
-import { View, StyleSheet, Alert } from 'react-native';
+import {View, StyleSheet, Alert} from 'react-native';
 import React from 'react';
-import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
-import MaladiePage1 from './screens/maladie/MaladiePage1';
-import MaladiePage2 from './screens/maladie/MaladiePage2';
-import MaladiePage3 from './screens/maladie/MaladiePage3';
-import MaladiePage4 from './screens/maladie/MaladiePage4';
+import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
+import BlessurePage1 from './BlessurePage1';
+import BlessurePage3 from './BlessurePage3';
+import BlessurePage4 from './BlessurePage4';
+import BlessurePage5 from './BlessurePage5';
+import BlessurePage2 from './BlessurePage2';
 
-export default function MaladieSteps({ navigation }) {
+export default function BlessureSteps({navigation}) {
   const handleFinish = () => {
     Alert.alert('Form submitted!');
     navigation.navigate('ConsultationTypePopup');
@@ -16,18 +17,17 @@ export default function MaladieSteps({ navigation }) {
     <View style={styles.container}>
       <View style={styles.topLine} />
       <ProgressSteps
-        activeStepIconBorderColor="#007BFF"
-        completedProgressBarColor="#007BFF"
-        completedStepIconColor="#007BFF"
-      >
+        activeStepIconBorderColor="#0079fa"
+        completedProgressBarColor="#034387"
+        completedStepIconColor="#034387"
+        >
         <ProgressStep
-          labelStyle={{ color: '#007bff', fontFamily: 'Poppins-Bold' }}
+          labelStyle={{color: '#007bff', fontFamily: 'Poppins-Bold'}}
           label="Infos"
           nextBtnStyle={styles.button}
-          nextBtnTextStyle={styles.buttonText}
-        >
+          nextBtnTextStyle={styles.buttonText}>
           <View style={styles.stepContainer}>
-            <MaladiePage1 />
+            <BlessurePage1 />
           </View>
         </ProgressStep>
         <ProgressStep
@@ -35,10 +35,9 @@ export default function MaladieSteps({ navigation }) {
           previousBtnStyle={styles.button}
           previousBtnTextStyle={styles.buttonText}
           nextBtnStyle={styles.button}
-          nextBtnTextStyle={styles.buttonText}
-        >
+          nextBtnTextStyle={styles.buttonText}>
           <View style={styles.stepContainer}>
-            <MaladiePage2 />
+            <BlessurePage2 />
           </View>
         </ProgressStep>
         <ProgressStep
@@ -46,10 +45,19 @@ export default function MaladieSteps({ navigation }) {
           previousBtnStyle={styles.button}
           previousBtnTextStyle={styles.buttonText}
           nextBtnStyle={styles.button}
-          nextBtnTextStyle={styles.buttonText}
-        >
+          nextBtnTextStyle={styles.buttonText}>
           <View style={styles.stepContainer}>
-            <MaladiePage3 />
+            <BlessurePage3 />
+          </View>
+        </ProgressStep>
+        <ProgressStep
+          label="Bilan Complémentaire et Avis Spécialisée"
+          previousBtnStyle={styles.button}
+          previousBtnTextStyle={styles.buttonText}
+          nextBtnStyle={styles.button}
+          nextBtnTextStyle={styles.buttonText}>
+          <View style={styles.stepContainer}>
+            <BlessurePage4 />
           </View>
         </ProgressStep>
         <ProgressStep
@@ -58,10 +66,9 @@ export default function MaladieSteps({ navigation }) {
           previousBtnTextStyle={styles.buttonText}
           finishBtnStyle={styles.button}
           finishBtnTextStyle={styles.buttonText}
-          onSubmit={handleFinish}
-        >
+          onSubmit={handleFinish}>
           <View style={styles.stepContainer}>
-            <MaladiePage4 />
+            <BlessurePage5 />
           </View>
         </ProgressStep>
       </ProgressSteps>
