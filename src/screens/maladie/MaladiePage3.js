@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, TextInput, ScrollView, StyleSheet} from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import prescriptionData from '../../../API MALADIE/prescription.json';
-import Stepper from '../blessure/Stepper';
 
 const MaladiePage3 = ({navigation}) => {
   const [consultations, setConsultations] = useState([]);
@@ -41,10 +40,6 @@ const MaladiePage3 = ({navigation}) => {
     }
   }, []);
 
-  const handleStepChange = step => {
-    navigation.navigate(`MaladiePage${step + 1}`);
-  };
-
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -72,8 +67,7 @@ const MaladiePage3 = ({navigation}) => {
               styleDropdownMenuSubsection={styles.multiSelect}
             />
           </View>
-
-          <Text style={styles.label}>Avis Specialisé</Text>
+          <Text style={styles.label}>Avis Spécialisé</Text>
           <View style={styles.multiSelectContainer}>
             <MultiSelect
               hideTags
@@ -96,14 +90,13 @@ const MaladiePage3 = ({navigation}) => {
               styleDropdownMenuSubsection={styles.multiSelect}
             />
           </View>
-
           <Text style={styles.label}>Indicatif bilan</Text>
           <TextInput
             value={commentaire}
             onChangeText={setCommentaire}
             placeholder="Ecrire..."
             multiline
-            numberOfLines={1}
+            numberOfLines={2}
             style={styles.textInput}
           />
           <Text style={styles.label}>Commentaire d'avis Spécialisés</Text>
@@ -112,27 +105,18 @@ const MaladiePage3 = ({navigation}) => {
             onChangeText={setCommentaireSpecialises}
             placeholder="Ecrire..."
             multiline
-            numberOfLines={1}
+            numberOfLines={2}
             style={styles.textInput}
           />
         </View>
       </ScrollView>
-
-      <View style={styles.stepperContainer}>
-        <Stepper
-          steps={[1, 2, 3, 4]}
-          currentStep={2}
-          onStepChange={handleStepChange}
-          style={styles.stepper}
-        />
-      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: '100%',
     justifyContent: 'space-between',
     padding: 20,
     backgroundColor: '#fff',
@@ -175,12 +159,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#000',
     marginVertical: 10,
-  },
-  stepperContainer: {
-    padding: 10,
-    borderTopWidth: 1,
-    borderTopColor: '#ccc',
-    backgroundColor: '#fff',
   },
 });
 

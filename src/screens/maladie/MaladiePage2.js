@@ -1,5 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,21 +8,18 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
-import prescriptionData from '../../../API MALADIE/prescription.json';
-import Stepper from '../blessure/Stepper';
-import medicamentsData from '../../../API MALADIE/medicaments.json';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import prescriptionData from '../../../API MALADIE/prescription.json';
+import medicamentsData from '../../../API MALADIE/medicaments.json';
 
-const MaladiePage2 = ({navigation}) => {
+const MaladiePage2 = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
   const [consultations, setConsultations] = useState([]);
   const [selectedConsultations, setSelectedConsultations] = useState([]);
   const [medicaments, setMedicaments] = useState([]);
   const [selectedMedicaments, setSelectedMedicaments] = useState([]);
   const [soinsPodologiques, setSoinsPodologiques] = useState([]);
-  const [selectedSoinsPodologiques, setSelectedSoinsPodologiques] = useState(
-    [],
-  );
+  const [selectedSoinsPodologiques, setSelectedSoinsPodologiques] = useState([]);
   const [commentaire, setCommentaire] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -61,10 +57,6 @@ const MaladiePage2 = ({navigation}) => {
     );
   }, []);
 
-  const handleStepChange = step => {
-    navigation.navigate(`MaladiePage${step + 1}`);
-  };
-
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShowDatePicker(false);
@@ -79,14 +71,19 @@ const MaladiePage2 = ({navigation}) => {
     setSelectedMedicaments(selectedItems);
   };
 
+  const handleSoinsPodologiquesChange = selectedItems => {
+    setSelectedSoinsPodologiques(selectedItems);
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Text style={styles.label}>Date de la maladie</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
-          onPress={() => setShowDatePicker(true)}>
-          <Text style={styles.dateText}>{date.toDateString()}</Text>
+          onPress={() => setShowDatePicker(true)}
+        >
+          <Text style={styles.input}>{date.toDateString()}</Text>
         </TouchableOpacity>
 
         {showDatePicker && (
@@ -99,81 +96,89 @@ const MaladiePage2 = ({navigation}) => {
           />
         )}
 
-        <Text style={styles.label}>Soins et Évaluation</Text>
-        <View style={styles.multiSelectContainer}>
-          <MultiSelect
-            style={styles.multiSelect}
-            hideTags
-            items={consultations}
-            uniqueKey="id"
-            onSelectedItemsChange={handleConsultationsChange}
-            selectedItems={selectedConsultations}
-            selectText="Pick Items"
-            searchInputPlaceholderText="Search Items..."
-            submitButtonText="Submit"
-            autoCapitalize="none"
-            displayKey="name"
-            tagRemoveIconColor="#CCC"
-            tagBorderColor="#CCC"
-            tagTextColor="#000"
-            itemTextColor="#000"
-            searchInputStyle={{color: '#000'}}
-            submitButtonColor="#7979f7"
-            submitButtonTextStyle={{color: '#000'}}
-            styleDropdownMenuSubsection={{
-              borderColor: '#ccc',
-              borderWidth: 1,
-              borderRadius: 10,
-              padding: 5,
-            }}
-          />
-        </View>
+        <Text style={styles.label}>Consultations médicales</Text>
+        <MultiSelect
+          hideTags
+          items={consultations}
+          uniqueKey="id"
+          onSelectedItemsChange={handleConsultationsChange}
+          selectedItems={selectedConsultations}
+          selectText="Select Consultations"
+          searchInputPlaceholderText="Search Consultations..."
+          tagRemoveIconColor="#CCC"
+          tagBorderColor="#CCC"
+          tagTextColor="#CCC"
+          selectedItemTextColor="#7979f7"
+          selectedItemIconColor="#7979f7"
+          itemTextColor="#000"
+          displayKey="name"
+          searchInputStyle={{ color: '#7979f7' }}
+          submitButtonColor="#7979f7"
+          submitButtonText="Choisir"
+          styleMainWrapper={styles.inputContainer}
+        />
 
-        <Text style={styles.label}>Medicaments</Text>
-        <View style={styles.multiSelectContainer}>
-          <MultiSelect
-            hideTags
-            items={medicaments}
-            uniqueKey="id"
-            onSelectedItemsChange={handleMedicamentsChange}
-            selectedItems={selectedMedicaments}
-            selectText="Pick Medicaments"
-            searchInputPlaceholderText="Search Medicaments..."
-            submitButtonText="Submit"
-            displayKey="name"
-            styleDropdownMenuSubsection={styles.multiSelectInput}
-            searchInputStyle={{color: '#000'}}
-            submitButtonColor="#7979f7"
-          />
-        </View>
+        <Text style={styles.label}>Médicaments</Text>
+        <MultiSelect
+          hideTags
+          items={medicaments}
+          uniqueKey="id"
+          onSelectedItemsChange={handleMedicamentsChange}
+          selectedItems={selectedMedicaments}
+          selectText="Select Médicaments"
+          searchInputPlaceholderText="Search Médicaments..."
+          tagRemoveIconColor="#CCC"
+          tagBorderColor="#CCC"
+          tagTextColor="#CCC"
+          selectedItemTextColor="#7979f7"
+          selectedItemIconColor="#7979f7"
+          itemTextColor="#000"
+          displayKey="name"
+          searchInputStyle={{ color: '#7979f7' }}
+          submitButtonColor="#7979f7"
+          submitButtonText="Choisir"
+          styleMainWrapper={styles.inputContainer}
+        />
 
-        <Text style={styles.label}>Commentaire Ordonnance</Text>
+        <Text style={styles.label}>Soins Podologiques</Text>
+        <MultiSelect
+          hideTags
+          items={soinsPodologiques}
+          uniqueKey="id"
+          onSelectedItemsChange={handleSoinsPodologiquesChange}
+          selectedItems={selectedSoinsPodologiques}
+          selectText="Select Soins Podologiques"
+          searchInputPlaceholderText="Search Soins Podologiques..."
+          tagRemoveIconColor="#CCC"
+          tagBorderColor="#CCC"
+          tagTextColor="#CCC"
+          selectedItemTextColor="#7979f7"
+          selectedItemIconColor="#7979f7"
+          itemTextColor="#000"
+          displayKey="name"
+          searchInputStyle={{ color: '#7979f7' }}
+          submitButtonColor="#7979f7"
+          submitButtonText="Choisir"
+          styleMainWrapper={styles.inputContainer}
+        />
+
+        <Text style={styles.label}>Commentaires</Text>
         <TextInput
-          value={commentaire}
-          onChangeText={setCommentaire}
-          placeholder="Ecrire..."
-          multiline
-          numberOfLines={1}
           style={styles.textInput}
+          multiline
+          numberOfLines={2}
+          onChangeText={text => setCommentaire(text)}
+          value={commentaire}
+          placeholder="Ecrire ..."
         />
       </ScrollView>
-      <View style={styles.stepperContainer}>
-        <Stepper
-          steps={[1, 2, 3, 4]}
-          currentStep={1}
-          onStepChange={handleStepChange}
-          style={styles.stepper}
-        />
-      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'space-between',
-    padding: 20,
+    width: '100%',
     backgroundColor: '#fff',
   },
   scrollContainer: {
@@ -184,7 +189,13 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     marginVertical: 10,
+    color: 'black',
     fontFamily: 'Poppins-Bold',
+  },
+  input: {
+    fontSize: 16,
+    color: 'black',
+    fontFamily: 'Poppins-Regular',
   },
   datePickerButton: {
     borderColor: '#ccc',
@@ -196,33 +207,20 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
   },
-  dateText: {
-    fontSize: 16,
-    color: '#333',
-    fontFamily: 'Poppins-Regular',
-  },
-  multiSelectContainer: {
-    marginVertical: 10,
-  },
-  multiSelect : {
-    padding: 10,
-    height: 10,
-  },
-  multiSelectInput: {
-    borderColor: '#CCC',
+  inputContainer: {
+    borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 10,
-    paddingHorizontal: 10,
     backgroundColor: '#fff',
-    height: 40,
-    justifyContent: 'center',
+    marginVertical: 10,
+    overflow: 'hidden',
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
@@ -234,19 +232,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#fff',
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
     fontFamily: 'Poppins-Regular',
-    fontSize: 17,
-    color: '#000000',
-  },
-  stepperContainer: {
-    padding: 10,
-    borderTopWidth: 1,
-    borderTopColor: '#ccc',
-    backgroundColor: '#fff',
+    fontSize: 16,
+    color: '#000',
+    marginVertical: 10,
   },
 });
 

@@ -1,50 +1,82 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Stepper from '../blessure/Stepper'; 
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
+import DocumentPicker from 'react-native-document-picker';
 
-const MaladiePage4 = ({ navigation }) => {
-  const handleStepChange = (step) => {
-    if (step === 2) {
-      navigation.navigate('MaladiePage3');
-    }
-  };
+const MaladiePage4 = ({navigation}) => {
+  const [commentaireSpecialises, setCommentaireSpecialises] = useState('');
 
   const handleFinish = () => {
-    alert('Form submitted !');
-    navigation.navigate('ConsultationTypePopup'); 
+    alert('Form submitted!');
+    navigation.navigate('ConsultationTypePopup');
+  };
+
+  const selectDoc = async () => {
+    try {
+      const doc = await DocumentPicker.pick({
+        type: [DocumentPicker.types.allFiles],
+      });
+      console.log(doc);
+    } catch (error) {
+      if (DocumentPicker.isCancel(error)) {
+        console.log('User canceled the picker');
+      } else {
+        console.log('Unknown Error: ', error);
+      }
+    }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Maladie Page 4</Text>
-    <View style={styles.stepperContainer}>
-      <Stepper
-        steps={[1, 2, 3, 4]}
-        currentStep={3}
-        onStepChange={handleStepChange}
-        onFinish={handleFinish}
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Rapport Médical :</Text>
+        <TextInput
+          value={commentaireSpecialises}
+          onChangeText={setCommentaireSpecialises}
+          placeholder="Ecrire..."
+          multiline
+          numberOfLines={5}
+          style={styles.textInput}
         />
-        </View>
+      </View>
+
+      <Text style={styles.label}>Choisir une document : </Text>
+      <View style={{marginHorizontal: 40}}>
+        <Button title="Select Document" onPress={selectDoc} />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: '100%',
     justifyContent: 'space-between',
     padding: 20,
     backgroundColor: '#fff',
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
+  inputContainer: {
+    marginBottom: 10,
   },
-  stepperContainer: {
+  label: {
+    fontSize: 16,
+    color: 'black',
+    fontFamily: 'Poppins-Bold',
+    marginBottom: 10,
+  },
+  textInput: {
+    borderColor: '#CCC',
+    borderWidth: 1,
     padding: 10,
-    borderTopWidth: 1,
-    borderTopColor: '#ccc',
+    borderRadius: 10,
     backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+    fontFamily: 'Poppins-Regular',
+    fontSize: 16,
+    color: '#000',
   },
 });
 

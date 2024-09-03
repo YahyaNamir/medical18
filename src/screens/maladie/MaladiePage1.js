@@ -1,17 +1,10 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
-import {Picker} from '@react-native-picker/picker';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import Stepper from '../blessure/Stepper';
 import diagnosticsData from '../../../API MALADIE/diagnostic.json';
 
-const MaladiePage1 = ({navigation}) => {
+const MaladiePage1 = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
   const [diagnostic, setDiagnostic] = useState('');
   const [dureeAbsence, setDureeAbsence] = useState('');
@@ -24,12 +17,8 @@ const MaladiePage1 = ({navigation}) => {
       item.children.map(child => ({
         label: child.child,
         value: child.child_id,
-      })),
+      }))
     );
-
-  const handleStepChange = step => {
-    navigation.navigate(`MaladiePage${step + 1}`);
-  };
 
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -43,7 +32,8 @@ const MaladiePage1 = ({navigation}) => {
         <Text style={styles.label}>Date de la maladie</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
-          onPress={() => setShowDatePicker(true)}>
+          onPress={() => setShowDatePicker(true)}
+        >
           <Text style={styles.input}>{date.toDateString()}</Text>
         </TouchableOpacity>
 
@@ -62,7 +52,8 @@ const MaladiePage1 = ({navigation}) => {
           <Picker
             selectedValue={diagnostic}
             onValueChange={itemValue => setDiagnostic(itemValue)}
-            style={styles.input}>
+            style={styles.input}
+          >
             <Picker.Item label="Select Diagnostic" value="" />
             {maladieDiagnostics.map(item => (
               <Picker.Item
@@ -80,12 +71,13 @@ const MaladiePage1 = ({navigation}) => {
           <Picker
             selectedValue={dureeAbsence}
             onValueChange={itemValue => setDureeAbsence(itemValue)}
-            style={styles.picker}>
+            style={styles.picker}
+          >
             {[...Array(30).keys()].map(i => (
               <Picker.Item
                 style={styles.input}
                 key={i + 1}
-                label={i + 1}
+                label={`${i + 1}`}
                 value={i + 1}
               />
             ))}
@@ -97,34 +89,21 @@ const MaladiePage1 = ({navigation}) => {
           <Picker
             selectedValue={heuresAbsence}
             onValueChange={itemValue => setHeuresAbsence(itemValue)}
-            style={styles.picker}>
+            style={styles.picker}
+          >
             <Picker.Item style={styles.input} label="Jour" value="jour" />
-            <Picker.Item
-              style={styles.input}
-              label="Semaines"
-              value="semaines"
-            />
+            <Picker.Item style={styles.input} label="Semaines" value="semaines" />
             <Picker.Item style={styles.input} label="Mois" value="mois" />
           </Picker>
         </View>
       </ScrollView>
-      <View style={styles.stepperContainer}>
-      <Stepper
-        steps={[1, 2, 3, 4]}
-        currentStep={0}
-        onStepChange={handleStepChange}
-        style={styles.stepper}
-        />
-        </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'space-between',
-    padding: 20,
+    width : '100%',
     backgroundColor: '#fff',
   },
   scrollContainer: {
@@ -151,16 +130,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     height: 40,
     justifyContent: 'center',
-    shadowColor: '#000000',
-    shadowOffset: {width: 0, height: 2},
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
-  },
-  dateText: {
-    fontSize: 16,
-    color: '#000000',
-    fontFamily: 'Poppins-Regular',
   },
   inputContainer: {
     borderColor: '#ccc',
@@ -169,8 +143,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginVertical: 10,
     overflow: 'hidden',
-    shadowColor: '#000000',
-    shadowOffset: {width: 0, height: 2},
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
@@ -181,12 +155,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#fff',
     fontFamily: 'Poppins-Regular',
-  },
-  stepperContainer: {
-    padding: 10,
-    borderTopWidth: 1,
-    borderTopColor: '#ccc',
-    backgroundColor: '#fff',
   },
 });
 

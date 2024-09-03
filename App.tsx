@@ -14,6 +14,7 @@ import CheckUpPage1 from './src/screens/checkUp/CheckUpPage1';
 import CheckUpPage2 from './src/screens/checkUp/CheckUpPage2';
 import CheckUpPage3 from './src/screens/checkUp/CheckUpPage3';
 import CheckUpPage4 from './src/screens/checkUp/CheckUpPage4';
+import MaladieSteps from './src/MaladieSteps';
 
 const Stack = createStackNavigator();
 
@@ -101,6 +102,18 @@ const App = () => {
           }}
           name="MaladiePage1"
           component={MaladiePage1}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'Infos 1/4',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="MaladieSteps"
+          component={MaladieSteps}
         />
         <Stack.Screen
           options={{

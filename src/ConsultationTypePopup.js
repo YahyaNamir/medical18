@@ -7,7 +7,7 @@ const ConsultationTypePopup = ({ navigation }) => {
       <Text style={styles.header}>Sélectionnez le Type de Consultation</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('MaladiePage1')}
+        onPress={() => navigation.navigate('MaladieSteps')}
       >
         <Icon name="medical-services" size={20} color="#fff" />
         <Text style={styles.buttonText}>1 - Maladie</Text>
