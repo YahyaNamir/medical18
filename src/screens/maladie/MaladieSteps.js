@@ -43,7 +43,7 @@ export default function MaladieSteps({navigation}) {
           previousBtnStyle={styles.button}
           previousBtnTextStyle={styles.buttonText}
           nextBtnStyle={styles.button}
-          nextBtnTextStyle={styles.buttonText}>
+          // nextBtnTextStyle={styles.buttonText}>
           <View style={styles.stepContainer}>
             <MaladiePage3 />
           </View>
