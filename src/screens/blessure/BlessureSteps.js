@@ -19,8 +19,7 @@ export default function BlessureSteps({navigation}) {
       <ProgressSteps
         activeStepIconBorderColor="#0079fa"
         completedProgressBarColor="#034387"
-        completedStepIconColor="#034387"
-        >
+        completedStepIconColor="#034387">
         <ProgressStep
           labelStyle={{color: '#007bff', fontFamily: 'Poppins-Bold'}}
           label="Infos"
@@ -31,7 +30,7 @@ export default function BlessureSteps({navigation}) {
           </View>
         </ProgressStep>
         <ProgressStep
-          label="Prescription"
+          label="Contexte de la blessure"
           previousBtnStyle={styles.button}
           previousBtnTextStyle={styles.buttonText}
           nextBtnStyle={styles.button}
@@ -41,7 +40,7 @@ export default function BlessureSteps({navigation}) {
           </View>
         </ProgressStep>
         <ProgressStep
-          label="Bilan Complémentaire et Avis Spécialisée"
+          label="Prescription"
           previousBtnStyle={styles.button}
           previousBtnTextStyle={styles.buttonText}
           nextBtnStyle={styles.button}
@@ -78,17 +77,16 @@ export default function BlessureSteps({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    flex: 1,
     backgroundColor: '#ffffff',
   },
   topLine: {
     height: 1,
-    backgroundColor: '#007BFF',
+    backgroundColor: '#0037ff',
   },
   stepContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 2,
   },
   button: {
     backgroundColor: '#007BFF',

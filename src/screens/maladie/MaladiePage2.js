@@ -78,7 +78,7 @@ const MaladiePage2 = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.label}>Date de la maladie</Text>
+        <Text style={styles.label}>Date</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker(true)}
@@ -96,7 +96,7 @@ const MaladiePage2 = ({ navigation }) => {
           />
         )}
 
-        <Text style={styles.label}>Consultations médicales</Text>
+        <Text style={styles.label}>Soins et Evaluation</Text>
         <MultiSelect
           hideTags
           items={consultations}
@@ -118,7 +118,7 @@ const MaladiePage2 = ({ navigation }) => {
           styleMainWrapper={styles.inputContainer}
         />
 
-        <Text style={styles.label}>Médicaments</Text>
+        <Text style={styles.label}>Ordonnance</Text>
         <MultiSelect
           hideTags
           items={medicaments}
@@ -140,7 +140,7 @@ const MaladiePage2 = ({ navigation }) => {
           styleMainWrapper={styles.inputContainer}
         />
 
-        <Text style={styles.label}>Soins Podologiques</Text>
+        {/* <Text style={styles.label}>Soins Podologiques</Text>
         <MultiSelect
           hideTags
           items={soinsPodologiques}
@@ -160,7 +160,7 @@ const MaladiePage2 = ({ navigation }) => {
           submitButtonColor="#7979f7"
           submitButtonText="Choisir"
           styleMainWrapper={styles.inputContainer}
-        />
+        /> */}
 
         <Text style={styles.label}>Commentaires</Text>
         <TextInput

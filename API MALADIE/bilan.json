@@ -1,0 +1,87 @@
+[
+  {
+    "id": 1,
+    "label": "En match officiel",
+    "type": "circonstances"
+  },
+  {
+    "id": 2,
+    "label": "En match amical",
+    "type": "circonstances"
+  },
+  {
+    "id": 3,
+    "label": "À l'entraînement",
+    "type": "circonstances"
+  },
+  {
+    "id": 4,
+    "label": "Vie privée",
+    "type": "circonstances"
+  },
+  {
+    "id": 5,
+    "label": "Contact avec un objet",
+    "type": "condition"
+  },
+  {
+    "id": 6,
+    "label": "Contact avec un joueur",
+    "type": "condition"
+  },
+  {
+    "id": 7,
+    "label": "Seul",
+    "type": "condition"
+  },
+  {
+    "id": 8,
+    "label": "Gazon naturel",
+    "type": "terrain"
+  },
+  {
+    "id": 9,
+    "label": "Gazon synthétique",
+    "type": "terrain"
+  },
+  {
+    "id": 10,
+    "label": "Terrain hybride",
+    "type": "terrain"
+  },
+  {
+    "id": 11,
+    "label": "Terrain de futsal",
+    "type": "terrain"
+  },
+  {
+    "id": 12,
+    "label": "Terrain de beach soccer",
+    "type": "terrain"
+  },
+  {
+    "id": 13,
+    "label": "Terre battue",
+    "type": "terrain"
+  },
+  {
+    "id": 14,
+    "label": "Salle de musculation",
+    "type": "terrain"
+  },
+  {
+    "id": 15,
+    "label": "Sable",
+    "type": "terrain"
+  },
+  {
+    "id": 16,
+    "label": "Piscine",
+    "type": "terrain"
+  },
+  {
+    "id": 17,
+    "label": "Vie privée",
+    "type": "terrain"
+  }
+]
