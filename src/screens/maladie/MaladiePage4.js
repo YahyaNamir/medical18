@@ -1,23 +1,30 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
+import {View, Text, StyleSheet, TextInput, Button, Alert} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
+
 const MaladiePage4 = ({navigation}) => {
   const [commentaireSpecialises, setCommentaireSpecialises] = useState('');
+  const [selectedDocument, setSelectedDocument] = useState(null);
+
+  const selectDocument = async () => {
+    try {
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.allFiles], 
+      });
+      setSelectedDocument(res[0]); // Store selected document info
+      Alert.alert('Document Selected', res[0].name);
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        console.log('User cancelled the document picker');
+      } else {
+        throw err;
+      }
+    }
+  };
 
   const handleFinish = () => {
     alert('Form submitted!');
     navigation.navigate('ConsultationTypePopup');
-  };
-
-  const selectDoc = async () => {
-    try {
-      const doc = await DocumentPicker.pick();
-      console.log(doc);
-    } catch (err) {
-      if (DocumentPicker.isCancel('User cancelled the upload', e))
-        console.log(e);
-      else console.log(err);
-    }
   };
 
   return (
@@ -27,17 +34,23 @@ const MaladiePage4 = ({navigation}) => {
         <TextInput
           value={commentaireSpecialises}
           onChangeText={setCommentaireSpecialises}
-          placeholder="Ecrire..."
+          placeholder="Rapport..."
           multiline
           numberOfLines={5}
           style={styles.textInput}
         />
       </View>
 
-      <Text style={styles.label}>Choisir une document : </Text>
+      <Text style={styles.label}>Choisir un document :</Text>
       <View style={{marginHorizontal: 40}}>
-        <Button title="Select Document" onPress={() => {}} />
+        <Button title="Select Document" onPress={selectDocument} />
       </View>
+
+      {selectedDocument && (
+        <Text style={styles.selectedDocument}>
+          Document: {selectedDocument.name}
+        </Text>
+      )}
     </View>
   );
 };
@@ -72,6 +85,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     fontSize: 16,
     color: '#000',
+  },
+  selectedDocument: {
+    marginTop: 10,
+    fontSize: 16,
+    color: 'green',
+    fontFamily: 'Poppins-Regular',
   },
 });
 

@@ -94,7 +94,7 @@ const MaladiePage3 = ({navigation}) => {
           <TextInput
             value={commentaire}
             onChangeText={setCommentaire}
-            placeholder="Ecrire..."
+            placeholder="Bilan..."
             multiline
             numberOfLines={2}
             style={styles.textInput}
@@ -103,7 +103,7 @@ const MaladiePage3 = ({navigation}) => {
           <TextInput
             value={commentaireSpecialises}
             onChangeText={setCommentaireSpecialises}
-            placeholder="Ecrire..."
+            placeholder="Commentaire avis..."
             multiline
             numberOfLines={2}
             style={styles.textInput}

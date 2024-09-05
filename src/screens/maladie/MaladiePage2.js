@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -6,20 +6,23 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import prescriptionData from '../../../API MALADIE/prescription.json';
 import medicamentsData from '../../../API MALADIE/medicaments.json';
 
-const MaladiePage2 = ({ navigation }) => {
+const MaladiePage2 = ({navigation}) => {
   const [date, setDate] = useState(new Date());
   const [consultations, setConsultations] = useState([]);
   const [selectedConsultations, setSelectedConsultations] = useState([]);
   const [medicaments, setMedicaments] = useState([]);
   const [selectedMedicaments, setSelectedMedicaments] = useState([]);
   const [soinsPodologiques, setSoinsPodologiques] = useState([]);
-  const [selectedSoinsPodologiques, setSelectedSoinsPodologiques] = useState([]);
+  const [selectedSoinsPodologiques, setSelectedSoinsPodologiques] = useState(
+    [],
+  );
   const [commentaire, setCommentaire] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -75,14 +78,24 @@ const MaladiePage2 = ({ navigation }) => {
     setSelectedSoinsPodologiques(selectedItems);
   };
 
+  const saveData = () => {
+    alert(
+      date +
+        ' ; ' +
+        selectedMedicaments +
+        ' ; ' +
+        selectedConsultations +
+        ' ; ' +
+        commentaire,
+    );
+  };
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Text style={styles.label}>Date</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
-          onPress={() => setShowDatePicker(true)}
-        >
+          onPress={() => setShowDatePicker(true)}>
           <Text style={styles.input}>{date.toDateString()}</Text>
         </TouchableOpacity>
 
@@ -112,7 +125,7 @@ const MaladiePage2 = ({ navigation }) => {
           selectedItemIconColor="#7979f7"
           itemTextColor="#000"
           displayKey="name"
-          searchInputStyle={{ color: '#7979f7' }}
+          searchInputStyle={{color: '#7979f7'}}
           submitButtonColor="#7979f7"
           submitButtonText="Choisir"
           styleMainWrapper={styles.inputContainer}
@@ -134,33 +147,11 @@ const MaladiePage2 = ({ navigation }) => {
           selectedItemIconColor="#7979f7"
           itemTextColor="#000"
           displayKey="name"
-          searchInputStyle={{ color: '#7979f7' }}
+          searchInputStyle={{color: '#7979f7'}}
           submitButtonColor="#7979f7"
           submitButtonText="Choisir"
           styleMainWrapper={styles.inputContainer}
         />
-
-        {/* <Text style={styles.label}>Soins Podologiques</Text>
-        <MultiSelect
-          hideTags
-          items={soinsPodologiques}
-          uniqueKey="id"
-          onSelectedItemsChange={handleSoinsPodologiquesChange}
-          selectedItems={selectedSoinsPodologiques}
-          selectText="Select Soins Podologiques"
-          searchInputPlaceholderText="Search Soins Podologiques..."
-          tagRemoveIconColor="#CCC"
-          tagBorderColor="#CCC"
-          tagTextColor="#CCC"
-          selectedItemTextColor="#7979f7"
-          selectedItemIconColor="#7979f7"
-          itemTextColor="#000"
-          displayKey="name"
-          searchInputStyle={{ color: '#7979f7' }}
-          submitButtonColor="#7979f7"
-          submitButtonText="Choisir"
-          styleMainWrapper={styles.inputContainer}
-        /> */}
 
         <Text style={styles.label}>Commentaires</Text>
         <TextInput
@@ -169,9 +160,10 @@ const MaladiePage2 = ({ navigation }) => {
           numberOfLines={2}
           onChangeText={text => setCommentaire(text)}
           value={commentaire}
-          placeholder="Ecrire ..."
+          placeholder="Commentaire ..."
         />
       </ScrollView>
+      <Button title="Data" onPress={saveData} />
     </View>
   );
 };
@@ -207,7 +199,7 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
@@ -220,7 +212,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     overflow: 'hidden',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
@@ -232,7 +224,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#fff',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,

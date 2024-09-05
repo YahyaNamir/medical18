@@ -43,6 +43,7 @@ export default function BlessurePage4() {
   const [selectedBilans, setSelectedBilans] = useState([]);
   const [selectedAvis, setSelectedAvis] = useState([]);
   const [commentaire, setCommentaire] = useState('');
+  const [commentaireBilan, setCommentaireBilan] = useState('');
 
   const handleBilansChange = items => setSelectedBilans(items);
   const handleAvisChange = items => setSelectedAvis(items);
@@ -93,10 +94,18 @@ export default function BlessurePage4() {
         styleMainWrapper={styles.inputContainer}
       />
 
+      <Text style={styles.label}>Idicatif Bilan</Text>
+      <TextInput
+        style={styles.textInput}
+        placeholder="Bilan..."
+        value={commentaireBilan}
+        onChangeText={setCommentaireBilan}
+      />
+
       <Text style={styles.label}>Commentaire d'avis spécialisés</Text>
       <TextInput
         style={styles.textInput}
-        placeholder="Add your comment here"
+        placeholder="Avis ..."
         value={commentaire}
         onChangeText={setCommentaire}
       />

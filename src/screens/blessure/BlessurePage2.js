@@ -86,6 +86,7 @@ const BlessurePage2 = ({navigation}) => {
           </Picker>
         </View>
 
+        <Text style={styles.labelEtape}>Etape de reprise : </Text>
         <Text style={styles.label}>Réathlétisation individuelle</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
@@ -167,6 +168,12 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 20,
     backgroundColor: '#fff',
+  },
+  labelEtape: {
+    fontSize: 18,
+    color: 'black',
+    marginVertical: 10,
+    fontFamily: 'Poppins-Bold',
   },
   label: {
     fontSize: 16,
