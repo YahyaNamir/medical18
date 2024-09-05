@@ -135,7 +135,7 @@ const MaladiePage3 = ({ navigation }) => {
           />
         </View>
       </ScrollView>
-      {/* <Button title="Save Data" onPress={saveData} /> */}
+      <Button title="Save Data" onPress={saveData} />
     </View>
   );
 };
