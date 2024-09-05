@@ -1,5 +1,5 @@
+import React, {useState} from 'react';
 import {View, StyleSheet, Alert} from 'react-native';
-import React from 'react';
 import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
 import MaladiePage1 from './MaladiePage1';
 import MaladiePage2 from './MaladiePage2';
@@ -7,8 +7,118 @@ import MaladiePage3 from './MaladiePage3';
 import MaladiePage4 from './MaladiePage4';
 
 export default function MaladieSteps({navigation}) {
+  const [formData, setFormData] = useState({
+    page1: {
+      date: new Date(),
+      diagnostic: '',
+      dureeAbsence: '',
+      typeAbsence: '',
+    },
+    page2: {
+      date: new Date(),
+      consultations: [],
+      selectedConsultations: [],
+      medicaments: [],
+      selectedMedicaments: [],
+      soinsPodologiques: [],
+      selectedSoinsPodologiques: [],
+      commentaire: '',
+    },
+    page3: {
+      commentaire: '',
+      commentaireSpecialises: '',
+      consultations: [],
+      selectedConsultations: [],
+      soinsPodologiques: [],
+      selectedSoinsPodologiques: [],
+    },
+    page4: {
+      commentaireSpecialises: '',
+      selectedDocument: null,
+    },
+  });
+
+  const updateFormData = (page, data) => {
+    setFormData(prevData => ({
+      ...prevData,
+      [page]: {
+        ...prevData[page],
+        ...data,
+      },
+    }));
+  };
+
   const handleFinish = () => {
-    Alert.alert('Form submitted!');
+    Alert.alert(
+      'Form Data',
+      JSON.stringify(
+        {
+          page1: {
+            date: formData.page1.date.toDateString(),
+            diagnostic: formData.page1.diagnostic,
+            dureeAbsence: formData.page1.dureeAbsence,
+            typeAbsence: formData.page1.typeAbsence,
+          },
+          page2: {
+            date: formData.page2.date.toDateString(),
+            selectedConsultations: formData.page2.selectedConsultations,
+            selectedMedicaments: formData.page2.selectedMedicaments,
+            selectedSoinsPodologiques: formData.page2.selectedSoinsPodologiques,
+            commentaire: formData.page2.commentaire,
+          },
+          page3: {
+            commentaire: formData.page3.commentaire,
+            commentaireSpecialises: formData.page3.commentaireSpecialises,
+            selectedConsultations: formData.page3.selectedConsultations,
+            selectedSoinsPodologiques: formData.page3.selectedSoinsPodologiques,
+          },
+          page4: {
+            commentaireSpecialises:
+              formData.page4.commentaireSpecialises || 'Not provided',
+            selectedDocument: formData.page4.selectedDocument
+              ? 'Document attached'
+              : 'No document attached',
+          },
+        },
+        null,
+        2,
+      ),
+    );
+    console.log(
+      'Form Data',
+      JSON.stringify(
+        {
+          page1: {
+            date: formData.page1.date.toDateString(),
+            diagnostic: formData.page1.diagnostic,
+            dureeAbsence: formData.page1.dureeAbsence,
+            typeAbsence: formData.page1.typeAbsence,
+          },
+          page2: {
+            date: formData.page2.date.toDateString(),
+            selectedConsultations: formData.page2.selectedConsultations,
+            selectedMedicaments: formData.page2.selectedMedicaments,
+            commentaire: formData.page2.commentaire,
+          },
+          page3: {
+            commentaire: formData.page3.commentaire,
+            commentaireSpecialises: formData.page3.commentaireSpecialises,
+            selectedConsultations: formData.page3.selectedConsultations,
+            selectedSoinsPodologiques: formData.page3.selectedSoinsPodologiques,
+          },
+          page4: {
+            commentaireSpecialises:
+              formData.page4.commentaireSpecialises ,
+            selectedDocument: formData.page4.selectedDocument
+              ? 'Document attached'
+              : 'No document attached',
+          },
+        },
+        null,
+        2,
+      ),
+    );
+
     navigation.navigate('ConsultationTypePopup');
   };
 
@@ -25,7 +135,10 @@ export default function MaladieSteps({navigation}) {
           nextBtnStyle={styles.button}
           nextBtnTextStyle={styles.buttonText}>
           <View style={styles.stepContainer}>
-            <MaladiePage1 />
+            <MaladiePage1
+              formData={formData.page1}
+              updateFormData={data => updateFormData('page1', data)}
+            />
           </View>
         </ProgressStep>
         <ProgressStep
@@ -35,7 +148,10 @@ export default function MaladieSteps({navigation}) {
           nextBtnStyle={styles.button}
           nextBtnTextStyle={styles.buttonText}>
           <View style={styles.stepContainer}>
-            <MaladiePage2 />
+            <MaladiePage2
+              formData={formData.page2}
+              updateFormData={data => updateFormData('page2', data)}
+            />
           </View>
         </ProgressStep>
         <ProgressStep
@@ -45,7 +161,10 @@ export default function MaladieSteps({navigation}) {
           nextBtnStyle={styles.button}
           nextBtnTextStyle={styles.buttonText}>
           <View style={styles.stepContainer}>
-            <MaladiePage3 />
+            <MaladiePage3
+              formData={formData.page3}
+              updateFormData={data => updateFormData('page3', data)}
+            />
           </View>
         </ProgressStep>
         <ProgressStep
@@ -56,7 +175,11 @@ export default function MaladieSteps({navigation}) {
           finishBtnTextStyle={styles.buttonText}
           onSubmit={handleFinish}>
           <View style={styles.stepContainer}>
-            <MaladiePage4 />
+            <MaladiePage4
+              formData={formData.page4}
+              updateFormData={data => updateFormData('page4', data)}
+              navigation={navigation}
+            />
           </View>
         </ProgressStep>
       </ProgressSteps>

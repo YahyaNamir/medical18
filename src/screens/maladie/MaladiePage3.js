@@ -1,15 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, TextInput, ScrollView, StyleSheet} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, ScrollView, StyleSheet, Button, Alert } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import prescriptionData from '../../../API MALADIE/prescription.json';
 
-const MaladiePage3 = ({navigation}) => {
+const MaladiePage3 = ({ navigation }) => {
   const [consultations, setConsultations] = useState([]);
   const [selectedConsultations, setSelectedConsultations] = useState([]);
   const [soinsPodologiques, setSoinsPodologiques] = useState([]);
-  const [selectedSoinsPodologiques, setSelectedSoinsPodologiques] = useState(
-    [],
-  );
+  const [selectedSoinsPodologiques, setSelectedSoinsPodologiques] = useState([]);
   const [commentaire, setCommentaire] = useState('');
   const [commentaireSpecialises, setCommentaireSpecialises] = useState('');
 
@@ -40,6 +38,33 @@ const MaladiePage3 = ({navigation}) => {
     }
   }, []);
 
+  const saveData = () => {
+    const data = {
+      consultations: selectedConsultations,
+      soinsPodologiques: selectedSoinsPodologiques,
+      commentaire: commentaire,
+      commentaireSpecialises: commentaireSpecialises,
+    };
+
+    fetch('http://192.168.1.26:3000/api/save-data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        Alert.alert('Success', 'Data has been saved successfully.');
+        console.log('Server response:', responseJson);
+        // Navigate to next page or perform other actions
+      })
+      .catch(error => {
+        console.error('Error sending data:', error);
+        Alert.alert('Error', 'There was a problem sending the data.');
+      });
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -61,9 +86,9 @@ const MaladiePage3 = ({navigation}) => {
               tagTextColor="#000"
               itemTextColor="#000"
               displayKey="name"
-              searchInputStyle={{color: '#000'}}
+              searchInputStyle={{ color: '#000' }}
               submitButtonColor="#7979f7"
-              submitButtonTextStyle={{color: '#fff'}}
+              submitButtonTextStyle={{ color: '#fff' }}
               styleDropdownMenuSubsection={styles.multiSelect}
             />
           </View>
@@ -71,10 +96,10 @@ const MaladiePage3 = ({navigation}) => {
           <View style={styles.multiSelectContainer}>
             <MultiSelect
               hideTags
-              items={soinsPodologiques}
+              items={consultations}
               uniqueKey="id"
-              onSelectedItemsChange={setSelectedSoinsPodologiques}
-              selectedItems={selectedSoinsPodologiques}
+              onSelectedItemsChange={setSelectedConsultations}
+              selectedItems={selectedConsultations}
               selectText="Pick Items"
               searchInputPlaceholderText="Search Items..."
               submitButtonText="Submit"
@@ -84,9 +109,9 @@ const MaladiePage3 = ({navigation}) => {
               tagTextColor="#000"
               itemTextColor="#000"
               displayKey="name"
-              searchInputStyle={{color: '#000'}}
+              searchInputStyle={{ color: '#000' }}
               submitButtonColor="#7979f7"
-              submitButtonTextStyle={{color: '#fff'}}
+              submitButtonTextStyle={{ color: '#fff' }}
               styleDropdownMenuSubsection={styles.multiSelect}
             />
           </View>
@@ -110,6 +135,7 @@ const MaladiePage3 = ({navigation}) => {
           />
         </View>
       </ScrollView>
+      {/* <Button title="Save Data" onPress={saveData} /> */}
     </View>
   );
 };
@@ -117,7 +143,6 @@ const MaladiePage3 = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    justifyContent: 'space-between',
     backgroundColor: '#fff',
   },
   scrollContainer: {
@@ -150,7 +175,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#fff',
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,

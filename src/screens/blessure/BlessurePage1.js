@@ -17,7 +17,7 @@ const BlessurePage1 = ({navigation}) => {
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedDiagnostic, setSelectedDiagnostic] = useState('');
   const [dureeAbsence, setDureeAbsence] = useState('');
-  const [heuresAbsence, setHeuresAbsence] = useState('');
+  const [typeAbsence, setTypeAbsence] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleDateChange = (event, selectedDate) => {
@@ -115,14 +115,15 @@ const BlessurePage1 = ({navigation}) => {
         <Text style={styles.label}>Type d'absence estimées</Text>
         <View style={styles.inputContainer}>
           <Picker
-            selectedValue={heuresAbsence}
-            onValueChange={itemValue => setHeuresAbsence(itemValue)}
+            selectedValue={typeAbsence}
+            onValueChange={itemValue => setTypeAbsence(itemValue)}
             style={styles.picker}>
             <Picker.Item style={styles.input} label="Jour" value="jour" />
             <Picker.Item
               style={styles.input}
               label="Semaines"
-              value="semaines" />
+              value="semaines"
+            />
             <Picker.Item style={styles.input} label="Mois" value="mois" />
           </Picker>
         </View>

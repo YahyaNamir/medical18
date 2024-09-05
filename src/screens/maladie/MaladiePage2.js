@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -7,88 +7,54 @@ import {
   StyleSheet,
   TouchableOpacity,
   Button,
+  Alert,
 } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import prescriptionData from '../../../API MALADIE/prescription.json';
 import medicamentsData from '../../../API MALADIE/medicaments.json';
 
-const MaladiePage2 = ({navigation}) => {
-  const [date, setDate] = useState(new Date());
-  const [consultations, setConsultations] = useState([]);
-  const [selectedConsultations, setSelectedConsultations] = useState([]);
-  const [medicaments, setMedicaments] = useState([]);
-  const [selectedMedicaments, setSelectedMedicaments] = useState([]);
-  const [soinsPodologiques, setSoinsPodologiques] = useState([]);
-  const [selectedSoinsPodologiques, setSelectedSoinsPodologiques] = useState(
-    [],
+const MaladiePage2 = ({formData, updateFormData}) => {
+  const {
+    date = new Date(),
+    selectedConsultations,
+    selectedMedicaments,
+    selectedSoinsPodologiques,
+    commentaire,
+  } = formData;
+
+  const [showDatePicker, setShowDatePicker] = React.useState(false);
+
+  const consultationsData = prescriptionData.find(
+    item => item.label === 'CONSULTATIONS MEDICALES',
   );
-  const [commentaire, setCommentaire] = useState('');
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const soinsPodologiquesData = prescriptionData.find(
+    item => item.label === 'SOINS PODOLOGIQUES',
+  );
 
-  useEffect(() => {
-    const consultationsData = prescriptionData.find(
-      item => item.label === 'CONSULTATIONS MEDICALES',
-    );
-    const soinsPodologiquesData = prescriptionData.find(
-      item => item.label === 'SOINS PODOLOGIQUES',
-    );
-
-    if (consultationsData) {
-      setConsultations(
-        consultationsData.children.map(child => ({
-          id: child.child_id,
-          name: child.child,
-        })),
-      );
-    }
-
-    if (soinsPodologiquesData) {
-      setSoinsPodologiques(
-        soinsPodologiquesData.children.map(child => ({
-          id: child.child_id,
-          name: child.child,
-        })),
-      );
-    }
-
-    setMedicaments(
-      medicamentsData.map(medicament => ({
-        id: medicament.id,
-        name: medicament.fullname,
-      })),
-    );
-  }, []);
+  const consultations = consultationsData
+    ? consultationsData.children.map(child => ({
+        id: child.child_id,
+        name: child.child,
+      }))
+    : [];
+  const soinsPodologiques = soinsPodologiquesData
+    ? soinsPodologiquesData.children.map(child => ({
+        id: child.child_id,
+        name: child.child,
+      }))
+    : [];
+  const medicaments = medicamentsData.map(medicament => ({
+    id: medicament.id,
+    name: medicament.fullname,
+  }));
 
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShowDatePicker(false);
-    setDate(currentDate);
+    updateFormData({date: currentDate});
   };
 
-  const handleConsultationsChange = selectedItems => {
-    setSelectedConsultations(selectedItems);
-  };
-
-  const handleMedicamentsChange = selectedItems => {
-    setSelectedMedicaments(selectedItems);
-  };
-
-  const handleSoinsPodologiquesChange = selectedItems => {
-    setSelectedSoinsPodologiques(selectedItems);
-  };
-
-  const saveData = () => {
-    alert(
-      date +
-        ' ; ' +
-        selectedMedicaments +
-        ' ; ' +
-        selectedConsultations +
-        ' ; ' +
-        commentaire,
-    );
-  };
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -96,8 +62,8 @@ const MaladiePage2 = ({navigation}) => {
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker(true)}>
-          <Text style={styles.input}>{date.toDateString()}</Text>
-        </TouchableOpacity>
+          <Text style={styles.input}>{formData.date.toDateString()}</Text>
+          </TouchableOpacity>
 
         {showDatePicker && (
           <DateTimePicker
@@ -114,7 +80,9 @@ const MaladiePage2 = ({navigation}) => {
           hideTags
           items={consultations}
           uniqueKey="id"
-          onSelectedItemsChange={handleConsultationsChange}
+          onSelectedItemsChange={items =>
+            updateFormData({selectedConsultations: items})
+          }
           selectedItems={selectedConsultations}
           selectText="Select Consultations"
           searchInputPlaceholderText="Search Consultations..."
@@ -136,7 +104,9 @@ const MaladiePage2 = ({navigation}) => {
           hideTags
           items={medicaments}
           uniqueKey="id"
-          onSelectedItemsChange={handleMedicamentsChange}
+          onSelectedItemsChange={items =>
+            updateFormData({selectedMedicaments: items})
+          }
           selectedItems={selectedMedicaments}
           selectText="Select Médicaments"
           searchInputPlaceholderText="Search Médicaments..."
@@ -158,12 +128,12 @@ const MaladiePage2 = ({navigation}) => {
           style={styles.textInput}
           multiline
           numberOfLines={2}
-          onChangeText={text => setCommentaire(text)}
+          onChangeText={text => updateFormData({commentaire: text})}
           value={commentaire}
           placeholder="Commentaire ..."
         />
       </ScrollView>
-      <Button title="Data" onPress={saveData} />
+      {/* <Button title="Save Data" onPress={() => Alert.alert('Data Saved')} /> */}
     </View>
   );
 };
