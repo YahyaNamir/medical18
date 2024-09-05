@@ -11,7 +11,7 @@ const MaladiePage4 = ({navigation}) => {
       const res = await DocumentPicker.pick({
         type: [DocumentPicker.types.allFiles], 
       });
-      setSelectedDocument(res[0]); // Store selected document info
+      setSelectedDocument(res[0]); 
       Alert.alert('Document Selected', res[0].name);
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
