@@ -76,6 +76,7 @@ const MaladiePage2 = ({formData, updateFormData}) => {
 
         <Text style={styles.label}>Soins et Evaluation</Text>
         <MultiSelect
+          nestedScrollEnabled={true}
           hideTags
           items={consultations}
           uniqueKey="id"
@@ -100,6 +101,7 @@ const MaladiePage2 = ({formData, updateFormData}) => {
 
         <Text style={styles.label}>Ordonnance</Text>
         <MultiSelect
+          nestedScrollEnabled={true}
           hideTags
           items={medicaments}
           uniqueKey="id"
