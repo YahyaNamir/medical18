@@ -99,7 +99,7 @@ export default function MaladieSteps({navigation}) {
 
       form.append(
         'page4_commentaireSpecialises',
-        // formData.page4.commentaireSpecialises,
+        formData.page4.commentaireSpecialises,
       );
 
       if (formData.page4.selectedDocument) {
