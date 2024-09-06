@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-const ConsultationTypePopup = ({navigation}) => {
+const ConsultationTypePopup = ({navigation, formData, updateFormData}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Sélectionnez le Type de Consultation</Text>
