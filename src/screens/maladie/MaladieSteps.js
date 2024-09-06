@@ -121,7 +121,7 @@ export default function MaladieSteps({navigation}) {
         .then(data => {
           console.log('Success:', data);
           Alert.alert('Submitted successfully!');
-          navigation.navigate('ConsultationTypePopup');
+          // navigation.navigate('ConsultationTypePopup');
         })
         .catch(error => {
           console.error('Error:', error);
