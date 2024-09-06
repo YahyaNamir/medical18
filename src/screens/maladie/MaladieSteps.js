@@ -94,7 +94,7 @@ export default function MaladieSteps({navigation}) {
       );
       form.append(
         'page3_selectedSoinsPodologiques',
-        formData.page3.selectedSoinsPodologiques.join(','),
+        // formData.page3.selectedSoinsPodologiques.join(','),
       );
 
       form.append(
