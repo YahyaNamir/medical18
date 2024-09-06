@@ -124,7 +124,7 @@ export default function MaladieSteps({navigation}) {
           navigation.navigate('ConsultationTypePopup');
         })
         .catch(error => {
-          // console.error('Error:', error);
+          console.error('Error:', error);
           Alert.alert('Failed!');
         });
     } else {
