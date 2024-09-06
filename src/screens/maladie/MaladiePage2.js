@@ -100,7 +100,7 @@ const MaladiePage2 = ({formData, updateFormData}) => {
           />
         }
 
-        <Text style={styles.label}>Ordonnance</Text>
+        {/* <Text style={styles.label}>Ordonnance</Text> */}
         <MultiSelect
           hideTags
           items={medicaments}
