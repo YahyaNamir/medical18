@@ -63,16 +63,17 @@ export default function MaladieSteps({navigation}) {
       // formData.page3.commentaireSpecialises !== '' &&
       // formData.page3.selectedConsultations.length > 0 &&
       // formData.page3.selectedSoinsPodologiques.length > 0 &&
-      formData.page4.rapport !== ''
+      // formData.page4.rapport !== ''
+      1
     ) {
       const form = new FormData();
 
-      form.append('page1_date', formData.page1.date.toDateString());
+      form.append('page1_date', formData.page1.date.toUTCString());
       form.append('page1_diagnostic', formData.page1.diagnostic);
       form.append('page1_dureeAbsence', formData.page1.dureeAbsence);
       form.append('page1_typeAbsence', formData.page1.typeAbsence);
 
-      form.append('page2_date', formData.page2.date.toDateString());
+      form.append('page2_date', formData.page2.date.toUTCString());
       form.append(
         'page2_selectedConsultations',
         formData.page2.selectedConsultations.join(','),
@@ -112,10 +113,10 @@ export default function MaladieSteps({navigation}) {
 
       fetch('http://192.168.1.26:3000/api/save-data', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+        body: form,
       })
         .then(response => response.json())
         .then(data => {
