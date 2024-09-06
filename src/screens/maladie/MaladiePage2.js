@@ -19,7 +19,6 @@ const MaladiePage2 = ({formData, updateFormData}) => {
     date = new Date(),
     selectedConsultations,
     selectedMedicaments,
-    selectedSoinsPodologiques,
     commentaireOrdonance,
   } = formData;
 

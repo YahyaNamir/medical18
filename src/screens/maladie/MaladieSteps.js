@@ -34,7 +34,7 @@ export default function MaladieSteps({navigation}) {
       selectedSoinsPodologiques: [],
     },
     page4: {
-      commentaireSpecialises: '',
+      rapport: '',
       selectedDocument: null,
     },
   });
@@ -51,10 +51,19 @@ export default function MaladieSteps({navigation}) {
 
   const handleFinish = () => {
     if (
-      formData.page1.date !== '' &&
-      formData.page1.diagnostic !== '' &&
-      formData.page1.dureeAbsence !== '' &&
-      formData.page1.typeAbsence !== ''
+      // formData.page1.date !== '' &&
+      // formData.page1.diagnostic !== '' &&
+      // formData.page1.dureeAbsence !== '' &&
+      // formData.page1.typeAbsence !== '' &&
+      // formData.page2.commentaireOrdonance !== '' &&
+      // formData.page2.date !== '' &&
+      // formData.page2.selectedConsultations.length > 0 &&
+      // formData.page2.selectedMedicaments.length > 0 &&
+      // formData.page3.commentaire !== '' &&
+      // formData.page3.commentaireSpecialises !== '' &&
+      // formData.page3.selectedConsultations.length > 0 &&
+      // formData.page3.selectedSoinsPodologiques.length > 0 &&
+      formData.page4.rapport !== ''
     ) {
       const form = new FormData();
 
@@ -66,11 +75,11 @@ export default function MaladieSteps({navigation}) {
       form.append('page2_date', formData.page2.date.toDateString());
       form.append(
         'page2_selectedConsultations',
-        JSON.stringify(formData.page2.selectedConsultations),
+        formData.page2.selectedConsultations.join(','),
       );
       form.append(
         'page2_selectedMedicaments',
-        JSON.stringify(formData.page2.selectedMedicaments),
+        formData.page2.selectedMedicaments.join(','),
       );
       form.append('page2_commentaire', formData.page2.commentaireOrdonance);
 
@@ -81,11 +90,11 @@ export default function MaladieSteps({navigation}) {
       );
       form.append(
         'page3_selectedConsultations',
-        JSON.stringify(formData.page3.selectedConsultations),
+        formData.page3.selectedConsultations.join(','),
       );
       form.append(
         'page3_selectedSoinsPodologiques',
-        JSON.stringify(formData.page3.selectedSoinsPodologiques),
+        formData.page3.selectedSoinsPodologiques.join(','),
       );
 
       form.append(
@@ -103,10 +112,10 @@ export default function MaladieSteps({navigation}) {
 
       fetch('http://192.168.1.26:3000/api/save-data', {
         method: 'POST',
-        body: JSON.stringify(formData),
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify(formData),
       })
         .then(response => response.json())
         .then(data => {
@@ -119,7 +128,7 @@ export default function MaladieSteps({navigation}) {
           Alert.alert('Failed!');
         });
     } else {
-      Alert.alert('Enter all required fields!');
+      Alert.alert('Enter tous les champs!');
     }
   };
 
