@@ -104,7 +104,7 @@ export default function MaladieSteps({navigation}) {
 
       if (formData.page4.selectedDocument) {
         form.append('page4_selectedDocument', {
-          // uri: formData.page4.selectedDocument.uri,
+          uri: formData.page4.selectedDocument.uri,
           type: 'application/pdf',
           name: 'document.pdf',
         });
