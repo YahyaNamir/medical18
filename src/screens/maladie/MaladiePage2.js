@@ -111,15 +111,15 @@ const MaladiePage2 = ({formData, updateFormData}) => {
           selectedItems={selectedMedicaments}
           selectText="Select Médicaments"
           searchInputPlaceholderText="Search Médicaments..."
-          tagRemoveIconColor="#CCC"
-          tagBorderColor="#CCC"
-          tagTextColor="#CCC"
-          selectedItemTextColor="#7979f7"
-          selectedItemIconColor="#7979f7"
-          itemTextColor="#000"
+          // tagRemoveIconColor="#CCC"
+          // tagBorderColor="#CCC"
+          // tagTextColor="#CCC"
+          // selectedItemTextColor="#7979f7"
+          // selectedItemIconColor="#7979f7"
+          // itemTextColor="#000"
           displayKey="name"
-          searchInputStyle={{color: '#7979f7'}}
-          submitButtonColor="#7979f7"
+          // searchInputStyle={{color: '#7979f7'}}
+          // submitButtonColor="#7979f7"
           submitButtonText="Choisir"
           styleMainWrapper={styles.inputContainer}
         />
