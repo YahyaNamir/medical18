@@ -20,7 +20,7 @@ const MaladiePage2 = ({formData, updateFormData}) => {
     selectedConsultations,
     selectedMedicaments,
     selectedSoinsPodologiques,
-    commentaire,
+    commentaireOrdonance,
   } = formData;
 
   const [showDatePicker, setShowDatePicker] = React.useState(false);
@@ -63,7 +63,7 @@ const MaladiePage2 = ({formData, updateFormData}) => {
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker(true)}>
           <Text style={styles.input}>{formData.date.toDateString()}</Text>
-          </TouchableOpacity>
+        </TouchableOpacity>
 
         {showDatePicker && (
           <DateTimePicker
@@ -84,8 +84,8 @@ const MaladiePage2 = ({formData, updateFormData}) => {
             updateFormData({selectedConsultations: items})
           }
           selectedItems={selectedConsultations}
-          selectText="Select Consultations"
-          searchInputPlaceholderText="Search Consultations..."
+          selectText="Sélectionner soins"
+          searchInputPlaceholderText="Rechercher soins..."
           tagRemoveIconColor="#CCC"
           tagBorderColor="#CCC"
           tagTextColor="#CCC"
@@ -128,12 +128,11 @@ const MaladiePage2 = ({formData, updateFormData}) => {
           style={styles.textInput}
           multiline
           numberOfLines={2}
-          onChangeText={text => updateFormData({commentaire: text})}
-          value={commentaire}
-          placeholder="Commentaire ..."
+          onChangeText={text => updateFormData({commentaireOrdonance: text})}
+          value={commentaireOrdonance}
+          placeholder="Commentaire ordonance ..."
         />
       </ScrollView>
-      {/* <Button title="Save Data" onPress={() => Alert.alert('Data Saved')} /> */}
     </View>
   );
 };

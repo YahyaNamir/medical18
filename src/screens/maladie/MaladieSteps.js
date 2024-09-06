@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import React, {useState} from 'react';
 import {View, StyleSheet, Alert} from 'react-native';
 import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
@@ -22,7 +23,7 @@ export default function MaladieSteps({navigation}) {
       selectedMedicaments: [],
       soinsPodologiques: [],
       selectedSoinsPodologiques: [],
-      commentaire: '',
+      commentaireOrdonance: '',
     },
     page3: {
       commentaire: '',
@@ -49,77 +50,77 @@ export default function MaladieSteps({navigation}) {
   };
 
   const handleFinish = () => {
-    Alert.alert(
-      'Form Data',
-      JSON.stringify(
-        {
-          page1: {
-            date: formData.page1.date.toDateString(),
-            diagnostic: formData.page1.diagnostic,
-            dureeAbsence: formData.page1.dureeAbsence,
-            typeAbsence: formData.page1.typeAbsence,
-          },
-          page2: {
-            date: formData.page2.date.toDateString(),
-            selectedConsultations: formData.page2.selectedConsultations,
-            selectedMedicaments: formData.page2.selectedMedicaments,
-            selectedSoinsPodologiques: formData.page2.selectedSoinsPodologiques,
-            commentaire: formData.page2.commentaire,
-          },
-          page3: {
-            commentaire: formData.page3.commentaire,
-            commentaireSpecialises: formData.page3.commentaireSpecialises,
-            selectedConsultations: formData.page3.selectedConsultations,
-            selectedSoinsPodologiques: formData.page3.selectedSoinsPodologiques,
-          },
-          page4: {
-            commentaireSpecialises:
-              formData.page4.commentaireSpecialises || 'Not provided',
-            selectedDocument: formData.page4.selectedDocument
-              ? 'Document attached'
-              : 'No document attached',
-          },
-        },
-        null,
-        2,
-      ),
-    );
-    console.log(
-      'Form Data',
-      JSON.stringify(
-        {
-          page1: {
-            date: formData.page1.date.toDateString(),
-            diagnostic: formData.page1.diagnostic,
-            dureeAbsence: formData.page1.dureeAbsence,
-            typeAbsence: formData.page1.typeAbsence,
-          },
-          page2: {
-            date: formData.page2.date.toDateString(),
-            selectedConsultations: formData.page2.selectedConsultations,
-            selectedMedicaments: formData.page2.selectedMedicaments,
-            commentaire: formData.page2.commentaire,
-          },
-          page3: {
-            commentaire: formData.page3.commentaire,
-            commentaireSpecialises: formData.page3.commentaireSpecialises,
-            selectedConsultations: formData.page3.selectedConsultations,
-            selectedSoinsPodologiques: formData.page3.selectedSoinsPodologiques,
-          },
-          page4: {
-            commentaireSpecialises:
-              formData.page4.commentaireSpecialises ,
-            selectedDocument: formData.page4.selectedDocument
-              ? 'Document attached'
-              : 'No document attached',
-          },
-        },
-        null,
-        2,
-      ),
-    );
+    if (
+      formData.page1.date !== '' &&
+      formData.page1.diagnostic !== '' &&
+      formData.page1.dureeAbsence !== '' &&
+      formData.page1.typeAbsence !== ''
+    ) {
+      const form = new FormData();
 
-    navigation.navigate('ConsultationTypePopup');
+      form.append('page1_date', formData.page1.date.toDateString());
+      form.append('page1_diagnostic', formData.page1.diagnostic);
+      form.append('page1_dureeAbsence', formData.page1.dureeAbsence);
+      form.append('page1_typeAbsence', formData.page1.typeAbsence);
+
+      form.append('page2_date', formData.page2.date.toDateString());
+      form.append(
+        'page2_selectedConsultations',
+        JSON.stringify(formData.page2.selectedConsultations),
+      );
+      form.append(
+        'page2_selectedMedicaments',
+        JSON.stringify(formData.page2.selectedMedicaments),
+      );
+      form.append('page2_commentaire', formData.page2.commentaireOrdonance);
+
+      form.append('page3_commentaire', formData.page3.commentaire);
+      form.append(
+        'page3_commentaireSpecialises',
+        formData.page3.commentaireSpecialises,
+      );
+      form.append(
+        'page3_selectedConsultations',
+        JSON.stringify(formData.page3.selectedConsultations),
+      );
+      form.append(
+        'page3_selectedSoinsPodologiques',
+        JSON.stringify(formData.page3.selectedSoinsPodologiques),
+      );
+
+      form.append(
+        'page4_commentaireSpecialises',
+        formData.page4.commentaireSpecialises,
+      );
+
+      if (formData.page4.selectedDocument) {
+        form.append('page4_selectedDocument', {
+          uri: formData.page4.selectedDocument.uri,
+          type: 'application/pdf',
+          name: 'document.pdf',
+        });
+      }
+
+      fetch('http://192.168.1.26:3000/api/save-data', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+          Alert.alert('Submitted successfully!');
+          navigation.navigate('ConsultationTypePopup');
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          Alert.alert('Failed!');
+        });
+    } else {
+      Alert.alert('Enter all required fields!');
+    }
   };
 
   return (

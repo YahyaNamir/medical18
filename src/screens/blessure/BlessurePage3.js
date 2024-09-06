@@ -104,8 +104,8 @@ const BlessurePage3 = ({navigation}) => {
           uniqueKey="id"
           onSelectedItemsChange={handleConsultationsChange}
           selectedItems={selectedConsultations}
-          selectText="Select Consultations"
-          searchInputPlaceholderText="Search Consultations..."
+          selectText="Sélectionner soins"
+          searchInputPlaceholderText="Rechercher soins..."
           tagRemoveIconColor="#CCC"
           tagBorderColor="#CCC"
           tagTextColor="#CCC"

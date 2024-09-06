@@ -369,13 +369,10 @@
 
 // export default MaladiePage1;
 
-
-
 //!########################################################
 //!########################################################
 //!########################################################
 //!########################################################
-
 
 import React, {useState} from 'react';
 import {
@@ -449,7 +446,9 @@ const MaladiePage1 = ({formData, updateFormData}) => {
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.dureeAbsence}
-            onValueChange={itemValue => updateFormData({dureeAbsence: itemValue})}
+            onValueChange={itemValue =>
+              updateFormData({dureeAbsence: itemValue})
+            }
             style={styles.picker}>
             {[...Array(30).keys()].map(i => (
               <Picker.Item key={i + 1} label={`${i + 1}`} value={i + 1} />
@@ -461,7 +460,9 @@ const MaladiePage1 = ({formData, updateFormData}) => {
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.typeAbsence}
-            onValueChange={itemValue => updateFormData({typeAbsence: itemValue})}
+            onValueChange={itemValue =>
+              updateFormData({typeAbsence: itemValue})
+            }
             style={styles.picker}>
             <Picker.Item label="Jour" value="jour" />
             <Picker.Item label="Semaines" value="semaines" />
@@ -485,6 +486,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
+    color: 'black',
     marginVertical: 10,
     fontFamily: 'Poppins-Bold',
   },
