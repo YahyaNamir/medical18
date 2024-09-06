@@ -83,14 +83,14 @@ export default function MaladieSteps({navigation}) {
       );
       form.append('page2_commentaire', formData.page2.commentaireOrdonance);
 
-      form.append('page3_commentaire', formData.page3.commentaire);
+      // form.append('page3_commentaire', formData.page3.commentaire);
       form.append(
         'page3_commentaireSpecialises',
         formData.page3.commentaireSpecialises,
       );
       form.append(
         'page3_selectedConsultations',
-        // formData.page3.selectedConsultations.join(','),
+        formData.page3.selectedConsultations.join(','),
       );
       form.append(
         'page3_selectedSoinsPodologiques',
