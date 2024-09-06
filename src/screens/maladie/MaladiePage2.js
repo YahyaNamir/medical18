@@ -75,33 +75,33 @@ const MaladiePage2 = ({formData, updateFormData}) => {
         )}
 
         <Text style={styles.label}>Soins et Evaluation</Text>
-        <MultiSelect
-          nestedScrollEnabled={true}
-          hideTags
-          items={consultations}
-          uniqueKey="id"
-          onSelectedItemsChange={items =>
-            updateFormData({selectedConsultations: items})
-          }
-          selectedItems={selectedConsultations}
-          selectText="Sélectionner soins"
-          searchInputPlaceholderText="Rechercher soins..."
-          tagRemoveIconColor="#CCC"
-          tagBorderColor="#CCC"
-          tagTextColor="#CCC"
-          selectedItemTextColor="#7979f7"
-          selectedItemIconColor="#7979f7"
-          itemTextColor="#000"
-          displayKey="name"
-          searchInputStyle={{color: '#7979f7'}}
-          submitButtonColor="#7979f7"
-          submitButtonText="Choisir"
-          styleMainWrapper={styles.inputContainer}
-        />
+        {
+          <MultiSelect
+            hideTags
+            items={consultations}
+            uniqueKey="id"
+            onSelectedItemsChange={items =>
+              updateFormData({selectedConsultations: items})
+            }
+            selectedItems={selectedConsultations}
+            selectText="Sélectionner soins"
+            searchInputPlaceholderText="Rechercher soins..."
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#CCC"
+            selectedItemTextColor="#7979f7"
+            selectedItemIconColor="#7979f7"
+            itemTextColor="#000"
+            displayKey="name"
+            searchInputStyle={{color: '#7979f7'}}
+            submitButtonColor="#7979f7"
+            submitButtonText="Choisir"
+            styleMainWrapper={styles.inputContainer}
+          />
+        }
 
         <Text style={styles.label}>Ordonnance</Text>
         <MultiSelect
-          nestedScrollEnabled={true}
           hideTags
           items={medicaments}
           uniqueKey="id"
