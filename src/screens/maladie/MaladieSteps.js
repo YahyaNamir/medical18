@@ -138,7 +138,7 @@ export default function MaladieSteps({navigation}) {
     <View style={styles.container}>
       <View style={styles.topLine} />
       <ProgressSteps
-        activeStepIconBorderColor="#007BFF"
+        // activeStepIconBorderColor="#007BFF"
         completedProgressBarColor="#034387"
         completedStepIconColor="#034387">
         <ProgressStep
