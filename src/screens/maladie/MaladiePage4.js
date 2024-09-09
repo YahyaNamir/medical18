@@ -16,8 +16,8 @@ const MaladiePage4 = ({formData, updateFormData, navigation}) => {
       const res = await DocumentPicker.pick({
         type: [types.allFiles],
       });
-      setSelectedFile(res);
-      Alert.alert('Fichier sélectionné', `Nom du fichier : ${res[0].name}`);
+      // setSelectedFile(res);
+      // Alert.alert('Fichier sélectionné', `Nom du fichier : ${res[0].name}`);
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         console.log('Sélection annulée');
@@ -44,7 +44,7 @@ const MaladiePage4 = ({formData, updateFormData, navigation}) => {
         />
       </View>
 
-      <Button title="Choisir un fichier" onPress={() => {}} />
+      <Button title="Choisir un fichier" onPress={handleFileSelection} />
       {selectedFile && (
         <Text style={styles.fileInfo}>
           Fichier sélectionné: {selectedFile.name}
