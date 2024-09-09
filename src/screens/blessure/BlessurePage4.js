@@ -115,7 +115,6 @@ export default function BlessurePage4() {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     width: '90%',
   },
   label: {

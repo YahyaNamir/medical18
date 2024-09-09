@@ -16,6 +16,8 @@ import CheckUpPage3 from './src/screens/checkUp/CheckUpPage3';
 import BlessureSteps from './src/screens/blessure/BlessureSteps';
 import MaladieSteps from './src/screens/maladie/MaladieSteps';
 import CheckUpSteps from './src/screens/checkUp/CheckUpSteps';
+import MaladieList from './src/screens/maladie/MaladieList';
+import MaladieListScreen from './src/screens/maladie/MaladieListScreen';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +45,18 @@ const App = () => {
           }}
           name="ConsultationTypePopup"
           component={ConsultationTypePopup}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'MaladieList',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="MaladieListScreen"
+          component={MaladieListScreen}
         />
         <Stack.Screen
           options={{
@@ -211,7 +225,6 @@ const App = () => {
           name="CheckUpPage3"
           component={CheckUpPage3}
         />
-
       </Stack.Navigator>
     </NavigationContainer>
   );

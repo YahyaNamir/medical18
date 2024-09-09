@@ -1,13 +1,34 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, TextInput, Button, Alert} from 'react-native';
+import DocumentPicker, {types} from 'react-native-document-picker';
 
 const MaladiePage4 = ({formData, updateFormData, navigation}) => {
   const [rapport, setrapport] = useState(formData.rapport || '');
+  const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
-    updateFormData({rapport});
+    updateFormData({rapport, selectedFile});
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rapport]);
+  }, [rapport, selectedFile]);
+
+  const handleFileSelection = async () => {
+    try {
+      const res = await DocumentPicker.pick({
+        type: [types.allFiles],
+      });
+      setSelectedFile(res);
+      Alert.alert('Fichier sélectionné', `Nom du fichier : ${res[0].name}`);
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        console.log('Sélection annulée');
+      } else {
+        Alert.alert(
+          'Erreur',
+          'Une erreur est survenue lors de la sélection du fichier',
+        );
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -22,6 +43,13 @@ const MaladiePage4 = ({formData, updateFormData, navigation}) => {
           style={styles.textInput}
         />
       </View>
+
+      <Button title="Choisir un fichier" onPress={() => {}} />
+      {selectedFile && (
+        <Text style={styles.fileInfo}>
+          Fichier sélectionné: {selectedFile.name}
+        </Text>
+      )}
     </View>
   );
 };
@@ -56,6 +84,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     fontSize: 16,
     color: '#000',
+  },
+  fileInfo: {
+    marginTop: 10,
+    fontSize: 14,
+    color: '#333',
   },
 });
 

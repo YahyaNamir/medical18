@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable quotes */
 import React, {useState} from 'react';
 import {View, StyleSheet, Alert} from 'react-native';
@@ -26,7 +27,7 @@ export default function MaladieSteps({navigation}) {
       commentaireOrdonance: '',
     },
     page3: {
-      commentaire: '',
+      indicatif_bilan: '',
       commentaireSpecialises: '',
       consultations: [],
       selectedConsultations: [],
@@ -59,7 +60,7 @@ export default function MaladieSteps({navigation}) {
       // formData.page2.date !== '' &&
       // formData.page2.selectedConsultations.length > 0 &&
       // formData.page2.selectedMedicaments.length > 0 &&
-      // formData.page3.commentaire !== '' &&
+      // formData.page3.indicatif_bilan !== '' &&
       // formData.page3.commentaireSpecialises !== '' &&
       // formData.page3.selectedConsultations.length > 0 &&
       // formData.page3.selectedSoinsPodologiques.length > 0 &&
@@ -84,7 +85,7 @@ export default function MaladieSteps({navigation}) {
       );
       form.append('page2_commentaire', formData.page2.commentaireOrdonance);
 
-      form.append('page3_commentaire', formData.page3.commentaire);
+      form.append('page3_indicatif_bilan', formData.page3.indicatif_bilan);
       form.append(
         'page3_commentaireSpecialises',
         formData.page3.commentaireSpecialises,
@@ -98,18 +99,16 @@ export default function MaladieSteps({navigation}) {
         formData.page3.selectedSoinsPodologiques.join(','),
       );
 
-      form.append(
-        'page4_commentaireSpecialises',
-        formData.page4.commentaireSpecialises,
-      );
+      form.append('page4_rapport', formData.page4.rapport);
+      form.append('page4_selectedDocument', formData.page4.selectedDocument);
 
-      if (formData.page4.selectedDocument) {
-        form.append('page4_selectedDocument', {
-          uri: formData.page4.selectedDocument.uri,
-          type: 'application/pdf',
-          name: 'document.pdf',
-        });
-      }
+      // if (formData.page4.selectedDocument) {
+      //   form.append('page4_selectedDocument', {
+      //     uri: formData.page4.selectedDocument.uri,
+      //     type: 'application/pdf',
+      //     name: 'document.pdf',
+      //   });
+      // }
 
       fetch('http://192.168.1.26:3000/api/save-data', {
         method: 'POST',
@@ -122,7 +121,9 @@ export default function MaladieSteps({navigation}) {
         .then(data => {
           console.log('Success:', data);
           Alert.alert('Submitted successfully!');
-          navigation.navigate('ConsultationTypePopup');
+          setTimeout(() => {
+            navigation.navigate('ConsultationTypePopup');
+          }, 1000);
         })
         .catch(error => {
           console.error('Error:', error);

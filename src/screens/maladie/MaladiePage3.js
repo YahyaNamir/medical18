@@ -12,7 +12,7 @@ import prescriptionData from '../../../API MALADIE/prescription.json';
 
 const MaladiePage3 = ({formData, updateFormData}) => {
   const {
-    commentaire,
+    indicatif_bilan,
     commentaireSpecialises,
     selectedConsultations,
     selectedSoinsPodologiques,
@@ -54,7 +54,7 @@ const MaladiePage3 = ({formData, updateFormData}) => {
             selectedItems={selectedSoinsPodologiques}
             selectText="Sélectionner"
             searchInputPlaceholderText="Search Items..."
-            submitButtonText="Submit"
+            submitButtonText="Choisir"
             autoCapitalize="none"
             tagRemoveIconColor="#CCC"
             tagBorderColor="#CCC"
@@ -79,7 +79,7 @@ const MaladiePage3 = ({formData, updateFormData}) => {
             selectedItems={selectedConsultations}
             selectText="Sélectionner"
             searchInputPlaceholderText="Search Items..."
-            submitButtonText="Submit"
+            submitButtonText="Choisir"
             autoCapitalize="none"
             tagRemoveIconColor="#CCC"
             tagBorderColor="#CCC"
@@ -94,8 +94,8 @@ const MaladiePage3 = ({formData, updateFormData}) => {
         </View>
         <Text style={styles.label}>Indicatif bilan</Text>
         <TextInput
-          value={commentaire}
-          onChangeText={text => updateFormData({commentaire: text})}
+          value={indicatif_bilan}
+          onChangeText={text => updateFormData({indicatif_bilan: text})}
           placeholder="Bilan..."
           multiline
           numberOfLines={2}
