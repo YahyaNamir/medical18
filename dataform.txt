@@ -1,0 +1,37 @@
+################## PAGE 1 : 
+date: 2024-09-06 ==== date de la maladie
+type: 179 ==== diagnostic (maladie)
+date_retour_prevue: 4 ==== duree absence estime
+durre_injury: 1 ==== type duree
+
+################## PAGE 2 : 
+traitement_date: 2024-09-03 ==== date prescription
+pack_ids: 54,53 ==== soins et evalution
+medicament_ids: 14,15 ==== ordonnance
+ordon_comment: cc ====commant ordonnance
+
+################## PAGE 3 : 
+bilans: 40,41 ==== bilan complementaire
+bilan_comment: biln ==== indicatif bilan
+refs: 27,21 ==== Avis Specialisé
+reference_comment: avis ==== comment avis specialises
+
+################## PAGE 4 : 
+info: rr ==== rapportt medical
+file: null ==== fichier
+##
+----------------
+returnDate: 
+circonstances: null
+conditions: null
+traitement_intervenant: null
+reathletisation_individuelle: null
+gravity: 1
+traitement: null
+traitement_nom: null
+reprise_competition:: null
+terrain: null
+traitement_note: null
+reprise_groupe: null
+location: 
+type_consultation: maladie

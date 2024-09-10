@@ -1,31 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, TextInput, Button, Alert} from 'react-native';
 import DocumentPicker, {types} from 'react-native-document-picker';
 
-const MaladiePage4 = ({formData, updateFormData, navigation}) => {
-  const [rapport, setrapport] = useState(formData.rapport || '');
-  const [selectedFile, setSelectedFile] = useState(null);
-
-  useEffect(() => {
-    updateFormData({rapport, selectedFile});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rapport, selectedFile]);
-
+const MaladiePage4 = ({formData, updateFormData}) => {
   const handleFileSelection = async () => {
     try {
       const res = await DocumentPicker.pick({
         type: [types.allFiles],
       });
-      // setSelectedFile(res);
-      // Alert.alert('Fichier sélectionné', `Nom du fichier : ${res[0].name}`);
+      updateFormData({file: res[0]});
+      Alert.alert('Fichier sélectionné', `Nom du fichier : ${res[0].name}`);
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         console.log('Sélection annulée');
       } else {
-        Alert.alert(
-          'Erreur',
-          'Une erreur est survenue lors de la sélection du fichier',
-        );
+        Alert.alert('Erreur', 'Une erreur');
       }
     }
   };
@@ -35,8 +24,8 @@ const MaladiePage4 = ({formData, updateFormData, navigation}) => {
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Rapport Médical :</Text>
         <TextInput
-          value={rapport}
-          onChangeText={text => setrapport(text)}
+          value={formData.rapport}
+          onChangeText={text => updateFormData({rapport: text})}
           placeholder="Rapport..."
           multiline
           numberOfLines={5}
@@ -44,10 +33,10 @@ const MaladiePage4 = ({formData, updateFormData, navigation}) => {
         />
       </View>
 
-      <Button title="Choisir un fichier" onPress={handleFileSelection} />
-      {selectedFile && (
+      <Button title="Choisir un fichier" onPress={() => {}} />
+      {formData.selectedDocument && (
         <Text style={styles.fileInfo}>
-          Fichier sélectionné: {selectedFile.name}
+          Fichier sélectionné: {formData.selectedDocument.name}
         </Text>
       )}
     </View>

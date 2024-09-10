@@ -12,10 +12,10 @@ import prescriptionData from '../../../API MALADIE/prescription.json';
 
 const MaladiePage3 = ({formData, updateFormData}) => {
   const {
-    indicatif_bilan,
-    commentaireSpecialises,
-    selectedConsultations,
-    selectedSoinsPodologiques,
+    bilan_comment,
+    reference_comment,
+    selectedRefs,
+    selectedBilans,
   } = formData;
 
   const consultationsData = prescriptionData.find(
@@ -49,9 +49,9 @@ const MaladiePage3 = ({formData, updateFormData}) => {
             items={soinsPodologiques}
             uniqueKey="id"
             onSelectedItemsChange={items =>
-              updateFormData({selectedSoinsPodologiques: items})
+              updateFormData({selectedBilans: items})
             }
-            selectedItems={selectedSoinsPodologiques}
+            selectedItems={selectedBilans}
             selectText="Sélectionner"
             searchInputPlaceholderText="Search Items..."
             submitButtonText="Choisir"
@@ -74,9 +74,9 @@ const MaladiePage3 = ({formData, updateFormData}) => {
             items={consultations}
             uniqueKey="id"
             onSelectedItemsChange={items =>
-              updateFormData({selectedConsultations: items})
+              updateFormData({selectedRefs: items})
             }
-            selectedItems={selectedConsultations}
+            selectedItems={selectedRefs}
             selectText="Sélectionner"
             searchInputPlaceholderText="Search Items..."
             submitButtonText="Choisir"
@@ -94,8 +94,8 @@ const MaladiePage3 = ({formData, updateFormData}) => {
         </View>
         <Text style={styles.label}>Indicatif bilan</Text>
         <TextInput
-          value={indicatif_bilan}
-          onChangeText={text => updateFormData({indicatif_bilan: text})}
+          value={bilan_comment}
+          onChangeText={text => updateFormData({bilan_comment: text})}
           placeholder="Bilan..."
           multiline
           numberOfLines={2}
@@ -103,8 +103,8 @@ const MaladiePage3 = ({formData, updateFormData}) => {
         />
         <Text style={styles.label}>Commentaire d'avis Spécialisés</Text>
         <TextInput
-          value={commentaireSpecialises}
-          onChangeText={text => updateFormData({commentaireSpecialises: text})}
+          value={reference_comment}
+          onChangeText={text => updateFormData({reference_comment: text})}
           placeholder="Commentaire avis..."
           multiline
           numberOfLines={2}

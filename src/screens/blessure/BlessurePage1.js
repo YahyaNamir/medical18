@@ -118,13 +118,13 @@ const BlessurePage1 = ({navigation}) => {
             selectedValue={typeAbsence}
             onValueChange={itemValue => setTypeAbsence(itemValue)}
             style={styles.picker}>
-            <Picker.Item style={styles.input} label="Jour" value="jour" />
+            <Picker.Item style={styles.input} label="Jour" value="1" />
             <Picker.Item
               style={styles.input}
               label="Semaines"
-              value="semaines"
+              value="7"
             />
-            <Picker.Item style={styles.input} label="Mois" value="mois" />
+            <Picker.Item style={styles.input} label="Mois" value="30" />
           </Picker>
         </View>
       </ScrollView>
@@ -190,3 +190,8 @@ const styles = StyleSheet.create({
 });
 
 export default BlessurePage1;
+
+//! ################################################
+//! ################################################
+//! ################################################
+//! ################################################

@@ -8,35 +8,45 @@ import MaladiePage2 from './MaladiePage2';
 import MaladiePage3 from './MaladiePage3';
 import MaladiePage4 from './MaladiePage4';
 
-export default function MaladieSteps({navigation}) {
+export default function MaladieSteps({navigation, route}) {
+  const {type_consultation} = route.params;
+
   const [formData, setFormData] = useState({
-    page1: {
+    pageInfo: {
       date: new Date(),
-      diagnostic: '',
-      dureeAbsence: '',
-      typeAbsence: '',
+      type: '',
+      location: '',
+      gravity: '',
+      date_retour_prevue: '',
+      durre_injury: '',
     },
-    page2: {
-      date: new Date(),
-      consultations: [],
-      selectedConsultations: [],
-      medicaments: [],
-      selectedMedicaments: [],
-      soinsPodologiques: [],
-      selectedSoinsPodologiques: [],
-      commentaireOrdonance: '',
+    pagePresc: {
+      traitement_date: new Date(),
+      medicament_ids: [],
+      selectedMedicament_ids: [],
+      pack_ids: [],
+      selectedPack_ids: [],
+      ordon_comment: '',
     },
-    page3: {
-      indicatif_bilan: '',
-      commentaireSpecialises: '',
-      consultations: [],
-      selectedConsultations: [],
-      soinsPodologiques: [],
-      selectedSoinsPodologiques: [],
+    pageBilan: {
+      bilans: [],
+      selectedBilans: [],
+      refs: [],
+      selectedRefs: [],
+      bilan_comment: '',
+      reference_comment: '',
     },
-    page4: {
+    pageAdditio: {
       rapport: '',
       selectedDocument: null,
+    },
+    pageContexte: {
+      circonstances: '',
+      conditions: '',
+      terrain: '',
+      reathletisation_individuelle: new Date(),
+      reprise_groupe: new Date(),
+      reprise_competition: new Date(),
     },
   });
 
@@ -51,70 +61,88 @@ export default function MaladieSteps({navigation}) {
   };
 
   const handleFinish = () => {
-    if (
-      // formData.page1.date !== '' &&
-      // formData.page1.diagnostic !== '' &&
-      // formData.page1.dureeAbsence !== '' &&
-      // formData.page1.typeAbsence !== '' &&
-      // formData.page2.commentaireOrdonance !== '' &&
-      // formData.page2.date !== '' &&
-      // formData.page2.selectedConsultations.length > 0 &&
-      // formData.page2.selectedMedicaments.length > 0 &&
-      // formData.page3.indicatif_bilan !== '' &&
-      // formData.page3.commentaireSpecialises !== '' &&
-      // formData.page3.selectedConsultations.length > 0 &&
-      // formData.page3.selectedSoinsPodologiques.length > 0 &&
-      // formData.page4.rapport !== ''
-      1
-    ) {
+    if (1) {
       const form = new FormData();
 
-      form.append('page1_date', formData.page1.date.toUTCString());
-      form.append('page1_diagnostic', formData.page1.diagnostic);
-      form.append('page1_dureeAbsence', formData.page1.dureeAbsence);
-      form.append('page1_typeAbsence', formData.page1.typeAbsence);
+      form.append('date', formData.pageInfo.date.toUTCString());
+      form.append('type', formData.pageInfo.type);
+      form.append('date_retour_prevue', formData.pageInfo.date_retour_prevue);
+      form.append('durre_injury', formData.pageInfo.durre_injury);
+      form.append('location', formData.pageInfo.location);
+      form.append('gravity', formData.pageInfo.gravity);
 
-      form.append('page2_date', formData.page2.date.toUTCString());
+      //! ____________________
       form.append(
-        'page2_selectedConsultations',
-        formData.page2.selectedConsultations.join(','),
+        'traitement_date',
+        formData.pagePresc.traitement_date.toUTCString(),
       );
+      form.append('pack_ids', formData.pagePresc.selectedPack_ids.join(','));
       form.append(
-        'page2_selectedMedicaments',
-        formData.page2.selectedMedicaments.join(','),
+        'medicament_ids',
+        formData.pagePresc.selectedMedicament_ids.join(','),
       );
-      form.append('page2_commentaire', formData.page2.commentaireOrdonance);
+      form.append('ordon_comment', formData.pagePresc.ordon_comment);
 
-      form.append('page3_indicatif_bilan', formData.page3.indicatif_bilan);
-      form.append(
-        'page3_commentaireSpecialises',
-        formData.page3.commentaireSpecialises,
-      );
-      form.append(
-        'page3_selectedConsultations',
-        formData.page3.selectedConsultations.join(','),
-      );
-      form.append(
-        'page3_selectedSoinsPodologiques',
-        formData.page3.selectedSoinsPodologiques.join(','),
-      );
+      //! ____________________
+      form.append('bilans', formData.pageBilan.selectedBilans.join(','));
+      form.append('refs', formData.pageBilan.selectedRefs.join(','));
+      form.append('reference_comment', formData.pageBilan.reference_comment);
+      form.append('bilan_comment', formData.pageBilan.bilan_comment);
+      //! ____________________
 
-      form.append('page4_rapport', formData.page4.rapport);
-      form.append('page4_selectedDocument', formData.page4.selectedDocument);
+      form.append('rapport', formData.pageAdditio.rapport);
+      form.append(
+        'selectedDocument',
+        formData.pageAdditio.selectedDocument || null,
+      );
+      //! ____________________
+      form.append(
+        'reathletisation_individuelle',
+        formData.pageContexte.reathletisation_individuelle.toUTCString(),
+      );
+      form.append(
+        'reprise_groupe',
+        formData.pageContexte.reprise_groupe.toUTCString(),
+      );
+      form.append(
+        'reprise_competition',
+        formData.pageContexte.reprise_competition.toUTCString(),
+      );
+      form.append('terrain', formData.pageContexte.terrain);
+      form.append('conditions', formData.pageContexte.conditions);
+      form.append('circonstances', formData.pageContexte.circonstances);
 
-      // if (formData.page4.selectedDocument) {
-      //   form.append('page4_selectedDocument', {
-      //     uri: formData.page4.selectedDocument.uri,
-      //     type: 'application/pdf',
-      //     name: 'document.pdf',
-      //   });
-      // }
+      //! ____________________
+      form.append('type_consultation', type_consultation);
+      //! ____________________
+
+      // form.append('returnDate', '');
+      // form.append('circonstances', null);
+      // form.append('conditions', null);
+      // form.append('traitement_intervenant', null);
+      // form.append('reathletisation_individuelle', null);
+      // form.append('gravity', '');
+      // form.append('traitement', null);
+      // form.append('traitement_nom', null);
+      // form.append('reprise_competition', null);
+      // form.append('terrain', null);
+      // form.append('traitement_note', null);
+      // form.append('reprise_groupe', null);
+      // form.append('location', '');
+
+      if (formData.pageAdditio.selectedDocument) {
+        form.append('pageAdditio_selectedDocument', {
+          uri: formData.pageAdditio.selectedDocument.uri,
+          type: 'application/pdf',
+          name: 'document.pdf',
+        });
+      }
 
       fetch('http://192.168.1.26:3000/api/save-data', {
         method: 'POST',
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
         body: form,
       })
         .then(response => response.json())
@@ -130,7 +158,7 @@ export default function MaladieSteps({navigation}) {
           Alert.alert('Failed!');
         });
     } else {
-      Alert.alert('Enter tous les champs!');
+      Alert.alert('Please fill all the required fields!');
     }
   };
 
@@ -148,8 +176,8 @@ export default function MaladieSteps({navigation}) {
           nextBtnTextStyle={styles.buttonText}>
           <View style={styles.stepContainer}>
             <MaladiePage1
-              formData={formData.page1}
-              updateFormData={data => updateFormData('page1', data)}
+              formData={formData.pageInfo}
+              updateFormData={data => updateFormData('pageInfo', data)}
             />
           </View>
         </ProgressStep>
@@ -161,8 +189,8 @@ export default function MaladieSteps({navigation}) {
           nextBtnTextStyle={styles.buttonText}>
           <View style={styles.stepContainer}>
             <MaladiePage2
-              formData={formData.page2}
-              updateFormData={data => updateFormData('page2', data)}
+              formData={formData.pagePresc}
+              updateFormData={data => updateFormData('pagePresc', data)}
             />
           </View>
         </ProgressStep>
@@ -174,8 +202,8 @@ export default function MaladieSteps({navigation}) {
           nextBtnTextStyle={styles.buttonText}>
           <View style={styles.stepContainer}>
             <MaladiePage3
-              formData={formData.page3}
-              updateFormData={data => updateFormData('page3', data)}
+              formData={formData.pageBilan}
+              updateFormData={data => updateFormData('pageBilan', data)}
             />
           </View>
         </ProgressStep>
@@ -188,8 +216,8 @@ export default function MaladieSteps({navigation}) {
           onSubmit={handleFinish}>
           <View style={styles.stepContainer}>
             <MaladiePage4
-              formData={formData.page4}
-              updateFormData={data => updateFormData('page4', data)}
+              formData={formData.pageAdditio}
+              updateFormData={data => updateFormData('pageAdditio', data)}
               navigation={navigation}
             />
           </View>

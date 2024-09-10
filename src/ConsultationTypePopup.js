@@ -1,25 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-const ConsultationTypePopup = ({navigation, formData, updateFormData}) => {
+
+const ConsultationTypePopup = ({navigation}) => {
+  const [typeConsultation, setTypeConsultation] = useState(null);
+
+  const handleNavigation = type => {
+    setTypeConsultation(type);
+    navigation.navigate('MaladieSteps', {type_consultation: type});
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Sélectionnez le Type de Consultation</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('MaladieSteps')}>
+        onPress={() => handleNavigation('maladie')}>
         <Icon name="medical-services" size={20} color="#fff" />
         <Text style={styles.buttonText}>1 - Maladie</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('BlessureSteps')}>
+        onPress={() => handleNavigation('blessure')}>
         <Icon name="healing" size={20} color="#fff" />
         <Text style={styles.buttonText}>2 - Blessure</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('CheckUpSteps')}>
+        onPress={() => handleNavigation('checkup')}>
         <Icon name="check-circle" size={20} color="#fff" />
         <Text style={styles.buttonText}>3 - Check Up</Text>
       </TouchableOpacity>
@@ -46,7 +54,6 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#1545c9',
-
     padding: 10,
     borderRadius: 18,
     marginVertical: 10,

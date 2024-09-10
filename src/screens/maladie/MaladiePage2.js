@@ -16,10 +16,10 @@ import medicamentsData from '../../../API MALADIE/medicaments.json';
 
 const MaladiePage2 = ({formData, updateFormData}) => {
   const {
-    date = new Date(),
-    selectedConsultations,
-    selectedMedicaments,
-    commentaireOrdonance,
+    traitement_date = new Date(),
+    selectedPack_ids,
+    selectedMedicament_ids,
+    ordon_comment,
   } = formData;
 
   const [showDatePicker, setShowDatePicker] = React.useState(false);
@@ -49,9 +49,9 @@ const MaladiePage2 = ({formData, updateFormData}) => {
   }));
 
   const handleDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+    const currentDate = selectedDate || traitement_date;
     setShowDatePicker(false);
-    updateFormData({date: currentDate});
+    updateFormData({traitement_date: currentDate});
   };
 
   return (
@@ -61,13 +61,15 @@ const MaladiePage2 = ({formData, updateFormData}) => {
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker(true)}>
-          <Text style={styles.input}>{formData.date.toDateString()}</Text>
+          <Text style={styles.input}>
+            {formData.traitement_date.toDateString()}
+          </Text>
         </TouchableOpacity>
 
         {showDatePicker && (
           <DateTimePicker
             testID="dateTimePicker"
-            value={date}
+            value={traitement_date}
             mode="date"
             display="default"
             onChange={handleDateChange}
@@ -81,9 +83,9 @@ const MaladiePage2 = ({formData, updateFormData}) => {
             items={consultations}
             uniqueKey="id"
             onSelectedItemsChange={items =>
-              updateFormData({selectedConsultations: items})
+              updateFormData({selectedPack_ids: items})
             }
-            selectedItems={selectedConsultations}
+            selectedItems={selectedPack_ids}
             selectText="Sélectionner soins"
             searchInputPlaceholderText="Rechercher soins..."
             tagRemoveIconColor="#CCC"
@@ -106,9 +108,9 @@ const MaladiePage2 = ({formData, updateFormData}) => {
           items={medicaments}
           uniqueKey="id"
           onSelectedItemsChange={items =>
-            updateFormData({selectedMedicaments: items})
+            updateFormData({selectedMedicament_ids: items})
           }
-          selectedItems={selectedMedicaments}
+          selectedItems={selectedMedicament_ids}
           selectText="Select Médicaments"
           searchInputPlaceholderText="Search Médicaments..."
           // tagRemoveIconColor="#CCC"
@@ -129,8 +131,8 @@ const MaladiePage2 = ({formData, updateFormData}) => {
           style={styles.textInput}
           multiline
           numberOfLines={2}
-          onChangeText={text => updateFormData({commentaireOrdonance: text})}
-          value={commentaireOrdonance}
+          onChangeText={text => updateFormData({ordon_comment: text})}
+          value={ordon_comment}
           placeholder="Commentaire ordonance ..."
         />
       </ScrollView>
