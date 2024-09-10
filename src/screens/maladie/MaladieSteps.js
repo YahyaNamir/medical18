@@ -84,7 +84,7 @@ export default function MaladieSteps({navigation, route}) {
       form.append('ordon_comment', formData.pagePresc.ordon_comment);
 
       //! ____________________
-      // form.append('bilans', formData.pageBilan.selectedBilans.join(','));
+      form.append('bilans', formData.pageBilan.selectedBilans.join(','));
       form.append('refs', formData.pageBilan.selectedRefs.join(','));
       form.append('reference_comment', formData.pageBilan.reference_comment);
       form.append('bilan_comment', formData.pageBilan.bilan_comment);
