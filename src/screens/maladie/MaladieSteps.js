@@ -90,7 +90,7 @@ export default function MaladieSteps({navigation, route}) {
       // form.append('bilan_comment', formData.pageBilan.bilan_comment);
       //! ____________________
 
-      // form.append('rapport', formData.pageAdditio.rapport);
+      form.append('rapport', formData.pageAdditio.rapport);
       form.append(
         'selectedDocument',
         formData.pageAdditio.selectedDocument || null,
