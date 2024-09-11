@@ -1,39 +1,35 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
+  StyleSheet,
   TouchableOpacity,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import pickerData from '../../../API MALADIE/bilan.json';
-const BlessurePage2 = ({navigation}) => {
-  const [enMatchOfficiel, setEnMatchOfficiel] = useState('');
-  const [circonstances, setCirconstances] = useState('');
-  const [condition, setCondition] = useState('');
-  const [terrain, setTerrain] = useState('');
-  const [reathetisationDate, setReathetisationDate] = useState(new Date());
-  const [repriseGroupeDate, setRepriseGroupeDate] = useState(new Date());
-  const [repriseCompetitionDate, setRepriseCompetitionDate] = useState(
-    new Date(),
-  );
-  const [showReathetisationPicker, setShowReathetisationPicker] =
-    useState(false);
-  const [showRepriseGroupePicker, setShowRepriseGroupePicker] = useState(false);
-  const [showRepriseCompetitionPicker, setShowRepriseCompetitionPicker] =
-    useState(false);
+import diagnosticsData from '../../../API MALADIE/diagnostic.json';
 
-  const handleDateChange = (event, selectedDate, setDate, setShowPicker) => {
-    const currentDate = selectedDate || reathetisationDate;
-    setShowPicker(false);
-    setDate(currentDate);
+const BlessurePage2 = ({formData, updateFormData}) => {
+
+
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const handleDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || formData.date;
+    setShowDatePicker(false);
+    updateFormData({date: currentDate});
   };
 
-  const filterDataByType = type => {
-    return pickerData.filter(item => item.type === type);
-  };
+  const maladieDiagnostics = diagnosticsData
+    .filter(item => item.type_consultation === 'maladie')
+    .flatMap(item =>
+      item.children.map(child => ({
+        label: child.child,
+        value: child.child_id,
+      })),
+    );
 
   return (
     <View style={styles.container}>
@@ -41,14 +37,17 @@ const BlessurePage2 = ({navigation}) => {
         <Text style={styles.label}>Circonstances</Text>
         <View style={styles.inputContainer}>
           <Picker
-            selectedValue={circonstances}
-            onValueChange={itemValue => setCirconstances(itemValue)}
+            selectedValue={formData.circonstances}
+            onValueChange={itemValue =>
+              updateFormData({circonstances: itemValue})
+            }
             style={styles.picker}>
-            {filterDataByType('circonstances').map(option => (
+            <Picker.Item label="Select Circonstances" value="" />
+            {maladieDiagnostics.map(item => (
               <Picker.Item
-                key={option.id}
-                label={option.label}
-                value={option.id}
+                key={item.value}
+                label={item.label}
+                value={item.value}
               />
             ))}
           </Picker>
@@ -57,14 +56,15 @@ const BlessurePage2 = ({navigation}) => {
         <Text style={styles.label}>Condition</Text>
         <View style={styles.inputContainer}>
           <Picker
-            selectedValue={condition}
-            onValueChange={itemValue => setCondition(itemValue)}
+            selectedValue={formData.conditions}
+            onValueChange={itemValue => updateFormData({conditions: itemValue})}
             style={styles.picker}>
-            {filterDataByType('condition').map(option => (
+            <Picker.Item label="Select Condition" value="" />
+            {maladieDiagnostics.map(item => (
               <Picker.Item
-                key={option.id}
-                label={option.label}
-                value={option.id}
+                key={item.value}
+                label={item.label}
+                value={item.value}
               />
             ))}
           </Picker>
@@ -73,85 +73,79 @@ const BlessurePage2 = ({navigation}) => {
         <Text style={styles.label}>Terrain</Text>
         <View style={styles.inputContainer}>
           <Picker
-            selectedValue={terrain}
-            onValueChange={itemValue => setTerrain(itemValue)}
+            selectedValue={formData.terrain}
+            onValueChange={itemValue => updateFormData({terrain: itemValue})}
             style={styles.picker}>
-            {filterDataByType('terrain').map(option => (
+            <Picker.Item label="Select Terrain" value="" />
+            {maladieDiagnostics.map(item => (
               <Picker.Item
-                key={option.id}
-                label={option.label}
-                value={option.id}
+                key={item.value}
+                label={item.label}
+                value={item.value}
               />
             ))}
           </Picker>
         </View>
 
-        <Text style={styles.labelEtape}>Etape de reprise : </Text>
+        <Text style={styles.labelEtape}>Étape de reprise</Text>
+
         <Text style={styles.label}>Réathlétisation individuelle</Text>
+
         <TouchableOpacity
           style={styles.datePickerButton}
-          onPress={() => setShowReathetisationPicker(true)}>
-          <Text style={styles.input}>{reathetisationDate.toDateString()}</Text>
+          onPress={() => setShowDatePicker(true)}>
+          <Text style={styles.input}>
+            {formData.reathletisation_individuelle.toDateString()}
+          </Text>
         </TouchableOpacity>
-        {showReathetisationPicker && (
+
+        {showDatePicker && (
           <DateTimePicker
-            value={reathetisationDate}
+            testID="dateTimePicker"
+            value={formData.reathletisation_individuelle}
             mode="date"
             display="default"
-            onChange={(event, selectedDate) =>
-              handleDateChange(
-                event,
-                selectedDate,
-                setReathetisationDate,
-                setShowReathetisationPicker,
-              )
-            }
+            onChange={handleDateChange}
           />
         )}
 
         <Text style={styles.label}>Reprise groupe</Text>
+
         <TouchableOpacity
           style={styles.datePickerButton}
-          onPress={() => setShowRepriseGroupePicker(true)}>
-          <Text style={styles.input}>{repriseGroupeDate.toDateString()}</Text>
+          onPress={() => setShowDatePicker(true)}>
+          <Text style={styles.input}>
+            {formData.reathletisation_individuelle.toDateString()}
+          </Text>
         </TouchableOpacity>
-        {showRepriseGroupePicker && (
+
+        {showDatePicker && (
           <DateTimePicker
-            value={repriseGroupeDate}
+            testID="dateTimePicker"
+            value={formData.reathletisation_individuelle}
             mode="date"
             display="default"
-            onChange={(event, selectedDate) =>
-              handleDateChange(
-                event,
-                selectedDate,
-                setRepriseGroupeDate,
-                setShowRepriseGroupePicker,
-              )
-            }
+            onChange={handleDateChange}
           />
         )}
 
         <Text style={styles.label}>Reprise compétition</Text>
+
         <TouchableOpacity
           style={styles.datePickerButton}
-          onPress={() => setShowRepriseCompetitionPicker(true)}>
+          onPress={() => setShowDatePicker(true)}>
           <Text style={styles.input}>
-            {repriseCompetitionDate.toDateString()}
+            {formData.reprise_groupe.toDateString()}
           </Text>
         </TouchableOpacity>
-        {showRepriseCompetitionPicker && (
+
+        {showDatePicker && (
           <DateTimePicker
-            value={repriseCompetitionDate}
+            testID="dateTimePicker"
+            value={formData.reprise_groupe}
             mode="date"
             display="default"
-            onChange={(event, selectedDate) =>
-              handleDateChange(
-                event,
-                selectedDate,
-                setRepriseCompetitionDate,
-                setShowRepriseCompetitionPicker,
-              )
-            }
+            onChange={handleDateChange}
           />
         )}
       </ScrollView>

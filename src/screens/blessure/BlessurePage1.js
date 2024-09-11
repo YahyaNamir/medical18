@@ -8,38 +8,50 @@ import {
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import RangeSlider from 'react-native-range-slider';
 import locations from '../../../API MALADIE/locations.json';
 import diagnostics from '../../../API MALADIE/diagnostics.json';
+import diagnosticsData from '../../../API MALADIE/diagnostic.json';
+import {TextInput} from 'react-native-gesture-handler';
 
-const BlessurePage1 = ({navigation}) => {
-  const [date, setDate] = useState(new Date());
-  const [selectedLocation, setSelectedLocation] = useState('');
-  const [selectedDiagnostic, setSelectedDiagnostic] = useState('');
-  const [dureeAbsence, setDureeAbsence] = useState('');
-  const [typeAbsence, setTypeAbsence] = useState('');
+const BlessurePage1 = ({formData, updateFormData}) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+    const currentDate = selectedDate || formData.date;
     setShowDatePicker(false);
-    setDate(currentDate);
+    updateFormData({date: currentDate});
   };
+  const maladieDiagnostics = diagnosticsData
+    .filter(item => item.type_consultation === 'maladie')
+    .flatMap(item =>
+      item.children.map(child => ({
+        label: child.child,
+        value: child.child_id,
+      })),
+    );
 
+  const handleChange = text => {
+    const value = Number(text);
+    if (!isNaN(value) && value >= 0 && value <= 5) {
+      updateFormData({gravity: value});
+    } else if (text === '') {
+      updateFormData({gravity: null});
+    }
+  };
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.label}>Date de la blessure</Text>
+        <Text style={styles.label}>Date de la maladie</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker(true)}>
-          <Text style={styles.input}>{date.toDateString()}</Text>
+          <Text style={styles.input}>{formData.date.toDateString()}</Text>
         </TouchableOpacity>
 
         {showDatePicker && (
           <DateTimePicker
             testID="dateTimePicker"
-            value={date}
+            value={formData.date}
             mode="date"
             display="default"
             onChange={handleDateChange}
@@ -49,47 +61,40 @@ const BlessurePage1 = ({navigation}) => {
         <Text style={styles.label}>Location</Text>
         <View style={styles.inputContainer}>
           <Picker
-            selectedValue={selectedLocation}
-            onValueChange={itemValue => setSelectedLocation(itemValue)}
+            selectedValue={formData.location}
+            onValueChange={itemValue => updateFormData({location: itemValue})}
             style={styles.picker}>
-            {locations.map(location => (
+            <Picker.Item label="Select Diagnostic" value="" />
+            {maladieDiagnostics.map(item => (
               <Picker.Item
-                key={location.id}
-                label={location.label}
-                value={location.id}
+                key={item.value}
+                label={item.label}
+                value={item.value}
               />
             ))}
           </Picker>
         </View>
 
-        {/* <Text style={styles.label}>Gravité</Text>
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <RangeSlider
-            minValue={0}
-            maxValue={100}
-            tintColor={'#da0f22'}
-            handleBorderWidth={1}
-            handleBorderColor="#454d55"
-            selectedMinimum={20}
-            selectedMaximum={40}
-            style={{flex: 1, height: 70, padding: 10, backgroundColor: '#ddd'}}
-            onChange={data => {
-              console.log(data);
-            }}
-          />
-        </View> */}
+        <Text style={styles.label}>Gravité</Text>
+        <TextInput
+          style={styles.inputContainer}
+          keyboardType="numeric"
+          selectedValue={formData.gravity}
+          value={formData.gravity.toString()}
+          onChangeText={text => handleChange(text)}
+        />
 
         <Text style={styles.label}>Diagnostic blessure</Text>
         <View style={styles.inputContainer}>
           <Picker
-            selectedValue={selectedDiagnostic}
-            onValueChange={itemValue => setSelectedDiagnostic(itemValue)}
+            selectedValue={formData.type}
+            onValueChange={itemValue => updateFormData({type: itemValue})}
             style={styles.picker}>
-            {diagnostics.map(diagnostic => (
+            {maladieDiagnostics.map(item => (
               <Picker.Item
-                key={diagnostic.id}
-                label={diagnostic.label}
-                value={diagnostic.id}
+                key={item.value}
+                label={item.label}
+                value={item.value}
               />
             ))}
           </Picker>
@@ -98,33 +103,28 @@ const BlessurePage1 = ({navigation}) => {
         <Text style={styles.label}>Durée d'absence estimée</Text>
         <View style={styles.inputContainer}>
           <Picker
-            selectedValue={dureeAbsence}
-            onValueChange={itemValue => setDureeAbsence(itemValue)}
+            selectedValue={formData.date_retour_prevue}
+            onValueChange={itemValue =>
+              updateFormData({date_retour_prevue: itemValue})
+            }
             style={styles.picker}>
             {[...Array(30).keys()].map(i => (
-              <Picker.Item
-                style={styles.input}
-                key={i + 1}
-                label={`${i + 1}`}
-                value={i + 1}
-              />
+              <Picker.Item key={i + 1} label={`${i + 1}`} value={i + 1} />
             ))}
           </Picker>
         </View>
 
-        <Text style={styles.label}>Type d'absence estimées</Text>
+        <Text style={styles.label}>Type d'absence estimée</Text>
         <View style={styles.inputContainer}>
           <Picker
-            selectedValue={typeAbsence}
-            onValueChange={itemValue => setTypeAbsence(itemValue)}
+            selectedValue={formData.durre_injury}
+            onValueChange={itemValue =>
+              updateFormData({durre_injury: itemValue})
+            }
             style={styles.picker}>
-            <Picker.Item style={styles.input} label="Jour" value="1" />
-            <Picker.Item
-              style={styles.input}
-              label="Semaines"
-              value="7"
-            />
-            <Picker.Item style={styles.input} label="Mois" value="30" />
+            <Picker.Item label="Jour" value="1" />
+            <Picker.Item label="Semaines" value="7" />
+            <Picker.Item label="Mois" value="30" />
           </Picker>
         </View>
       </ScrollView>
@@ -190,8 +190,3 @@ const styles = StyleSheet.create({
 });
 
 export default BlessurePage1;
-
-//! ################################################
-//! ################################################
-//! ################################################
-//! ################################################

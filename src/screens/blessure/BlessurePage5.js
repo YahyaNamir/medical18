@@ -1,23 +1,44 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, TextInput, Button, Alert} from 'react-native';
+import DocumentPicker, {types} from 'react-native-document-picker';
 
-const BlessurePage5 = () => {
-  const [rapport, setrapport] = useState('');
-
+const BlessurePage5 = ({formData, updateFormData}) => {
+  const handleFileSelection = async () => {
+    try {
+      const res = await DocumentPicker.pick({
+        type: [types.allFiles],
+      });
+      updateFormData({file: res[0]});
+      Alert.alert('Fichier sélectionné', `Nom du fichier : ${res[0].name}`);
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        console.log('Sélection annulée');
+      } else {
+        Alert.alert('Erreur', 'Une erreur');
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Rapport Médical :</Text>
         <TextInput
-          value={rapport}
-          onChangeText={text => setrapport(text)}
+          value={formData.rapport}
+          onChangeText={text => updateFormData({rapport: text})}
           placeholder="Rapport..."
           multiline
           numberOfLines={5}
           style={styles.textInput}
         />
       </View>
+
+      <Button title="Choisir un fichier" onPress={() => {}} />
+      {formData.selectedDocument && (
+        <Text style={styles.fileInfo}>
+          Fichier sélectionné: {formData.selectedDocument.name}
+        </Text>
+      )}
     </View>
   );
 };
@@ -52,6 +73,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     fontSize: 16,
     color: '#000',
+  },
+  fileInfo: {
+    marginTop: 10,
+    fontSize: 14,
+    color: '#333',
   },
 });
 

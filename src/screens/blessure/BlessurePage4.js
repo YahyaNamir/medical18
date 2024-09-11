@@ -1,121 +1,129 @@
-import {View, Text, TextInput, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
+import prescriptionData from '../../../API MALADIE/prescription.json';
 
-const bilans = [
-  {id: '1', name: 'Numération Formule Sanguine (Nfs)'},
-  {id: '2', name: 'Profil Lipidique'},
-  {id: '3', name: 'Glycémie À Jeun'},
-  {id: '4', name: 'Fonction Rénale (Créatinine, Urée)'},
-  {id: '5', name: 'Fonction Hépatique (Transaminases, Bilirubine)'},
-  {id: '6', name: 'Electrolytes (Sodium, Potassium)'},
-  {id: '7', name: 'Tests De Coagulation (Tp, Tca)'},
-  {id: '8', name: 'Tests Hormonaux'},
-  {id: '9', name: 'Sérologies Virales'},
-  {id: '10', name: "Analyse D'urine"},
-  {id: '11', name: 'Marqueurs Tumoraux'},
-  {id: '12', name: 'Angiographie'},
-  {id: '13', name: 'Échographie'},
-  {id: '14', name: 'Irm (Imagerie Par Résonance Magnétique)'},
-  {id: '15', name: 'Irm Cardiaque'},
-  {id: '16', name: 'Irm (Âge Osseux)'},
-  {id: '17', name: 'Tdm (Tomodensitométrie)'},
-  {id: '18', name: 'Scintigraphie Osseuse'},
-  {id: '19', name: 'Mammographie'},
-  {id: '20', name: 'Fluoroscopie'},
-  {id: '21', name: 'Radio Standard'},
-];
+const BlessurePage4 = ({formData, updateFormData}) => {
+  const {
+    bilan_comment,
+    reference_comment,
+    selectedRefs,
+    selectedBilans,
+  } = formData;
 
-const avisSpecialises = [
-  {id: '1', name: 'Pneumologue'},
-  {id: '2', name: 'Oto-rhino-laryngologiste (Orl)'},
-  {id: '3', name: 'Orthopédiste'},
-  {id: '4', name: 'Ophtalmologiste'},
-  {id: '5', name: 'Dermatologue'},
-  {id: '6', name: 'Gastro-entérologue'},
-  {id: '7', name: 'Gynécologue'},
-  {id: '8', name: 'Psychiatre'},
-  {id: '9', name: 'Rhumatologue'},
-  {id: '10', name: 'Urologue'},
-];
+  const consultationsData = prescriptionData.find(
+    item => item.label === 'CONSULTATIONS MEDICALES',
+  );
+  const soinsPodologiquesData = prescriptionData.find(
+    item => item.label === 'SOINS PODOLOGIQUES',
+  );
 
-export default function BlessurePage4() {
-  const [selectedBilans, setSelectedBilans] = useState([]);
-  const [selectedAvis, setSelectedAvis] = useState([]);
-  const [commentaire, setCommentaire] = useState('');
-  const [commentaireBilan, setCommentaireBilan] = useState('');
+  const consultations = consultationsData
+    ? consultationsData.children.map(child => ({
+        id: child.child_id,
+        name: child.child,
+      }))
+    : [];
 
-  const handleBilansChange = items => setSelectedBilans(items);
-  const handleAvisChange = items => setSelectedAvis(items);
+  const soinsPodologiques = soinsPodologiquesData
+    ? soinsPodologiquesData.children.map(child => ({
+        id: child.child_id,
+        name: child.child,
+      }))
+    : [];
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Bilan complémentaire</Text>
-      <MultiSelect
-        hideTags
-        items={bilans}
-        uniqueKey="id"
-        onSelectedItemsChange={handleBilansChange}
-        selectedItems={selectedBilans}
-        selectText="Select Bilans"
-        searchInputPlaceholderText="Search Bilans..."
-        tagRemoveIconColor="#CCC"
-        tagBorderColor="#CCC"
-        tagTextColor="#CCC"
-        selectedItemTextColor="#7979f7"
-        selectedItemIconColor="#7979f7"
-        itemTextColor="#000"
-        displayKey="name"
-        searchInputStyle={{color: '#7979f7'}}
-        submitButtonColor="#7979f7"
-        submitButtonText="Choisir"
-        styleMainWrapper={styles.inputContainer}
-      />
-
-      <Text style={styles.label}>Avis Specialisé</Text>
-      <MultiSelect
-        hideTags
-        items={avisSpecialises}
-        uniqueKey="id"
-        onSelectedItemsChange={handleAvisChange}
-        selectedItems={selectedAvis}
-        selectText="Select Avis"
-        searchInputPlaceholderText="Search Avis..."
-        tagRemoveIconColor="#CCC"
-        tagBorderColor="#CCC"
-        tagTextColor="#CCC"
-        selectedItemTextColor="#7979f7"
-        selectedItemIconColor="#7979f7"
-        itemTextColor="#000"
-        displayKey="name"
-        searchInputStyle={{color: '#7979f7'}}
-        submitButtonColor="#7979f7"
-        submitButtonText="Choisir"
-        styleMainWrapper={styles.inputContainer}
-      />
-
-      <Text style={styles.label}>Idicatif Bilan</Text>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Bilan..."
-        value={commentaireBilan}
-        onChangeText={setCommentaireBilan}
-      />
-
-      <Text style={styles.label}>Commentaire d'avis spécialisés</Text>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Avis ..."
-        value={commentaire}
-        onChangeText={setCommentaire}
-      />
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <Text style={styles.label}>Bilan complémentaire</Text>
+        <View style={styles.multiSelectContainer}>
+          <MultiSelect
+            hideTags
+            items={soinsPodologiques}
+            uniqueKey="id"
+            onSelectedItemsChange={items =>
+              updateFormData({selectedBilans: items})
+            }
+            selectedItems={selectedBilans}
+            selectText="Sélectionner"
+            searchInputPlaceholderText="Search Items..."
+            submitButtonText="Choisir"
+            autoCapitalize="none"
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#000"
+            itemTextColor="#000"
+            displayKey="name"
+            searchInputStyle={{color: '#000'}}
+            submitButtonColor="#7979f7"
+            submitButtonTextStyle={{color: '#fff'}}
+            styleDropdownMenuSubsection={styles.multiSelect}
+          />
+        </View>
+        <Text style={styles.label}>Avis Spécialisé</Text>
+        <View style={styles.multiSelectContainer}>
+          <MultiSelect
+            hideTags
+            items={consultations}
+            uniqueKey="id"
+            onSelectedItemsChange={items =>
+              updateFormData({selectedRefs: items})
+            }
+            selectedItems={selectedRefs}
+            selectText="Sélectionner"
+            searchInputPlaceholderText="Search Items..."
+            submitButtonText="Choisir"
+            autoCapitalize="none"
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#000"
+            itemTextColor="#000"
+            displayKey="name"
+            searchInputStyle={{color: '#000'}}
+            submitButtonColor="#7979f7"
+            submitButtonTextStyle={{color: '#fff'}}
+            styleDropdownMenuSubsection={styles.multiSelect}
+          />
+        </View>
+        <Text style={styles.label}>Indicatif bilan</Text>
+        <TextInput
+          value={bilan_comment}
+          onChangeText={text => updateFormData({bilan_comment: text})}
+          placeholder="Bilan..."
+          multiline
+          numberOfLines={2}
+          style={styles.textInput}
+        />
+        <Text style={styles.label}>Commentaire d'avis Spécialisés</Text>
+        <TextInput
+          value={reference_comment}
+          onChangeText={text => updateFormData({reference_comment: text})}
+          placeholder="Commentaire avis..."
+          multiline
+          numberOfLines={2}
+          style={styles.textInput}
+        />
+      </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
+    width: '100%',
+    backgroundColor: '#fff',
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    padding: 20,
+    backgroundColor: '#fff',
   },
   label: {
     fontSize: 16,
@@ -123,8 +131,14 @@ const styles = StyleSheet.create({
     color: 'black',
     fontFamily: 'Poppins-Bold',
   },
-  inputContainer: {
+  multiSelectContainer: {
     marginVertical: 10,
+  },
+  multiSelect: {
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 5,
   },
   textInput: {
     borderColor: '#CCC',
@@ -143,3 +157,5 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
 });
+
+export default BlessurePage4;

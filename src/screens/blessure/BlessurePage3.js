@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -6,75 +6,52 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  Button,
+  Alert,
 } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import prescriptionData from '../../../API MALADIE/prescription.json';
 import medicamentsData from '../../../API MALADIE/medicaments.json';
 
-const BlessurePage3 = ({navigation}) => {
-  const [date, setDate] = useState(new Date());
-  const [consultations, setConsultations] = useState([]);
-  const [selectedConsultations, setSelectedConsultations] = useState([]);
-  const [medicaments, setMedicaments] = useState([]);
-  const [selectedMedicaments, setSelectedMedicaments] = useState([]);
-  const [soinsPodologiques, setSoinsPodologiques] = useState([]);
-  const [selectedSoinsPodologiques, setSelectedSoinsPodologiques] = useState(
-    [],
+const BlessurePage3 = ({formData, updateFormData}) => {
+  const {
+    traitement_date = new Date(),
+    selectedPack_ids,
+    selectedMedicament_ids,
+    ordon_comment,
+  } = formData;
+
+  const [showDatePicker, setShowDatePicker] = React.useState(false);
+
+  const consultationsData = prescriptionData.find(
+    item => item.label === 'CONSULTATIONS MEDICALES',
   );
-  const [commentaire, setCommentaire] = useState('');
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const soinsPodologiquesData = prescriptionData.find(
+    item => item.label === 'SOINS PODOLOGIQUES',
+  );
 
-  useEffect(() => {
-    const consultationsData = prescriptionData.find(
-      item => item.label === 'CONSULTATIONS MEDICALES',
-    );
-    const soinsPodologiquesData = prescriptionData.find(
-      item => item.label === 'SOINS PODOLOGIQUES',
-    );
-
-    if (consultationsData) {
-      setConsultations(
-        consultationsData.children.map(child => ({
-          id: child.child_id,
-          name: child.child,
-        })),
-      );
-    }
-
-    if (soinsPodologiquesData) {
-      setSoinsPodologiques(
-        soinsPodologiquesData.children.map(child => ({
-          id: child.child_id,
-          name: child.child,
-        })),
-      );
-    }
-
-    setMedicaments(
-      medicamentsData.map(medicament => ({
-        id: medicament.id,
-        name: medicament.fullname,
-      })),
-    );
-  }, []);
+  const consultations = consultationsData
+    ? consultationsData.children.map(child => ({
+        id: child.child_id,
+        name: child.child,
+      }))
+    : [];
+  const soinsPodologiques = soinsPodologiquesData
+    ? soinsPodologiquesData.children.map(child => ({
+        id: child.child_id,
+        name: child.child,
+      }))
+    : [];
+  const medicaments = medicamentsData.map(medicament => ({
+    id: medicament.id,
+    name: medicament.fullname,
+  }));
 
   const handleDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+    const currentDate = selectedDate || traitement_date;
     setShowDatePicker(false);
-    setDate(currentDate);
-  };
-
-  const handleConsultationsChange = selectedItems => {
-    setSelectedConsultations(selectedItems);
-  };
-
-  const handleMedicamentsChange = selectedItems => {
-    setSelectedMedicaments(selectedItems);
-  };
-
-  const handleSoinsPodologiquesChange = selectedItems => {
-    setSelectedSoinsPodologiques(selectedItems);
+    updateFormData({traitement_date: currentDate});
   };
 
   return (
@@ -84,13 +61,15 @@ const BlessurePage3 = ({navigation}) => {
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker(true)}>
-          <Text style={styles.input}>{date.toDateString()}</Text>
+          <Text style={styles.input}>
+            {formData.traitement_date.toDateString()}
+          </Text>
         </TouchableOpacity>
 
         {showDatePicker && (
           <DateTimePicker
             testID="dateTimePicker"
-            value={date}
+            value={traitement_date}
             mode="date"
             display="default"
             onChange={handleDateChange}
@@ -98,38 +77,44 @@ const BlessurePage3 = ({navigation}) => {
         )}
 
         <Text style={styles.label}>Soins et Evaluation</Text>
-        <MultiSelect
-          hideTags
-          items={consultations}
-          uniqueKey="id"
-          onSelectedItemsChange={handleConsultationsChange}
-          selectedItems={selectedConsultations}
-          selectText="Sélectionner soins"
-          searchInputPlaceholderText="Rechercher soins..."
-          tagRemoveIconColor="#CCC"
-          tagBorderColor="#CCC"
-          tagTextColor="#CCC"
-          selectedItemTextColor="#7979f7"
-          selectedItemIconColor="#7979f7"
-          itemTextColor="#000"
-          displayKey="name"
-          searchInputStyle={{color: '#7979f7'}}
-          submitButtonColor="#7979f7"
-          submitButtonText="Choisir"
-          styleMainWrapper={styles.inputContainer}
-        />
+        {
+          <MultiSelect
+            hideTags
+            items={consultations}
+            uniqueKey="id"
+            onSelectedItemsChange={items =>
+              updateFormData({selectedPack_ids: items})
+            }
+            selectedItems={selectedPack_ids}
+            selectText="Sélectionner soins"
+            searchInputPlaceholderText="Rechercher soins..."
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#CCC"
+            selectedItemTextColor="#7979f7"
+            selectedItemIconColor="#7979f7"
+            itemTextColor="#000"
+            displayKey="name"
+            searchInputStyle={{color: '#7979f7'}}
+            submitButtonColor="#7979f7"
+            submitButtonText="Choisir"
+            styleMainWrapper={styles.inputContainer}
+          />
+        }
 
         <Text style={styles.label}>Ordonnance</Text>
         <MultiSelect
           hideTags
           items={medicaments}
           uniqueKey="id"
-          onSelectedItemsChange={handleMedicamentsChange}
-          selectedItems={selectedMedicaments}
+          onSelectedItemsChange={items =>
+            updateFormData({selectedMedicament_ids: items})
+          }
+          selectedItems={selectedMedicament_ids}
           selectText="Select Médicaments"
           searchInputPlaceholderText="Search Médicaments..."
-          tagRemoveIconColor="#CCC"
-          tagBorderColor="#CCC"
+          // tagRemoveIconColor="#CCC"
+          // tagBorderColor="#CCC"
           tagTextColor="#CCC"
           selectedItemTextColor="#7979f7"
           selectedItemIconColor="#7979f7"
@@ -146,9 +131,9 @@ const BlessurePage3 = ({navigation}) => {
           style={styles.textInput}
           multiline
           numberOfLines={2}
-          onChangeText={text => setCommentaire(text)}
-          value={commentaire}
-          placeholder="Commentaire ..."
+          onChangeText={text => updateFormData({ordon_comment: text})}
+          value={ordon_comment}
+          placeholder="Commentaire ordonance ..."
         />
       </ScrollView>
     </View>
