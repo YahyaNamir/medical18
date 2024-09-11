@@ -450,7 +450,7 @@ export default function MaladieSteps({navigation, route}) {
           </View>
         ) : (
           <Text>
-            Soon
+            {/* Soon */}
             ...
             </Text>
         )}
