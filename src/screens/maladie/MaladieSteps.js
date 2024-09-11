@@ -449,7 +449,7 @@ export default function MaladieSteps({navigation, route}) {
             </ProgressSteps>
           </View>
         ) : (
-          <Text>Soon...</Text>
+          // <Text>Soon...</Text>
         )}
       </>
       );
