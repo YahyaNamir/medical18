@@ -1,20 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, TextInput, Button, Alert} from 'react-native';
-import DocumentPicker, {types} from 'react-native-document-picker';
+import DocumentPicker from 'react-native-document-picker';
 
 const BlessurePage5 = ({formData, updateFormData}) => {
-  const handleFileSelection = async () => {
+  const pickDocument = async () => {
     try {
-      const res = await DocumentPicker.pick({
-        type: [types.allFiles],
+      const res = await DocumentPicker.pickSingle({
+        type: [DocumentPicker.types.allFiles],
       });
-      updateFormData({file: res[0]});
-      Alert.alert('Fichier sélectionné', `Nom du fichier : ${res[0].name}`);
+      console.log(res);
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
-        console.log('Sélection annulée');
+        console.log('User cancelled the picker');
       } else {
-        Alert.alert('Erreur', 'Une erreur');
+        console.error('DocumentPicker Error: ', err);
       }
     }
   };
@@ -33,7 +32,7 @@ const BlessurePage5 = ({formData, updateFormData}) => {
         />
       </View>
 
-      <Button title="Choisir un fichier" onPress={() => {}} />
+      <Button title="Choisir un fichier" onPress={pickDocument} />
       {formData.selectedDocument && (
         <Text style={styles.fileInfo}>
           Fichier sélectionné: {formData.selectedDocument.name}

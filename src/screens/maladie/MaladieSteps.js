@@ -21,7 +21,7 @@ export default function MaladieSteps({navigation, route}) {
       date: new Date(),
       type: '',
       location: '',
-      gravity: 1,
+      gravity: '',
       date_retour_prevue: '',
       durre_injury: '',
     },
@@ -163,20 +163,6 @@ export default function MaladieSteps({navigation, route}) {
       form.append('type_consultation', type_consultation || null);
       //! ____________________
 
-      // form.append('returnDate', '');
-      // form.append('circonstances', null);
-      // form.append('conditions', null);
-      // form.append('traitement_intervenant', null);
-      // form.append('reathletisation_individuelle', null);
-      // form.append('gravity', '');
-      // form.append('traitement', null);
-      // form.append('traitement_nom', null);
-      // form.append('reprise_competition', null);
-      // form.append('terrain', null);
-      // form.append('traitement_note', null);
-      // form.append('reprise_groupe', null);
-      // form.append('location', '');
-
       if (formData.pageAdditio.selectedDocument) {
         form.append('pageAdditio_selectedDocument', {
           uri: formData.pageAdditio.selectedDocument.uri,
@@ -293,314 +279,275 @@ export default function MaladieSteps({navigation, route}) {
   // }
   //? ###############################
 
+  // return (
+  //   <>
+  //     <View style={styles.container}>
+  //       <View style={styles.topLine} />
+  //       <ProgressSteps
+  //         activeStepIconBorderColor="#007BFF"
+  //         completedProgressBarColor="#034387"
+  //         completedStepIconColor="#034387"
+  //       >
+  //         {/* 1-(MaladiePage1 or BlessurePage1 based on consultation type) */}
+  //         <ProgressStep
+  //           labelStyle={{ color: '#007bff', fontFamily: 'Poppins-Bold' }}
+  //           label="Infos"
+  //           nextBtnStyle={styles.button}
+  //           nextBtnTextStyle={styles.buttonText}
+  //         >
+  //           <View style={styles.stepContainer}>
+  //             {type_consultation === 'maladie' ? (
+  //               <MaladiePage1
+  //                 formData={formData.pageInfo}
+  //                 updateFormData={(data) => updateFormData('pageInfo', data)}
+  //               />
+  //             ) : (
+  //               <BlessurePage1
+  //                 formData={formData.pageInfo}
+  //                 updateFormData={(data) => updateFormData('pageInfo', data)}
+  //               />
+  //             )}
+  //           </View>
+  //         </ProgressStep>
+
+  //         {/* Conditional step based on type (only for blessure) */}
+  //         {type_consultation === 'blessure' && (
+  //           <ProgressStep
+  //             label="Contexte de la blessure"
+  //             previousBtnStyle={styles.button}
+  //             previousBtnTextStyle={styles.buttonText}
+  //             nextBtnStyle={styles.button}
+  //             nextBtnTextStyle={styles.buttonText}
+  //           >
+  //             <View style={styles.stepContainer}>
+  //               <BlessurePage2
+  //                 formData={formData.pageContexte}
+  //                 updateFormData={(data) => updateFormData('pageContexte', data)}
+  //               />
+  //             </View>
+  //           </ProgressStep>
+  //         )}
+
+  //         {/* Common Third Step (MaladiePage3 or BlessurePage3) */}
+  //         <ProgressStep
+  //           label="Prescription"
+  //           previousBtnStyle={styles.button}
+  //           previousBtnTextStyle={styles.buttonText}
+  //           nextBtnStyle={styles.button}
+  //           nextBtnTextStyle={styles.buttonText}
+  //         >
+  //           <View style={styles.stepContainer}>
+  //             {type_consultation === 'maladie' ? (
+  //               <BlessurePage3
+  //                 formData={formData.pagePresc}
+  //                 updateFormData={(data) => updateFormData('pagePresc', data)}
+  //               />
+  //             ) : (
+  //               <BlessurePage3
+  //                 formData={formData.pagePresc}
+  //                 updateFormData={(data) => updateFormData('pagePresc', data)}
+  //               />
+  //             )}
+  //           </View>
+  //         </ProgressStep>
+
+  //         {/* Common Fourth Step (MaladiePage3 or BlessurePage4) */}
+  //         <ProgressStep
+  //           label="Bilan Complémentaire et Avis Spécialisée"
+  //           previousBtnStyle={styles.button}
+  //           previousBtnTextStyle={styles.buttonText}
+  //           nextBtnStyle={styles.button}
+  //           nextBtnTextStyle={styles.buttonText}
+  //         >
+  //           <View style={styles.stepContainer}>
+  //             {type_consultation === 'maladie' ? (
+  //               <BlessurePage4
+  //                 formData={formData.pageBilan}
+  //                 updateFormData={(data) => updateFormData('pageBilan', data)}
+  //               />
+  //             ) : (
+  //               <BlessurePage4
+  //                 formData={formData.pageBilan}
+  //                 updateFormData={(data) => updateFormData('pageBilan', data)}
+  //               />
+  //             )}
+  //           </View>
+  //         </ProgressStep>
+
+  //         {/* Common Fifth Step (MaladiePage4 or BlessurePage5) */}
+  //         <ProgressStep
+  //           label="Informations additionnelles"
+  //           previousBtnStyle={styles.button}
+  //           previousBtnTextStyle={styles.buttonText}
+  //           finishBtnStyle={styles.button}
+  //           finishBtnTextStyle={styles.buttonText}
+  //           onSubmit={handleFinish}
+  //         >
+  //           <View style={styles.stepContainer}>
+  //             {type_consultation === 'maladie' ? (
+  //               <BlessurePage5
+  //                 formData={formData.pageAdditio}
+  //                 updateFormData={(data) => updateFormData('pageAdditio', data)}
+  //                 navigation={navigation}
+  //               />
+  //             ) : (
+  //               <BlessurePage5
+  //                 formData={formData.pageAdditio}
+  //                 updateFormData={(data) => updateFormData('pageAdditio', data)}
+  //                 navigation={navigation}
+  //               />
+  //             )}
+  //           </View>
+  //         </ProgressStep>
+  //       </ProgressSteps>
+  //     </View>
+  //   </>
+  // );
+
   return (
     <>
-      return (
-      <>
-        {type_consultation === 'maladie' ? (
-          <View style={styles.container}>
-            <View style={styles.topLine} />
-            <ProgressSteps
-              activeStepIconBorderColor="#007BFF"
-              completedProgressBarColor="#034387"
-              completedStepIconColor="#034387">
-              {/* Maladie 1 */}
-              <ProgressStep
-                labelStyle={{color: '#007bff', fontFamily: 'Poppins-Bold'}}
-                label="Infos"
-                nextBtnStyle={styles.button}
-                nextBtnTextStyle={styles.buttonText}>
-                <View style={styles.stepContainer}>
-                  <MaladiePage1
-                    formData={formData.pageInfo}
-                    updateFormData={data => updateFormData('pageInfo', data)}
-                  />
-                </View>
-              </ProgressStep>
-
-              {/* Show Blessure 3, 4, 5 for Maladie */}
-              <ProgressStep
-                label="Prescription"
-                previousBtnStyle={styles.button}
-                previousBtnTextStyle={styles.buttonText}
-                nextBtnStyle={styles.button}
-                nextBtnTextStyle={styles.buttonText}>
-                <View style={styles.stepContainer}>
-                  <BlessurePage3
-                    formData={formData.pagePresc}
-                    updateFormData={data => updateFormData('pagePresc', data)}
-                  />
-                </View>
-              </ProgressStep>
-
-              <ProgressStep
-                label="Bilan Complémentaire et Avis Spécialisée"
-                previousBtnStyle={styles.button}
-                previousBtnTextStyle={styles.buttonText}
-                nextBtnStyle={styles.button}
-                nextBtnTextStyle={styles.buttonText}>
-                <View style={styles.stepContainer}>
-                  <BlessurePage4
-                    formData={formData.pageBilan}
-                    updateFormData={data => updateFormData('pageBilan', data)}
-                  />
-                </View>
-              </ProgressStep>
-
-              <ProgressStep
-                label="Informations additionnelles"
-                previousBtnStyle={styles.button}
-                previousBtnTextStyle={styles.buttonText}
-                finishBtnStyle={styles.button}
-                finishBtnTextStyle={styles.buttonText}
-                onSubmit={handleFinish}>
-                <View style={styles.stepContainer}>
-                  <BlessurePage5
-                    formData={formData.pageAdditio}
-                    updateFormData={data => updateFormData('pageAdditio', data)}
-                  />
-                </View>
-              </ProgressStep>
-            </ProgressSteps>
-          </View>
-        ) : type_consultation === 'blessure' ? (
-          <View style={styles.container}>
-            <View style={styles.topLine} />
-            <ProgressSteps
-              activeStepIconBorderColor="#0079fa"
-              completedProgressBarColor="#034387"
-              completedStepIconColor="#034387">
-              {/* Blessure 1 */}
-              <ProgressStep
-                labelStyle={{color: '#007bff', fontFamily: 'Poppins-Bold'}}
-                label="Infos"
-                nextBtnStyle={styles.button}
-                nextBtnTextStyle={styles.buttonText}>
-                <View style={styles.stepContainer}>
-                  <BlessurePage1
-                    formData={formData.pageInfo}
-                    updateFormData={data => updateFormData('pageInfo', data)}
-                  />
-                </View>
-              </ProgressStep>
-
-              {/* Blessure 2 */}
-              <ProgressStep
-                label="Contexte de la blessure"
-                previousBtnStyle={styles.button}
-                previousBtnTextStyle={styles.buttonText}
-                nextBtnStyle={styles.button}
-                nextBtnTextStyle={styles.buttonText}>
-                <View style={styles.stepContainer}>
-                  <BlessurePage2
-                    formData={formData.pageContexte}
-                    updateFormData={data =>
-                      updateFormData('pageContexte', data)
-                    }
-                  />
-                </View>
-              </ProgressStep>
-
-              {/* Blessure 3 */}
-              <ProgressStep
-                label="Prescription"
-                previousBtnStyle={styles.button}
-                previousBtnTextStyle={styles.buttonText}
-                nextBtnStyle={styles.button}
-                nextBtnTextStyle={styles.buttonText}>
-                <View style={styles.stepContainer}>
-                  <BlessurePage3
-                    formData={formData.pagePresc}
-                    updateFormData={data => updateFormData('pagePresc', data)}
-                  />
-                </View>
-              </ProgressStep>
-
-              {/* Blessure 4 */}
-              <ProgressStep
-                label="Bilan Complémentaire et Avis Spécialisée"
-                previousBtnStyle={styles.button}
-                previousBtnTextStyle={styles.buttonText}
-                nextBtnStyle={styles.button}
-                nextBtnTextStyle={styles.buttonText}>
-                <View style={styles.stepContainer}>
-                  <BlessurePage4
-                    formData={formData.pageBilan}
-                    updateFormData={data => updateFormData('pageBilan', data)}
-                  />
-                </View>
-              </ProgressStep>
-
-              {/* Blessure 5 */}
-              <ProgressStep
-                label="Informations additionnelles"
-                previousBtnStyle={styles.button}
-                previousBtnTextStyle={styles.buttonText}
-                finishBtnStyle={styles.button}
-                finishBtnTextStyle={styles.buttonText}
-                onSubmit={handleFinish}>
-                <View style={styles.stepContainer}>
-                  <BlessurePage5
-                    formData={formData.pageAdditio}
-                    updateFormData={data => updateFormData('pageAdditio', data)}
-                  />
-                </View>
-              </ProgressStep>
-            </ProgressSteps>
-          </View>
-        ) : (
-          <Text>Soon... </Text>
-        )}
-      </>
-      );
-    
+      {type_consultation === 'maladie' ? (
+        <View style={styles.container}>
+          <View style={styles.topLine} />
+          <ProgressSteps
+            activeStepIconBorderColor="#007BFF"
+            completedProgressBarColor="#034387"
+            completedStepIconColor="#034387">
+            <ProgressStep
+              labelStyle={{color: '#007bff', fontFamily: 'Poppins-Bold'}}
+              label="Infos"
+              nextBtnStyle={styles.button}
+              nextBtnTextStyle={styles.buttonText}>
+              <View style={styles.stepContainer}>
+                <BlessurePage1
+                  formData={formData.pageInfo}
+                  updateFormData={data => updateFormData('pageInfo', data)}
+                />
+              </View>
+            </ProgressStep>
+            <ProgressStep
+              label="Prescription"
+              previousBtnStyle={styles.button}
+              previousBtnTextStyle={styles.buttonText}
+              nextBtnStyle={styles.button}
+              nextBtnTextStyle={styles.buttonText}>
+              <View style={styles.stepContainer}>
+                <BlessurePage3
+                  formData={formData.pagePresc}
+                  updateFormData={data => updateFormData('pagePresc', data)}
+                />
+              </View>
+            </ProgressStep>
+            <ProgressStep
+              label="Bilan Complémentaire et Avis Spécialisée"
+              previousBtnStyle={styles.button}
+              previousBtnTextStyle={styles.buttonText}
+              nextBtnStyle={styles.button}
+              nextBtnTextStyle={styles.buttonText}>
+              <View style={styles.stepContainer}>
+                <BlessurePage4
+                  formData={formData.pageBilan}
+                  updateFormData={data => updateFormData('pageBilan', data)}
+                />
+              </View>
+            </ProgressStep>
+            <ProgressStep
+              label="Informations additionnelles"
+              previousBtnStyle={styles.button}
+              previousBtnTextStyle={styles.buttonText}
+              finishBtnStyle={styles.button}
+              finishBtnTextStyle={styles.buttonText}
+              onSubmit={handleFinish}>
+              <View style={styles.stepContainer}>
+                <BlessurePage5
+                  formData={formData.pageAdditio}
+                  updateFormData={data => updateFormData('pageAdditio', data)}
+                  navigation={navigation}
+                />
+              </View>
+            </ProgressStep>
+          </ProgressSteps>
+        </View>
+      ) : type_consultation === 'blessure' ? (
+        <View style={styles.container}>
+          <View style={styles.topLine} />
+          <ProgressSteps
+            activeStepIconBorderColor="#0079fa"
+            completedProgressBarColor="#034387"
+            completedStepIconColor="#034387">
+            <ProgressStep
+              labelStyle={{color: '#007bff', fontFamily: 'Poppins-Bold'}}
+              label="Infos"
+              nextBtnStyle={styles.button}
+              nextBtnTextStyle={styles.buttonText}>
+              <View style={styles.stepContainer}>
+                <BlessurePage1
+                  formData={formData.pageInfo}
+                  updateFormData={data => updateFormData('pageInfo', data)}
+                />
+              </View>
+            </ProgressStep>
+            <ProgressStep
+              label="Contexte de la blessure"
+              previousBtnStyle={styles.button}
+              previousBtnTextStyle={styles.buttonText}
+              nextBtnStyle={styles.button}
+              nextBtnTextStyle={styles.buttonText}>
+              <View style={styles.stepContainer}>
+                <BlessurePage2
+                  formData={formData.pageContexte}
+                  updateFormData={data => updateFormData('pageContexte', data)}
+                />
+              </View>
+            </ProgressStep>
+            <ProgressStep
+              label="Prescription"
+              previousBtnStyle={styles.button}
+              previousBtnTextStyle={styles.buttonText}
+              nextBtnStyle={styles.button}
+              nextBtnTextStyle={styles.buttonText}>
+              <View style={styles.stepContainer}>
+                <BlessurePage3
+                  formData={formData.pagePresc}
+                  updateFormData={data => updateFormData('pagePresc', data)}
+                />
+              </View>
+            </ProgressStep>
+            <ProgressStep
+              label="Bilan Complémentaire et Avis Spécialisée"
+              previousBtnStyle={styles.button}
+              previousBtnTextStyle={styles.buttonText}
+              nextBtnStyle={styles.button}
+              nextBtnTextStyle={styles.buttonText}>
+              <View style={styles.stepContainer}>
+                <BlessurePage4
+                  formData={formData.pageBilan}
+                  updateFormData={data => updateFormData('pageBilan', data)}
+                />
+              </View>
+            </ProgressStep>
+            <ProgressStep
+              label="Informations additionnelles"
+              previousBtnStyle={styles.button}
+              previousBtnTextStyle={styles.buttonText}
+              finishBtnStyle={styles.button}
+              finishBtnTextStyle={styles.buttonText}
+              onSubmit={handleFinish}>
+              <View style={styles.stepContainer}>
+                <BlessurePage5
+                  formData={formData.pageAdditio}
+                  updateFormData={data => updateFormData('pageAdditio', data)}
+                />
+              </View>
+            </ProgressStep>
+          </ProgressSteps>
+        </View>
+      ) : (
+        <Text>Soon...</Text>
+      )}
     </>
   );
 }
-
-// return (
-//   <>
-//     {type_consultation === 'maladie' ? (
-//       <View style={styles.container}>
-//         <View style={styles.topLine} />
-//         <ProgressSteps
-//           activeStepIconBorderColor="#007BFF"
-//           completedProgressBarColor="#034387"
-//           completedStepIconColor="#034387">
-//           <ProgressStep
-//             labelStyle={{color: '#007bff', fontFamily: 'Poppins-Bold'}}
-//             label="Infos"
-//             nextBtnStyle={styles.button}
-//             nextBtnTextStyle={styles.buttonText}>
-//             <View style={styles.stepContainer}>
-//               <MaladiePage1
-//                 formData={formData.pageInfo}
-//                 updateFormData={data => updateFormData('pageInfo', data)}
-//               />
-//             </View>
-//           </ProgressStep>
-//           <ProgressStep
-//             label="Prescription"
-//             previousBtnStyle={styles.button}
-//             previousBtnTextStyle={styles.buttonText}
-//             nextBtnStyle={styles.button}
-//             nextBtnTextStyle={styles.buttonText}>
-//             <View style={styles.stepContainer}>
-//               <MaladiePage2
-//                 formData={formData.pagePresc}
-//                 updateFormData={data => updateFormData('pagePresc', data)}
-//               />
-//             </View>
-//           </ProgressStep>
-//           <ProgressStep
-//             label="Bilan Complémentaire et Avis Spécialisée"
-//             previousBtnStyle={styles.button}
-//             previousBtnTextStyle={styles.buttonText}
-//             nextBtnStyle={styles.button}
-//             nextBtnTextStyle={styles.buttonText}>
-//             <View style={styles.stepContainer}>
-//               <MaladiePage3
-//                 formData={formData.pageBilan}
-//                 updateFormData={data => updateFormData('pageBilan', data)}
-//               />
-//             </View>
-//           </ProgressStep>
-//           <ProgressStep
-//             label="Informations additionnelles"
-//             previousBtnStyle={styles.button}
-//             previousBtnTextStyle={styles.buttonText}
-//             finishBtnStyle={styles.button}
-//             finishBtnTextStyle={styles.buttonText}
-//             onSubmit={handleFinish}>
-//             <View style={styles.stepContainer}>
-//               <MaladiePage4
-//                 formData={formData.pageAdditio}
-//                 updateFormData={data => updateFormData('pageAdditio', data)}
-//                 navigation={navigation}
-//               />
-//             </View>
-//           </ProgressStep>
-//         </ProgressSteps>
-//       </View>
-//     ) : type_consultation === 'blessure' ? (
-//       <View style={styles.container}>
-//         <View style={styles.topLine} />
-//         <ProgressSteps
-//           activeStepIconBorderColor="#0079fa"
-//           completedProgressBarColor="#034387"
-//           completedStepIconColor="#034387">
-//           <ProgressStep
-//             labelStyle={{color: '#007bff', fontFamily: 'Poppins-Bold'}}
-//             label="Infos"
-//             nextBtnStyle={styles.button}
-//             nextBtnTextStyle={styles.buttonText}>
-//             <View style={styles.stepContainer}>
-//               <BlessurePage1
-//                 formData={formData.pageInfo}
-//                 updateFormData={data => updateFormData('pageInfo', data)}
-//               />
-//             </View>
-//           </ProgressStep>
-//           <ProgressStep
-//             label="Contexte de la blessure"
-//             previousBtnStyle={styles.button}
-//             previousBtnTextStyle={styles.buttonText}
-//             nextBtnStyle={styles.button}
-//             nextBtnTextStyle={styles.buttonText}>
-//             <View style={styles.stepContainer}>
-//               <BlessurePage2
-//                 formData={formData.pageContexte}
-//                 updateFormData={data => updateFormData('pageContexte', data)}
-//               />
-//             </View>
-//           </ProgressStep>
-//           <ProgressStep
-//             label="Prescription"
-//             previousBtnStyle={styles.button}
-//             previousBtnTextStyle={styles.buttonText}
-//             nextBtnStyle={styles.button}
-//             nextBtnTextStyle={styles.buttonText}>
-//             <View style={styles.stepContainer}>
-//               <BlessurePage3
-//                 formData={formData.pagePresc}
-//                 updateFormData={data => updateFormData('pagePresc', data)}
-//               />
-//             </View>
-//           </ProgressStep>
-//           <ProgressStep
-//             label="Bilan Complémentaire et Avis Spécialisée"
-//             previousBtnStyle={styles.button}
-//             previousBtnTextStyle={styles.buttonText}
-//             nextBtnStyle={styles.button}
-//             nextBtnTextStyle={styles.buttonText}>
-//             <View style={styles.stepContainer}>
-//               <BlessurePage4
-//                 formData={formData.pageBilan}
-//                 updateFormData={data => updateFormData('pageBilan', data)}
-//               />
-//             </View>
-//           </ProgressStep>
-//           <ProgressStep
-//             label="Informations additionnelles"
-//             previousBtnStyle={styles.button}
-//             previousBtnTextStyle={styles.buttonText}
-//             finishBtnStyle={styles.button}
-//             finishBtnTextStyle={styles.buttonText}
-//             onSubmit={handleFinish}>
-//             <View style={styles.stepContainer}>
-//               <BlessurePage5
-//                 formData={formData.pageAdditio}
-//                 updateFormData={data => updateFormData('pageAdditio', data)}
-//               />
-//             </View>
-//           </ProgressStep>
-//         </ProgressSteps>
-//       </View>
-//     ) : (
-//       <Text>Soon...</Text>
-//     )}
-//   </>
-// );
 
 const styles = StyleSheet.create({
   container: {

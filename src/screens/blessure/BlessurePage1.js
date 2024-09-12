@@ -12,8 +12,12 @@ import locations from '../../../API MALADIE/locations.json';
 import diagnostics from '../../../API MALADIE/diagnostics.json';
 import diagnosticsData from '../../../API MALADIE/diagnostic.json';
 import {TextInput} from 'react-native-gesture-handler';
+import {useRoute} from '@react-navigation/native';
 
-const BlessurePage1 = ({formData, updateFormData}) => {
+const BlessurePage1 = ({formData, updateFormData, navigation}) => {
+  const route = useRoute();
+  const {type_consultation} = route.params;
+
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleDateChange = (event, selectedDate) => {
@@ -29,10 +33,14 @@ const BlessurePage1 = ({formData, updateFormData}) => {
         value: child.child_id,
       })),
     );
+  const typecons = type_consultation === 'blessure' ? 'Blessure' : 'Maladie';
 
   const handleChange = text => {
+    // Convert text to number
     const value = Number(text);
-    if (!isNaN(value) && value >= 0 && value <= 5) {
+
+    // Validate the value to be within the range 1 to 5, or null if empty
+    if (!isNaN(value) && value >= 1 && value <= 5) {
       updateFormData({gravity: value});
     } else if (text === '') {
       updateFormData({gravity: null});
@@ -58,33 +66,39 @@ const BlessurePage1 = ({formData, updateFormData}) => {
           />
         )}
 
-        <Text style={styles.label}>Location</Text>
-        <View style={styles.inputContainer}>
-          <Picker
-            selectedValue={formData.location}
-            onValueChange={itemValue => updateFormData({location: itemValue})}
-            style={styles.picker}>
-            <Picker.Item label="Select Diagnostic" value="" />
-            {maladieDiagnostics.map(item => (
-              <Picker.Item
-                key={item.value}
-                label={item.label}
-                value={item.value}
-              />
-            ))}
-          </Picker>
-        </View>
+        {type_consultation === 'blessure' && (
+          <>
+            <Text style={styles.label}>Location</Text>
+            <View style={styles.inputContainer}>
+              <Picker
+                selectedValue={formData.location}
+                onValueChange={itemValue =>
+                  updateFormData({location: itemValue})
+                }
+                style={styles.picker}>
+                <Picker.Item label="Select Diagnostic" value="" />
+                {maladieDiagnostics.map(item => (
+                  <Picker.Item
+                    key={item.value}
+                    label={item.label}
+                    value={item.value}
+                  />
+                ))}
+              </Picker>
+            </View>
+            <Text style={styles.label}>Gravité</Text>
+            <TextInput
+              style={styles.inputContainer}
+              keyboardType="numeric"
+              value={
+                formData.gravity !== null ? formData.gravity.toString() : ''
+              }
+              onChangeText={text => handleChange(text)}
+            />
+          </>
+        )}
 
-        <Text style={styles.label}>Gravité</Text>
-        <TextInput
-          style={styles.inputContainer}
-          keyboardType="numeric"
-          selectedValue={formData.gravity}
-          value={formData.gravity.toString()}
-          onChangeText={text => handleChange(text)}
-        />
-
-        <Text style={styles.label}>Diagnostic blessure</Text>
+        <Text style={styles.label}>Diagnostic {typecons}</Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.type}

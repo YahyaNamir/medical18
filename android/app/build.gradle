@@ -118,3 +118,6 @@ dependencies {
         implementation jscFlavor
     }
 }
+dependencies {
+    implementation project(':react-native-document-picker')
+}
