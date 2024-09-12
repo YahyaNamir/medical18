@@ -86,7 +86,7 @@ const BlessurePage1 = ({formData, updateFormData, navigation}) => {
                 ))}
               </Picker>
             </View>
-            {/* <Text style={styles.label}>Gravité</Text> */}
+            <Text style={styles.label}>Gravité</Text>
             <TextInput
               style={styles.inputContainer}
               keyboardType="numeric"
