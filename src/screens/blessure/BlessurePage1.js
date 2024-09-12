@@ -36,10 +36,8 @@ const BlessurePage1 = ({formData, updateFormData, navigation}) => {
   const typecons = type_consultation === 'blessure' ? 'Blessure' : 'Maladie';
 
   const handleChange = text => {
-    // Convert text to number
     const value = Number(text);
 
-    // Validate the value to be within the range 1 to 5, or null if empty
     if (!isNaN(value) && value >= 1 && value <= 5) {
       updateFormData({gravity: value});
     } else if (text === '') {
@@ -94,6 +92,7 @@ const BlessurePage1 = ({formData, updateFormData, navigation}) => {
                 formData.gravity !== null ? formData.gravity.toString() : ''
               }
               onChangeText={text => handleChange(text)}
+              placeholder="Choisir gravité (1-5) ..."
             />
           </>
         )}

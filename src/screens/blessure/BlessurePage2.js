@@ -12,14 +12,18 @@ import pickerData from '../../../API MALADIE/bilan.json';
 import diagnosticsData from '../../../API MALADIE/diagnostic.json';
 
 const BlessurePage2 = ({formData, updateFormData}) => {
-
-
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(null);
 
   const handleDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || formData.date;
-    setShowDatePicker(false);
-    updateFormData({date: currentDate});
+    const currentDate = selectedDate || new Date();
+    setShowDatePicker(null);
+    if (showDatePicker === 'reathletisation_individuelle') {
+      updateFormData({reathletisation_individuelle: currentDate});
+    } else if (showDatePicker === 'reprise_groupe') {
+      updateFormData({reprise_groupe: currentDate});
+    } else if (showDatePicker === 'reprise_competition') {
+      updateFormData({reprise_competition: currentDate});
+    }
   };
 
   const maladieDiagnostics = diagnosticsData
@@ -90,59 +94,48 @@ const BlessurePage2 = ({formData, updateFormData}) => {
         <Text style={styles.labelEtape}>Étape de reprise</Text>
 
         <Text style={styles.label}>Réathlétisation individuelle</Text>
-
         <TouchableOpacity
           style={styles.datePickerButton}
-          onPress={() => setShowDatePicker(true)}>
+          onPress={() => setShowDatePicker('reathletisation_individuelle')}>
           <Text style={styles.input}>
-            {formData.reathletisation_individuelle.toDateString()}
+            {formData.reathletisation_individuelle
+              ? formData.reathletisation_individuelle.toDateString()
+              : 'Select Date'}
           </Text>
         </TouchableOpacity>
-
-        {showDatePicker && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={formData.reathletisation_individuelle}
-            mode="date"
-            display="default"
-            onChange={handleDateChange}
-          />
-        )}
 
         <Text style={styles.label}>Reprise groupe</Text>
-
         <TouchableOpacity
           style={styles.datePickerButton}
-          onPress={() => setShowDatePicker(true)}>
+          onPress={() => setShowDatePicker('reprise_groupe')}>
           <Text style={styles.input}>
-            {formData.reathletisation_individuelle.toDateString()}
+            {formData.reprise_groupe
+              ? formData.reprise_groupe.toDateString()
+              : 'Select Date'}
           </Text>
         </TouchableOpacity>
-
-        {showDatePicker && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={formData.reathletisation_individuelle}
-            mode="date"
-            display="default"
-            onChange={handleDateChange}
-          />
-        )}
 
         <Text style={styles.label}>Reprise compétition</Text>
-
         <TouchableOpacity
           style={styles.datePickerButton}
-          onPress={() => setShowDatePicker(true)}>
+          onPress={() => setShowDatePicker('reprise_competition')}>
           <Text style={styles.input}>
-            {formData.reprise_groupe.toDateString()}
+            {formData.reprise_competition
+              ? formData.reprise_competition.toDateString()
+              : 'Select Date'}
           </Text>
         </TouchableOpacity>
 
         {showDatePicker && (
           <DateTimePicker
             testID="dateTimePicker"
-            value={formData.reprise_groupe}
+            value={
+              showDatePicker === 'reathletisation_individuelle'
+                ? formData.reathletisation_individuelle
+                : showDatePicker === 'reprise_groupe'
+                ? formData.reprise_groupe
+                : formData.reprise_competition
+            }
             mode="date"
             display="default"
             onChange={handleDateChange}
