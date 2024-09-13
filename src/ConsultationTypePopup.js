@@ -7,7 +7,7 @@ const ConsultationTypePopup = ({navigation}) => {
 
   const handleNavigation = type => {
     setTypeConsultation(type);
-    navigation.navigate('MaladieSteps', {type_consultation: type});
+    navigation.navigate('BlessureSteps', {type_consultation: type});
   };
 
   return (

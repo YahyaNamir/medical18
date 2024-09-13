@@ -6,10 +6,10 @@ import BlessurePage1 from './src/screens/blessure/BlessurePage1';
 import BlessurePage2 from './src/screens/blessure/BlessurePage2';
 import BlessurePage3 from './src/screens/blessure/BlessurePage3';
 import BlessurePage4 from './src/screens/blessure/BlessurePage4';
-import MaladiePage1 from './src/screens/maladie/MaladiePage1';
-import MaladiePage2 from './src/screens/maladie/MaladiePage2';
-import MaladiePage3 from './src/screens/maladie/MaladiePage3';
-import MaladiePage4 from './src/screens/maladie/MaladiePage4';
+// import MaladiePage1 from './src/screens/maladie/MaladiePage1';
+// import MaladiePage2 from './src/screens/maladie/MaladiePage2';
+// import MaladiePage3 from './src/screens/maladie/MaladiePage3';
+// import MaladiePage4 from './src/screens/maladie/MaladiePage4';
 import CheckUpPage1 from './src/screens/checkUp/CheckUpPage1';
 import CheckUpPage2 from './src/screens/checkUp/CheckUpPage2';
 import CheckUpPage3 from './src/screens/checkUp/CheckUpPage3';
@@ -108,18 +108,6 @@ const App = () => {
         />
         <Stack.Screen
           options={{
-            headerShown: true,
-            headerTitle: 'Infos 1/4',
-            headerStyle: {backgroundColor: '#1545c9'},
-            headerTintColor: '#fff',
-            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
-            headerTitleAlign: 'center',
-          }}
-          name="MaladiePage1"
-          component={MaladiePage1}
-        />
-        <Stack.Screen
-          options={{
             headerTitle: 'Maladie',
             headerStyle: {backgroundColor: '#1545c9'},
             headerTintColor: '#fff',
@@ -152,6 +140,18 @@ const App = () => {
           }}
           name="CheckUpSteps"
           component={CheckUpSteps}
+        />
+        {/* <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitle: 'Infos 1/4',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="MaladiePage1"
+          component={MaladiePage1}
         />
         <Stack.Screen
           options={{
@@ -188,7 +188,7 @@ const App = () => {
           }}
           name="MaladiePage4"
           component={MaladiePage4}
-        />
+        /> */}
         <Stack.Screen
           options={{
             headerShown: true,

@@ -33,7 +33,7 @@ const BlessurePage1 = ({formData, updateFormData, navigation}) => {
         value: child.child_id,
       })),
     );
-  const typecons = type_consultation === 'blessure' ? 'Blessure' : 'Maladie';
+  const typeconsu = type_consultation === 'blessure' ? 'Blessure' : 'Maladie';
 
   const handleChange = text => {
     const value = Number(text);
@@ -97,7 +97,7 @@ const BlessurePage1 = ({formData, updateFormData, navigation}) => {
           </>
         )}
 
-        <Text style={styles.label}>Diagnostic {typecons}</Text>
+        <Text style={styles.label}>Diagnostic {typeconsu}</Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.type}
@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   label: {
+    color: 'black',
     fontSize: 16,
     marginVertical: 10,
     fontFamily: 'Poppins-Bold',

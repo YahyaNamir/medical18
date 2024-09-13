@@ -32,7 +32,7 @@ const BlessurePage5 = ({formData, updateFormData}) => {
         />
       </View>
 
-      <Button title="Choisir un fichier" onPress={pickDocument} />
+      <Button title="Choisir un fichier" onPress={() => {}} />
       {formData.selectedDocument && (
         <Text style={styles.fileInfo}>
           Fichier sélectionné: {formData.selectedDocument.name}
