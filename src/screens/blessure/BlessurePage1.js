@@ -47,7 +47,7 @@ const BlessurePage1 = ({formData, updateFormData, navigation}) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* <Text style={styles.label}>Date de la maladie</Text> */}
+        <Text style={styles.label}>Date de la maladie</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker(true)}>
