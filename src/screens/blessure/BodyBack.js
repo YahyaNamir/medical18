@@ -5,7 +5,7 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
   return (
     <Svg width={364} height="700">
       <Path
-        // fill="dodgerblue"
+        fill="dodgerblue"
         stroke="#600"
         class="st0"
         d="M206.4,88.6c1.5-9.2,4.6-32.2,5.1-40.8c0.6-10.5-14.1-26.9-29.9-26.9c-13.3,0-28.5,15.6-28.2,25.6
