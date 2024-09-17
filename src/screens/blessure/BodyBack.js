@@ -12,7 +12,7 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		c0.1,3.8,1,16.1,1.1,17.7c0.1,1.2,2.1,15.6,3.6,24.2C163.2,98.6,201.5,98.5,206.4,88.6z"
       />
       <Path
-        // fill="dodgerblue"
+        fill="dodgerblue"
         stroke="#600"
         class="st0"
         d="M229.3,123.6c-13.6-4.6-23.9-13.3-24.3-14.4c-0.5-1.1,0.1-14.9,0.7-16.8c0.1-0.3,0.4-1.7,0.7-3.9
