@@ -408,6 +408,7 @@ export default function MaladieSteps({navigation, route}) {
         <View style={styles.container}>
           <View style={styles.topLine} />
           <ProgressSteps
+            style={styles.progressStepsContainer}
             activeStepIconBorderColor="#007BFF"
             completedProgressBarColor="#034387"
             completedStepIconColor="#034387">
@@ -574,5 +575,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textTransform: 'uppercase',
     fontFamily: 'Poppins-Bold',
+  },
+  // kayna kayba abro me3e9ola lahoma yassir
+  // nassi7a akhouya hiya bda a 0 nite w bda mea el0, playlit html, mora css, moaraha js, shy l3ayba sayfet lia, w matzerbsh, rah houwa matan kola 10 vedio dayrfiha fhala exam tssayb shy challange hatto w kda rah koolshi f site dualo atwakal ela lh, ssfe unshaalah jay ghir lkhir
+  progressStepsContainer: {
+    marginVertical: 10,
+    width: '60%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
   },
 });

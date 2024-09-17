@@ -9,11 +9,15 @@ const BlessurePage5 = ({formData, updateFormData}) => {
         type: [DocumentPicker.types.allFiles],
       });
       console.log(res);
+
+      // Update formData with the selected document
+      updateFormData({selectedDocument: res});
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         console.log('User cancelled the picker');
       } else {
         console.error('DocumentPicker Error: ', err);
+        Alert.alert('Erreur', 'Une erreur est survenue lors de la sélection du fichier.');
       }
     }
   };
@@ -32,7 +36,7 @@ const BlessurePage5 = ({formData, updateFormData}) => {
         />
       </View>
 
-      <Button title="Choisir un fichier" onPress={() => {}} />
+      <Button title="Choisir un fichier" onPress={pickDocument} />
       {formData.selectedDocument && (
         <Text style={styles.fileInfo}>
           Fichier sélectionné: {formData.selectedDocument.name}

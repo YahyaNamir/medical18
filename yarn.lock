@@ -6720,7 +6720,6 @@ mdn-data@2.0.30:
     react-native "0.75.1"
     react-native-datepicker "^1.7.2"
     react-native-document-picker "^9.3.1"
-    react-native-file-selector "^1.0.2"
     react-native-gesture-handler "^2.18.1"
     react-native-linear-gradient "^2.8.3"
     react-native-multiple-select "^0.5.12"
@@ -7883,11 +7882,6 @@ react-native-document-picker@^9.3.1:
   integrity sha512-Vcofv9wfB0j67zawFjfq9WQPMMzXxOZL9kBmvWDpjVuEcVK73ndRmlXHlkeFl5ZHVsv4Zb6oZYhqm9u5omJOPA==
   dependencies:
     invariant "^2.2.4"
-
-react-native-file-selector@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/react-native-file-selector/-/react-native-file-selector-1.0.2.tgz"
-  integrity sha512-7DLZ+7tOx+Q9haSgjVe3CpM+sbhqFpIWHC7r5GtX9VadqKPDLYyU8aJJ2MpqKd7xkcsTPwi+biBtSw35LQMUnA==
 
 react-native-gesture-handler@^2.18.1, "react-native-gesture-handler@>= 1.0.0":
   version "2.18.1"

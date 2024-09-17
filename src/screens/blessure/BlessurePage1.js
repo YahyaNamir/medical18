@@ -1,30 +1,31 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  TextInput,
 } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import locations from '../../../API MALADIE/locations.json';
-import diagnostics from '../../../API MALADIE/diagnostics.json';
+import { useRoute } from '@react-navigation/native';
+import BodyFront from './BodyFront';
+import BodyBack from './BodyBack';
 import diagnosticsData from '../../../API MALADIE/diagnostic.json';
-import {TextInput} from 'react-native-gesture-handler';
-import {useRoute} from '@react-navigation/native';
 
-const BlessurePage1 = ({formData, updateFormData, navigation}) => {
+const BlessurePage1 = ({ formData, updateFormData }) => {
   const route = useRoute();
-  const {type_consultation} = route.params;
-
+  const { type_consultation } = route.params;
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showFront, setShowFront] = useState(true); 
 
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || formData.date;
     setShowDatePicker(false);
-    updateFormData({date: currentDate});
+    updateFormData({ date: currentDate });
   };
+
   const maladieDiagnostics = diagnosticsData
     .filter(item => item.type_consultation === 'maladie')
     .flatMap(item =>
@@ -33,17 +34,19 @@ const BlessurePage1 = ({formData, updateFormData, navigation}) => {
         value: child.child_id,
       })),
     );
+
   const typeconsu = type_consultation === 'blessure' ? 'Blessure' : 'Maladie';
 
   const handleChange = text => {
     const value = Number(text);
 
     if (!isNaN(value) && value >= 1 && value <= 5) {
-      updateFormData({gravity: value});
+      updateFormData({ gravity: value });
     } else if (text === '') {
-      updateFormData({gravity: null});
+      updateFormData({ gravity: null });
     }
   };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -66,12 +69,27 @@ const BlessurePage1 = ({formData, updateFormData, navigation}) => {
 
         {type_consultation === 'blessure' && (
           <>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={[styles.toggleButton, showFront && styles.activeButton]}
+                onPress={() => setShowFront(true)}>
+                <Text style={styles.buttonText}>Front</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.toggleButton, !showFront && styles.activeButton]}
+                onPress={() => setShowFront(false)}>
+                <Text style={styles.buttonText}>Back</Text>
+              </TouchableOpacity>
+            </View>
+
+            {showFront ? <BodyFront /> : <BodyBack />}
+
             <Text style={styles.label}>Location</Text>
             <View style={styles.inputContainer}>
               <Picker
                 selectedValue={formData.location}
                 onValueChange={itemValue =>
-                  updateFormData({location: itemValue})
+                  updateFormData({ location: itemValue })
                 }
                 style={styles.picker}>
                 <Picker.Item label="Select Diagnostic" value="" />
@@ -84,6 +102,7 @@ const BlessurePage1 = ({formData, updateFormData, navigation}) => {
                 ))}
               </Picker>
             </View>
+
             <Text style={styles.label}>Gravité</Text>
             <TextInput
               style={styles.inputContainer}
@@ -101,7 +120,7 @@ const BlessurePage1 = ({formData, updateFormData, navigation}) => {
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.type}
-            onValueChange={itemValue => updateFormData({type: itemValue})}
+            onValueChange={itemValue => updateFormData({ type: itemValue })}
             style={styles.picker}>
             {maladieDiagnostics.map(item => (
               <Picker.Item
@@ -118,7 +137,7 @@ const BlessurePage1 = ({formData, updateFormData, navigation}) => {
           <Picker
             selectedValue={formData.date_retour_prevue}
             onValueChange={itemValue =>
-              updateFormData({date_retour_prevue: itemValue})
+              updateFormData({ date_retour_prevue: itemValue })
             }
             style={styles.picker}>
             {[...Array(30).keys()].map(i => (
@@ -132,7 +151,7 @@ const BlessurePage1 = ({formData, updateFormData, navigation}) => {
           <Picker
             selectedValue={formData.durre_injury}
             onValueChange={itemValue =>
-              updateFormData({durre_injury: itemValue})
+              updateFormData({ durre_injury: itemValue })
             }
             style={styles.picker}>
             <Picker.Item label="Jour" value="1" />
@@ -147,7 +166,7 @@ const BlessurePage1 = ({formData, updateFormData, navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    height: '100%',
     backgroundColor: '#fff',
   },
   scrollContainer: {
@@ -176,7 +195,7 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
@@ -189,7 +208,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     overflow: 'hidden',
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
@@ -200,6 +219,26 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#fff',
     fontFamily: 'Poppins-Regular',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginVertical: 20,
+  },
+  toggleButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    backgroundColor: '#0051ff9d',
+  },
+  activeButton: {
+    backgroundColor: '#0051ff',
+    color: 'black'
+  },
+  buttonText: {
+    fontSize: 16,
+    color: '#ffffff',
+    fontFamily: 'Poppins-Bold',
   },
 });
 
