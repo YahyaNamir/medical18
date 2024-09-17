@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,23 +7,23 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import {Picker} from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useRoute } from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import BodyFront from './BodyFront';
 import BodyBack from './BodyBack';
 import diagnosticsData from '../../../API MALADIE/diagnostic.json';
 
-const BlessurePage1 = ({ formData, updateFormData }) => {
+const BlessurePage1 = ({formData, updateFormData}) => {
   const route = useRoute();
-  const { type_consultation } = route.params;
+  const {type_consultation} = route.params;
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [showFront, setShowFront] = useState(true); 
+  const [showFront, setShowFront] = useState(true);
 
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || formData.date;
     setShowDatePicker(false);
-    updateFormData({ date: currentDate });
+    updateFormData({date: currentDate});
   };
 
   const maladieDiagnostics = diagnosticsData
@@ -41,9 +41,9 @@ const BlessurePage1 = ({ formData, updateFormData }) => {
     const value = Number(text);
 
     if (!isNaN(value) && value >= 1 && value <= 5) {
-      updateFormData({ gravity: value });
+      updateFormData({gravity: value});
     } else if (text === '') {
-      updateFormData({ gravity: null });
+      updateFormData({gravity: null});
     }
   };
 
@@ -89,7 +89,7 @@ const BlessurePage1 = ({ formData, updateFormData }) => {
               <Picker
                 selectedValue={formData.location}
                 onValueChange={itemValue =>
-                  updateFormData({ location: itemValue })
+                  updateFormData({location: itemValue})
                 }
                 style={styles.picker}>
                 <Picker.Item label="Select Diagnostic" value="" />
@@ -120,7 +120,7 @@ const BlessurePage1 = ({ formData, updateFormData }) => {
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.type}
-            onValueChange={itemValue => updateFormData({ type: itemValue })}
+            onValueChange={itemValue => updateFormData({type: itemValue})}
             style={styles.picker}>
             {maladieDiagnostics.map(item => (
               <Picker.Item
@@ -137,7 +137,7 @@ const BlessurePage1 = ({ formData, updateFormData }) => {
           <Picker
             selectedValue={formData.date_retour_prevue}
             onValueChange={itemValue =>
-              updateFormData({ date_retour_prevue: itemValue })
+              updateFormData({date_retour_prevue: itemValue})
             }
             style={styles.picker}>
             {[...Array(30).keys()].map(i => (
@@ -151,7 +151,7 @@ const BlessurePage1 = ({ formData, updateFormData }) => {
           <Picker
             selectedValue={formData.durre_injury}
             onValueChange={itemValue =>
-              updateFormData({ durre_injury: itemValue })
+              updateFormData({durre_injury: itemValue})
             }
             style={styles.picker}>
             <Picker.Item label="Jour" value="1" />
@@ -167,6 +167,8 @@ const BlessurePage1 = ({ formData, updateFormData }) => {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
+    width: '100%',
+    // flex: 1,
     backgroundColor: '#fff',
   },
   scrollContainer: {
@@ -195,7 +197,7 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
@@ -208,7 +210,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     overflow: 'hidden',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
@@ -233,7 +235,7 @@ const styles = StyleSheet.create({
   },
   activeButton: {
     backgroundColor: '#0051ff',
-    color: 'black'
+    color: 'black',
   },
   buttonText: {
     fontSize: 16,
