@@ -114,7 +114,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
                 value={formData.gravity || 1}
                 onValueChange={value => updateFormData({gravity: value})}
                 minimumTrackTintColor="#0051ff"
-                maximumTrackTintColor="#5a5858"
+                // maximumTrackTintColor="#5a5858"
                 thumbTintColor="#0051ff"
               />
               <Text style={styles.sliderValue}>{formData.gravity}</Text>
