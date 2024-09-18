@@ -10,14 +10,13 @@ const BlessurePage5 = ({formData, updateFormData}) => {
       });
       console.log(res);
 
-      // Update formData with the selected document
       updateFormData({selectedDocument: res});
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
-        console.log('User cancelled the picker');
+        console.log('Is cancell');
       } else {
         console.error('DocumentPicker Error: ', err);
-        Alert.alert('Erreur', 'Une erreur est survenue lors de la sélection du fichier.');
+        Alert.alert('Erreur');
       }
     }
   };

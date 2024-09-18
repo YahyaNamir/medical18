@@ -13,6 +13,7 @@ import {useRoute} from '@react-navigation/native';
 import BodyFront from './BodyFront';
 import BodyBack from './BodyBack';
 import diagnosticsData from '../../../API MALADIE/diagnostic.json';
+import Slider from '@react-native-community/slider';
 
 const BlessurePage1 = ({formData, updateFormData}) => {
   const route = useRoute();
@@ -81,7 +82,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
                 <Text style={styles.buttonText}>Back</Text>
               </TouchableOpacity>
             </View>
-            
+
             {showFront ? <BodyFront /> : <BodyBack />}
 
             <Text style={styles.label}>Location</Text>
@@ -104,15 +105,20 @@ const BlessurePage1 = ({formData, updateFormData}) => {
             </View>
 
             <Text style={styles.label}>Gravité</Text>
-            <TextInput
-              style={styles.inputContainer}
-              keyboardType="numeric"
-              value={
-                formData.gravity !== null ? formData.gravity.toString() : ''
-              }
-              onChangeText={text => handleChange(text)}
-              placeholder="Choisir gravité (1-5) ..."
-            />
+            <View style={styles.sliderContainer}>
+              <Slider
+                style={{width: '100%', height: 40, marginTop: 10}}
+                minimumValue={0}
+                maximumValue={5}
+                step={1}
+                value={formData.gravity || 1}
+                onValueChange={value => updateFormData({gravity: value})}
+                minimumTrackTintColor="#0051ff"
+                maximumTrackTintColor="#5a5858"
+                thumbTintColor="#0051ff"
+              />
+              <Text style={styles.sliderValue}>{formData.gravity}</Text>
+            </View>
           </>
         )}
 
@@ -240,6 +246,19 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     color: '#ffffff',
+    fontFamily: 'Poppins-Bold',
+  },
+  sliderContainer: {
+    marginVertical: 10,
+    paddingHorizontal: 10,
+    height: 60,
+    justifyContent: 'center',
+  },
+  sliderValue: {
+    marginLeft: 12,
+    marginTop: 10,
+    fontSize: 16,
+    color: 'black',
     fontFamily: 'Poppins-Bold',
   },
 });

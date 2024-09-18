@@ -83,133 +83,188 @@ export default function MaladieSteps({navigation, route}) {
   };
 
   const handleFinish = () => {
-    if (1) {
-      const form = new FormData();
+    const {pageInfo, pagePresc, pageBilan, pageAdditio, pageContexte} =
+      formData;
 
-      form.append('date', formData.pageInfo.date.toUTCString() || null);
-      form.append('type', formData.pageInfo.type || null);
-      form.append(
-        'date_retour_prevue',
-        formData.pageInfo.date_retour_prevue || null,
-      );
-      form.append('durre_injury', formData.pageInfo.durre_injury || null);
-      form.append('location', formData.pageInfo.location || null);
-      form.append('gravity', formData.pageInfo.gravity || null);
+    const isMaladie = type_consultation === 'maladie';
+    const isBlessure = type_consultation === 'blessure';
 
-      form.append(
-        'traitement_date',
-        formData.pagePresc.traitement_date.toUTCString() || null,
-      );
-      form.append(
-        'pack_ids',
-        formData.pagePresc.selectedPack_ids.join(',') || null,
-      );
-      form.append(
-        'medicament_ids',
-        formData.pagePresc.selectedMedicament_ids.join(',') || null,
-      );
-      form.append('ordon_comment', formData.pagePresc.ordon_comment || null);
-
-      form.append(
-        'bilans',
-        formData.pageBilan.selectedBilans.join(',') || null,
-      );
-      form.append('refs', formData.pageBilan.selectedRefs.join(',') || null);
-      form.append(
-        'reference_comment',
-        formData.pageBilan.reference_comment || null,
-      );
-      form.append('bilan_comment', formData.pageBilan.bilan_comment || null);
-
-      form.append('rapport', formData.pageAdditio.rapport || null);
-      form.append(
-        'selectedDocument',
-        formData.pageAdditio.selectedDocument || null,
-      );
-
-      form.append(
-        'reathletisation_individuelle',
-        formData.pageContexte.reathletisation_individuelle.toUTCString() ||
-          null,
-      );
-      form.append(
-        'reprise_groupe',
-        formData.pageContexte.reprise_groupe.toUTCString() || null,
-      );
-      form.append(
-        'reprise_competition',
-        formData.pageContexte.reprise_competition.toUTCString() || null,
-      );
-      form.append('terrain', formData.pageContexte.terrain || null);
-      form.append('conditions', formData.pageContexte.conditions || null);
-      form.append('circonstances', formData.pageContexte.circonstances || null);
-
-      form.append(
-        'traitement_intervenant',
-        formData.leTraitement.traitement_intervenant || null,
-      );
-      form.append(
-        'traitement_nom',
-        formData.leTraitement.traitement_nom || null,
-      );
-      form.append('traitement', formData.leTraitement.traitement || null);
-      form.append(
-        'traitement_note',
-        formData.leTraitement.traitement_note || null,
-      );
-
-      form.append('type_consultation', type_consultation || null);
-      //! ____________________
-
-      if (formData.pageAdditio.selectedDocument) {
-        form.append('pageAdditio_selectedDocument', {
-          uri: formData.pageAdditio.selectedDocument.uri,
-          type: 'application/pdf',
-          name: 'document.pdf',
-        });
+    if (type_consultation === 'blessure') {
+      if (
+        !pageInfo.date ||
+        !pageInfo.type ||
+        !pageInfo.location ||
+        !pageInfo.gravity ||
+        !pageInfo.date_retour_prevue ||
+        !pageInfo.durre_injury ||
+        //! __
+        !pagePresc.traitement_date ||
+        !pagePresc.ordon_comment ||
+        !pagePresc.selectedPack_ids.length ||
+        !pagePresc.selectedMedicament_ids.length ||
+        //! __
+        !pageBilan.selectedBilans.length ||
+        !pageBilan.selectedRefs.length ||
+        !pageBilan.bilan_comment ||
+        !pageBilan.reference_comment ||
+        //! __
+        !pageContexte.circonstances ||
+        !pageContexte.conditions ||
+        !pageContexte.terrain ||
+        !pageContexte.reathletisation_individuelle ||
+        !pageContexte.reprise_groupe ||
+        !pageContexte.reprise_competition ||
+        //! __
+        !pageAdditio.rapport
+      ) {
+        Alert.alert('Enter tous les champs du blessure!');
+        return;
       }
-
-      // fetch('http://192.168.1.26:3000/api/save-data', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'multipart/form-data',
-      //   },
-      //   body: form,
-      // })
-      //   .then(response => response.json())
-      //   .then(data => {
-      //     console.log('Success:', data);
-      //     Alert.alert('Submitted successfully!');
-      //     setTimeout(() => {
-      //       navigation.navigate('ConsultationTypePopup');
-      //     }, 1000);
-      //   })
-      //   .catch(error => {
-      //     console.error('Error:', error);
-      //     Alert.alert('Failed!');
-      //   });
-
-      fetch('http://192.168.1.26:3000/api/save-data', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        body: form,
-      })
-        .then(response => response.text())
-        .then(data => {
-          console.log('Success:', data);
-          Alert.alert('Submitted successfully!');
-          navigation.navigate('ConsultationTypePopup');
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          Alert.alert('Failed!');
-        });
+    } else if (type_consultation === 'maladie') {
+      if (
+        !pageInfo.date ||
+        !pageInfo.type ||
+        !pageInfo.date_retour_prevue ||
+        !pageInfo.durre_injury ||
+        //! __
+        !pagePresc.traitement_date ||
+        !pagePresc.ordon_comment ||
+        !pagePresc.selectedPack_ids.length ||
+        !pagePresc.selectedMedicament_ids.length ||
+        //! __
+        !pageBilan.selectedBilans.length ||
+        !pageBilan.selectedRefs.length ||
+        !pageBilan.bilan_comment ||
+        !pageBilan.reference_comment ||
+        //! __
+        //! __
+        !pageAdditio.rapport
+      ) {
+        Alert.alert('Enter tous les champs du maladie!');
+        return;
+      }
     } else {
-      Alert.alert('Please fill all the required fields!');
+      Alert.alert('Unknown.');
+      return;
     }
+
+    const form = new FormData();
+
+    form.append('date', formData.pageInfo.date.toUTCString() || null);
+    form.append('type', formData.pageInfo.type || null);
+    form.append(
+      'date_retour_prevue',
+      formData.pageInfo.date_retour_prevue || null,
+    );
+    form.append('durre_injury', formData.pageInfo.durre_injury || null);
+    form.append('location', formData.pageInfo.location || null);
+    form.append('gravity', formData.pageInfo.gravity || null);
+
+    form.append(
+      'traitement_date',
+      formData.pagePresc.traitement_date.toUTCString() || null,
+    );
+    form.append(
+      'pack_ids',
+      formData.pagePresc.selectedPack_ids.join(',') || null,
+    );
+    form.append(
+      'medicament_ids',
+      formData.pagePresc.selectedMedicament_ids.join(',') || null,
+    );
+    form.append('ordon_comment', formData.pagePresc.ordon_comment || null);
+
+    form.append('bilans', formData.pageBilan.selectedBilans.join(',') || null);
+    form.append('refs', formData.pageBilan.selectedRefs.join(',') || null);
+    form.append(
+      'reference_comment',
+      formData.pageBilan.reference_comment || null,
+    );
+    form.append('bilan_comment', formData.pageBilan.bilan_comment || null);
+
+    form.append('rapport', formData.pageAdditio.rapport || null);
+    form.append(
+      'selectedDocument',
+      formData.pageAdditio.selectedDocument || null,
+    );
+
+    form.append(
+      'reathletisation_individuelle',
+      formData.pageContexte.reathletisation_individuelle.toUTCString() || null,
+    );
+    form.append(
+      'reprise_groupe',
+      formData.pageContexte.reprise_groupe.toUTCString() || null,
+    );
+    form.append(
+      'reprise_competition',
+      formData.pageContexte.reprise_competition.toUTCString() || null,
+    );
+    form.append('terrain', formData.pageContexte.terrain || null);
+    form.append('conditions', formData.pageContexte.conditions || null);
+    form.append('circonstances', formData.pageContexte.circonstances || null);
+
+    form.append(
+      'traitement_intervenant',
+      formData.leTraitement.traitement_intervenant || null,
+    );
+    form.append('traitement_nom', formData.leTraitement.traitement_nom || null);
+    form.append('traitement', formData.leTraitement.traitement || null);
+    form.append(
+      'traitement_note',
+      formData.leTraitement.traitement_note || null,
+    );
+
+    form.append('type_consultation', type_consultation || null);
+    //! ____________________
+
+    if (formData.pageAdditio.selectedDocument) {
+      form.append('pageAdditio_selectedDocument', {
+        uri: formData.pageAdditio.selectedDocument.uri,
+        type: 'application/pdf',
+        name: 'document.pdf',
+      });
+    }
+
+    // fetch('http://192.168.1.26:3000/api/save-data', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //   },
+    //   body: form,
+    // })
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     console.log('Success:', data);
+    //     Alert.alert('Submitted successfully!');
+    //     setTimeout(() => {
+    //       navigation.navigate('ConsultationTypePopup');
+    //     }, 1000);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error:', error);
+    //     Alert.alert('Failed!');
+    //   });
+
+    fetch('http://192.168.1.26:3000/api/save-data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      body: form,
+    })
+      .then(response => response.text())
+      .then(data => {
+        console.log('Success:', data);
+        Alert.alert('Submitted successfully!');
+        navigation.navigate('ConsultationTypePopup');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        Alert.alert('Failed!');
+      });
   };
+
   //? old #########################
   //   return (
   // <View style={styles.container}>
