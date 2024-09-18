@@ -81,7 +81,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
                 <Text style={styles.buttonText}>Back</Text>
               </TouchableOpacity>
             </View>
-
+            
             {showFront ? <BodyFront /> : <BodyBack />}
 
             <Text style={styles.label}>Location</Text>

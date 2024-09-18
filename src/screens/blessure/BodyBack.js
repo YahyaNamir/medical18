@@ -1,18 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Svg, {Path} from 'react-native-svg';
 
-const BodyBack = ({selectedLocation, locationClicked}) => {
+const BodyBack = () => {
+  const [selectedParts, setSelectedParts] = useState([]);
+
+  const handlePress = partId => {
+    setSelectedParts(prevSelectedParts =>
+      prevSelectedParts.includes(partId)
+        ? prevSelectedParts.filter(id => id !== partId)
+        : [...prevSelectedParts, partId],
+    );
+  };
+
+  const getFillColor = partId =>
+    selectedParts.includes(partId) ? '#004a94' : 'dodgerblue';
+
   return (
     <Svg width={364} height="700">
       <Path
-        fill="dodgerblue"
+        id="1"
+        fill={getFillColor('1')}
+        onPress={() => handlePress('1')}
         stroke="#600"
         class="st0"
         d="M206.4,88.6c1.5-9.2,4.6-32.2,5.1-40.8c0.6-10.5-14.1-26.9-29.9-26.9c-13.3,0-28.5,15.6-28.2,25.6
 		c0.1,3.8,1,16.1,1.1,17.7c0.1,1.2,2.1,15.6,3.6,24.2C163.2,98.6,201.5,98.5,206.4,88.6z"
       />
       <Path
-        fill="dodgerblue"
+        id="2"
+        fill={getFillColor('2')}
+        onPress={() => handlePress('2')}
         stroke="#600"
         class="st0"
         d="M229.3,123.6c-13.6-4.6-23.9-13.3-24.3-14.4c-0.5-1.1,0.1-14.9,0.7-16.8c0.1-0.3,0.4-1.7,0.7-3.9
@@ -20,7 +37,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		C146.5,120.4,220.6,121.7,229.3,123.6z"
       />
       <Path
-        fill="dodgerblue"
+        id="3"
+        fill={getFillColor('3')}
+        onPress={() => handlePress('3')}
         stroke="#600"
         class="st0"
         d="M136,123.3c-19.2,10.5-21.7,33.5-22.2,36.3c-0.5,2.8,0.2,12.8,1.1,17.9c0.9,5.1,4,14.4,2.3,32.3
@@ -29,7 +48,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
       />
 
       <Path
-        fill="dodgerblue"
+        id="4"
+        fill={getFillColor('4')}
+        onPress={() => handlePress('4')}
         stroke="#600"
         class="st0"
         d="M251.4,160.7c-0.1-0.3-0.1-0.7-0.2-1c-1.5-5.5-3.7-25.3-21.8-36.2c-4.5-0.9-26.3-1.7-47.9-1.9v123.1
@@ -37,7 +58,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		c1.1-1.7,3.8-8.8,4.2-10.3c0.4-1.5,1.1-4.6,1.6-4.6c-0.7-7.4-0.2-16.7,1.3-25.3C250.8,176.3,252.4,166.4,251.4,160.7z"
       />
       <Path
-        fill="dodgerblue"
+        id="5"
+        fill={getFillColor('5')}
+        onPress={() => handlePress('5')}
         stroke="#600"
         class="st0"
         d="M184.1,244.6c-4.8,0-9.7,1-14.4,0.9c-20.6-0.4-38.6-2.9-40.8-5.6c1.9,3.7,3.2,9.2,4.1,18.4
@@ -45,7 +68,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		C184.4,244.6,184.2,244.6,184.1,244.6z"
       />
       <Path
-        fill="dodgerblue"
+        id="6"
+        fill={getFillColor('6')}
+        onPress={() => handlePress('6')}
         stroke="#600"
         class="st0"
         d="M198.5,245.3c-4.6,0.1-9.2-0.7-14-0.7l0,50.3c0,0,0,0,0,0c9.2,0,12.7-4.9,25.1-4.9c12.3-0.1,21.3,3.5,23.6,8.1
@@ -53,21 +78,27 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		c0.3-2.4,1.5-7.1,2.1-8.2c0.2-0.3,0.6-1.1,1-2.2c-0.2,0.1-0.5,0.3-0.8,0.4C231,242.6,216,244.8,198.5,245.3z"
       />
       <Path
-        fill="dodgerblue"
+        id="7"
+        fill={getFillColor('7')}
+        onPress={() => handlePress('7')}
         stroke="#600"
         class="st0"
         d="M113.8,159.6c0.5-2.8,3-25.8,22.2-36.3c-4,1.5-7.3,2.6-9,3c-4,1.1-20.4,4.6-26,9.5c-8.4,7.3-12.7,17-13.4,30.5
 		c-0.4,6.5,0,12.6,0,16.8C92.3,171.4,104.1,170.5,113.8,159.6z"
       />
       <Path
-        fill="dodgerblue"
+        id="8"
+        fill={getFillColor('8')}
+        onPress={() => handlePress('8')}
         stroke="#600"
         class="st0"
         d="M251.2,159.8c0.1,0.3,0.1,0.6,0.2,1c7.8,8.3,19,15.1,26,21.4c0-0.1-0.1-0.1-0.1-0.2c0.1-9.9,2.3-24.7-6-38.2
 		s-28.3-15.5-41.9-20.1C247.4,134.5,249.7,154.3,251.2,159.8z"
       />
       <Path
-        fill="dodgerblue"
+        id="9"
+        fill={getFillColor('9')}
+        onPress={() => handlePress('9')}
         stroke="#600"
         class="st0"
         d="M114.9,177.5c-0.9-5.1-1.6-15.1-1.1-17.9c-9.7,10.9-21.5,11.8-26.3,23.6c-3.3,5.2-8.9,16.4-9.7,21.4
@@ -75,7 +106,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		s1-2.4,1.6-2.4C118.9,191.9,115.7,182.6,114.9,177.5z"
       />
       <Path
-        fill="dodgerblue"
+        id="10"
+        fill={getFillColor('10')}
+        onPress={() => handlePress('10')}
         stroke="#600"
         class="st0"
         d="M278.2,240.8c7-2.6,14.2-5.4,13.5-19.6c-1-3.7-2.4-6.3-3.9-14c-1.8-8.9-6.8-19.5-10.3-25.1
@@ -83,7 +116,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		C264.6,241.4,270.7,243.5,278.2,240.8z"
       />
       <Path
-        fill="dodgerblue"
+        id="11"
+        fill={getFillColor('11')}
+        onPress={() => handlePress('11')}
         stroke="#600"
         class="st0"
         d="M87,240.8c-7.5-2.8-14.7-5.8-12.7-22.6c-1.3,3.8-0.9,7.4-3.2,11.4c-2.3,4-0.4,3.2-4.7,9.7
@@ -92,7 +127,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		C101.2,241.1,95,243.7,87,240.8z"
       />
       <Path
-        fill="dodgerblue"
+        id="12"
+        fill={getFillColor('12')}
+        onPress={() => handlePress('12')}
         stroke="#600"
         class="st0"
         d="M282.4,258.1c19.1-5,22.7,0.9,24.5,4.3c-0.1-0.7-0.2-1.3-0.3-1.9c-1.3-8.6-8.6-22.9-9.5-24.2s-4-8-5-13
@@ -100,7 +137,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		s1.4,6.9,2,9.5c0.6,2.4,0.1,7.7,3.7,19C268.9,263,278,259.3,282.4,258.1z"
       />
       <Path
-        fill="dodgerblue"
+        id="13"
+        fill={getFillColor('13')}
+        onPress={() => handlePress('13')}
         stroke="#600"
         class="st0"
         d="M82.7,258.1c-21.3-5.7-22.9,2.5-24.6,5.4c-1.5,6.4-2.7,12.6-3.3,17.1c-1.1,8.5-4.1,20.7-5.7,27.3
@@ -108,7 +147,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		C98.2,263.5,87.9,259.5,82.7,258.1z"
       />
       <Path
-        fill="dodgerblue"
+        id="14"
+        fill={getFillColor('14')}
+        onPress={() => handlePress('14')}
         stroke="#600"
         class="st0"
         d="M307.4,314.9c4.3-1.8,7.3-3.3,8.3-5.2c-1-2.8-2-6.2-2.6-9.9c-1.5-7.7-4.7-27.8-6.2-37.5
@@ -116,21 +157,27 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		c1.4,2.3,2.7,4.3,3.7,6.2C297.2,316.9,303.1,316.7,307.4,314.9z"
       />
       <Path
-        fill="dodgerblue"
+        id="15"
+        fill={getFillColor('15')}
+        onPress={() => handlePress('15')}
         stroke="#600"
         class="st0"
         d="M57.7,314.9c-5.5-2.3-9-4.1-8.6-7c-0.6,2.4-1,4-1.1,4.4c-0.3,1.7-2,5-3,8.9c-0.2,0.8-1.4,1.7-2.7,2.2
 		c1.8-0.4,21.7,8.9,22,10c-0.5-1.9-0.6-3.9,3.4-13.1c0.7-1.7,1.6-3.4,2.7-5.2C69.2,316.9,63.1,317.2,57.7,314.9z"
       />
       <Path
-        fill="dodgerblue"
+        id="16"
+        fill={getFillColor('16')}
+        onPress={() => handlePress('16')}
         stroke="#600"
         class="st0"
         d="M320.9,323.1c-1.7-0.2-1.9-4-2.6-6c-0.3-1.1-1.5-3.8-2.7-7.4c-0.9,1.9-4,3.4-8.3,5.2c-4.3,1.8-10.3,2-13.2,1
 		c4.4,7.9,5.6,12.4,6,14.2c0.3,1,0.3,1.7,0.2,2.4c4-2.3,16.7-7.9,21.2-9.3C321.4,323.2,321.2,323.1,320.9,323.1z"
       />
       <Path
-        fill="dodgerblue"
+        id="17"
+        fill={getFillColor('17')}
+        onPress={() => handlePress('17')}
         stroke="#600"
         class="st0"
         d="M42.4,323.4c-1.5,0.5-6.9,3.4-8.7,4.1s-2.8,3.2-4.9,4.4s-4.1,2.9-4.4,4.3s-2.7,2.1-2.7,3.6s1,2.6,3.3,2.9
@@ -142,7 +189,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		c0.3-1.4,1.3-4.2,1.5-5.8c0.2-1.6,2-7.9,3-9.9s1.4-4.5,3.2-13.3c1.9-8.8,0.7-10.9,0.2-12.8C64.1,332.4,44.2,323.1,42.4,323.4z"
       />
       <Path
-        fill="dodgerblue"
+        id="18"
+        fill={getFillColor('18')}
+        onPress={() => handlePress('18')}
         stroke="#600"
         class="st0"
         d="M339.4,335.4c-0.7-1.9-3.9-3.7-5-4.2s-3.9-3.9-6.2-4.9c-2-0.8-4.8-2.4-6.6-3c-4.5,1.4-17.2,7-21.2,9.3
@@ -155,7 +204,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		C342.4,338.4,340.4,338,339.4,335.4z"
       />
       <Path
-        fill="dodgerblue"
+        id="19"
+        fill={getFillColor('19')}
+        onPress={() => handlePress('19')}
         stroke="#600"
         class="st0"
         d="M143.8,600.5c-6.4-0.3-14.2-2.1-15.4-7.8c0.1,10.3,2,25.1,2.1,28.3s-0.6,13-0.5,13.9s0.1,1.8-0.4,1.8
@@ -163,7 +214,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		c0.2-1.9-2.2-9-2.8-12.4s1.1-9.3,2-15.3c0.4-2.6,1-6.8,1.6-11.3C155.2,599.4,150.2,600.8,143.8,600.5z"
       />
       <Path
-        fill="dodgerblue"
+        id="20"
+        fill={getFillColor('20')}
+        onPress={() => handlePress('20')}
         stroke="#600"
         class="st0"
         d="M221.3,600.5c-4.7,0.2-9.7-1.8-12.4-5.6c0.9,6.7,2.1,13.7,2.8,16.7c1.5,6.1,0.5,8.7-0.9,13s-1.1,7-0.6,10.7
@@ -172,21 +225,27 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		C234,598.8,227.1,600.3,221.3,600.5z"
       />
       <Path
-        fill="dodgerblue"
+        id="21"
+        fill={getFillColor('21')}
+        onPress={() => handlePress('21')}
         stroke="#600"
         class="st0"
         d="M132,660.5c1.1,1.1,6.2,4.5,11.3,5.7s9.3-0.7,11.2-3.5c0.8-1.3,1.1-3.3,1-5.8
 		C155.3,650.7,137.1,653.9,132,660.5z"
       />
       <Path
-        fill="dodgerblue"
+        id="22"
+        fill={getFillColor('22')}
+        onPress={() => handlePress('22')}
         stroke="#600"
         class="st0"
         d="M209.1,656c-0.2,2.3,0,4.6,1.2,6c3.2,3.8,6.5,5,13,3.5c4.6-1.1,7.7-3.5,9.4-5.1
 		C227.5,654.7,211.7,651.8,209.1,656z"
       />
       <Path
-        fill="dodgerblue"
+        id="23"
+        fill={getFillColor('23')}
+        onPress={() => handlePress('23')}
         stroke="#600"
         class="st0"
         d="M131.3,653.6c0.3-4.5,1.2-9.7-1.8-16.7c-0.5,0-1.4,0.7-1.5,1.3s-1.2,0.3-1.9,0.1c-0.8-0.2-3.2,2.2-3.3,2.5
@@ -194,7 +253,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		C131.4,658.2,131.1,656,131.3,653.6z"
       />
       <Path
-        fill="dodgerblue"
+        id="24"
+        fill={getFillColor('24')}
+        onPress={() => handlePress('24')}
         stroke="#600"
         class="st0"
         d="M233.8,653.6c0.2,2.1,0,4.2-0.4,6.2c0.4-0.4,0.7-0.7,0.9-0.8c1.1-0.9,7.8-2.8,10.5-3.7s3.6-3.5,3.7-4.9
@@ -202,28 +263,36 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		c-1,0.2-0.8-0.3-1.7-0.9C232.8,643.3,233.3,647.2,233.8,653.6z"
       />
       <Path
-        fill="dodgerblue"
+        id="25"
+        fill={getFillColor('25')}
+        onPress={() => handlePress('25')}
         stroke="#600"
         class="st0"
         d="M117.5,382.8c-0.4,2.8-1,6.4-1.6,11.6c-1.5,11-1.2,24.7-0.2,34.9c5.7,5.4,27.8,23.5,56.2,12.8
 		c1-6.2,4-25.9,4.9-35.6C135.8,421.2,118.2,384.2,117.5,382.8z"
       />
       <Path
-        fill="dodgerblue"
+        id="26"
+        fill={getFillColor('26')}
+        onPress={() => handlePress('26')}
         stroke="#600"
         class="st0"
         d="M177.1,383.9c-0.4-3-0.8-7.9-0.5-10.5c-2.3,2.3-4.7,4-7.1,5.3c-1.3,6.2-4.2,25.1,7.4,27
 		c0.1-0.7,0.1-1.3,0.1-1.8C177.5,395.5,177.5,386.9,177.1,383.9z"
       />
       <Path
-        fill="dodgerblue"
+        id="27"
+        fill={getFillColor('27')}
+        onPress={() => handlePress('27')}
         stroke="#600"
         class="st0"
         d="M169.5,378.7c-14.6,7.8-29.2-2.3-37.9-15.3c-3.9-5.9-7.5-8.8-7.5-18.1c-0.7,4.1-4,20.9-4.7,26.3
 		c-0.5,3.6-1,5.6-1.9,11.2c0.6,1.4,18.3,38.3,59.3,23.6c0-0.2,0-0.5,0.1-0.7C165.3,403.8,168.2,384.9,169.5,378.7z"
       />
       <Path
-        fill="dodgerblue"
+        id="28"
+        fill={getFillColor('28')}
+        onPress={() => handlePress('28')}
         stroke="#600"
         class="st0"
         d="M247.4,383.5c-0.1-0.6-0.2-1.1-0.2-1.4c-0.6-3.7-1.9-14.4-2.5-17.4s-2.1-10.5-2.4-12.5
@@ -231,21 +300,27 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		C220.3,423.9,242.9,390.8,247.4,383.5z"
       />
       <Path
-        fill="dodgerblue"
+        id="29"
+        fill={getFillColor('29')}
+        onPress={() => handlePress('29')}
         stroke="#600"
         class="st0"
         d="M195.6,379.2c-2.5-1.5-5-3.5-7.5-6.2c0.4,2.8,0,4.9-0.6,14c-0.3,3.8,0,10.7,0.5,17.9
 		C199.1,404,196.6,385,195.6,379.2z"
       />
       <Path
-        fill="dodgerblue"
+        id="30"
+        fill={getFillColor('30')}
+        onPress={() => handlePress('30')}
         stroke="#600"
         class="st0"
         d="M247.4,383.5c-4.5,6.9-27.1,38.4-59.3,22.1c0.7,8.9,1.7,18,2.6,21.3c0.8,3,1.8,10.5,2.6,15.1
 		c29.5,10.2,46.1-12.2,56.3-23.3c0.2-2.3,0.3-6.4,0.4-8.1C250.5,404.4,248.3,388.9,247.4,383.5z"
       />
       <Path
-        fill="dodgerblue"
+        id="31"
+        fill={getFillColor('31')}
+        onPress={() => handlePress('31')}
         stroke="#600"
         class="st0"
         d="M126.6,496.6c0,4.7-0.3,9.4-0.7,13.5v1.1c-0.3,3.3-0.6,6.1-0.9,8.2c-0.9,6.1-2.5,22.1-1.2,28.8
@@ -254,7 +329,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		c-4.3,3.8-11.2,6.3-19.1,6.3C137.4,502,130.9,499.9,126.6,496.6z"
       />
       <Path
-        fill="dodgerblue"
+        id="32"
+        fill={getFillColor('32')}
+        onPress={() => handlePress('32')}
         stroke="#600"
         class="st0"
         d="M115.7,429.3c0.4,4.3,0.5,7.8,1,10.3c1.9,8.4,6.1,17,7.3,23.3l0.2,1.2c0.7,3.7,1.2,8.5,1.5,13.9
@@ -262,7 +339,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		C142.8,452.6,121.5,434.6,115.7,429.3z"
       />
       <Path
-        fill="dodgerblue"
+        id="33"
+        fill={getFillColor('33')}
+        onPress={() => handlePress('33')}
         stroke="#600"
         class="st0"
         d="M144.6,472c-7.7,0-14.5,2.4-18.8,6c0.2,3.7,0.4,7.6,0.6,11.7c0.1,2.2,0.1,4.5,0.1,6.9
@@ -270,7 +349,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		C161.8,475.4,153.8,472,144.6,472z"
       />
       <Path
-        fill="dodgerblue"
+        id="34"
+        fill={getFillColor('34')}
+        onPress={() => handlePress('34')}
         stroke="#600"
         class="st0"
         d="M220.8,502c-7.9,0-14.8-2.5-19.1-6.3c0.2,1.3,0.5,2.4,0.8,3.1c1.2,2.4,2.1,5,1.5,7.7l0.1,1
@@ -279,7 +360,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		C234.5,499.9,228,502,220.8,502z"
       />
       <Path
-        fill="dodgerblue"
+        id="35"
+        fill={getFillColor('35')}
+        onPress={() => handlePress('35')}
         stroke="#600"
         class="st0"
         d="M193.4,442.3v0.1c1.2,6.4,2.3,24.4,3.1,27.2l0.1,1.1c0.7,2.1,2.1,5.9,3,9.8c3.8-4.9,11.8-8.3,21-8.3
@@ -287,7 +370,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		C243.8,424.5,222.3,452.8,193.4,442.3z"
       />
       <Path
-        fill="dodgerblue"
+        id="36"
+        fill={getFillColor('36')}
+        onPress={() => handlePress('36')}
         stroke="#600"
         class="st0"
         d="M199.7,480.3c0.4,1.6,0.7,3.2,0.8,4.7c0.3,3.6,0.6,7.7,1.1,10.7c0.7,0.6,1.5,1.2,2.3,1.7
@@ -295,7 +380,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 		C211.6,472,203.6,475.4,199.7,480.3z"
       />
       <Path
-        fill="dodgerblue"
+        id="37"
+        fill={getFillColor('37')}
+        onPress={() => handlePress('37')}
         stroke="#600"
         class="st0"
         d="M159.5,289.7c-12.7,0-24.5,3.6-27.6,8.1c-0.1,0.2-0.2,0.3-0.3,0.5c-2.9,4.4-5.8,25.2-5.6,31.2
@@ -303,7 +390,9 @@ const BodyBack = ({selectedLocation, locationClicked}) => {
 	C174.6,294.7,173.9,289.7,159.5,289.7z"
       />
       <Path
-        fill="dodgerblue"
+        id="38"
+        fill={getFillColor('38')}
+        onPress={() => handlePress('38')}
         stroke="#600"
         class="st0"
         d="M239,334.7c-0.6-3.1-0.2-11.8-1.3-20.8c-0.8-6.7-2.9-12.5-4.1-15.4c-0.1-0.2-0.2-0.5-0.3-0.7
