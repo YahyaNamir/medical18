@@ -37,7 +37,7 @@ export default function MaladieSteps({navigation, route}) {
       ordon_comment: '',
     },
     pageBilan: {
-      // bilans: [],
+      bilans: [],
       selectedBilans: [],
       refs: [],
       selectedRefs: [],
