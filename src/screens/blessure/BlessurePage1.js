@@ -108,7 +108,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
               <Slider
                 style={{width: '100%', height: 40, marginTop: 10}}
                 minimumValue={0}
-                maximumValue={6}
+                maximumValue={5}
                 step={1}
                 value={formData.gravity || 0}
                 onValueChange={value => updateFormData({gravity: value})}
