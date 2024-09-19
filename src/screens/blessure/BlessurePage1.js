@@ -116,7 +116,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
                 maximumTrackTintColor="#5a5858"
                 thumbTintColor="#0051ff"
               />
-              <Text style={styles.sliderValue}>{formData.gravity || 0}</Text>
+              <Text style={styles.sliderValue}>{formData.gravity  || 0}</Text>
             </View>
           </>
         )}
