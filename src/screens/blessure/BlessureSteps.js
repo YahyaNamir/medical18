@@ -11,10 +11,14 @@ import BlessurePage2 from './BlessurePage2';
 import BlessurePage3 from './BlessurePage3';
 import BlessurePage4 from './BlessurePage4';
 import BlessurePage5 from './BlessurePage5';
+import {useTranslation} from 'react-i18next';
 
 export default function MaladieSteps({navigation, route}) {
+  const {t} = useTranslation();
+
   const {type_consultation} = route.params;
 
+  const [pass, setPass] = useState(false);
   const [formData, setFormData] = useState({
     pageInfo: {
       date: new Date(),
@@ -61,16 +65,16 @@ export default function MaladieSteps({navigation, route}) {
   });
 
   useEffect(() => {
-    let headerTitle = 'Maladie';
+    let headerTitle = t('MALADY');
     if (type_consultation === 'blessure') {
-      headerTitle = 'Blessure';
+      headerTitle = t('INJURY');
     } else if (type_consultation === 'checkup') {
-      headerTitle = 'Check Up';
+      headerTitle = t('CHECKUP');
     }
     navigation.setOptions({
       headerTitle: headerTitle,
     });
-  }, [type_consultation, navigation]);
+  }, [type_consultation, navigation, t]);
 
   const updateFormData = (page, data) => {
     setFormData(prevData => ({
@@ -89,67 +93,66 @@ export default function MaladieSteps({navigation, route}) {
     const isMaladie = type_consultation === 'maladie';
     const isBlessure = type_consultation === 'blessure';
 
-    if (type_consultation === 'blessure') {
-      if (
-        !pageInfo.date ||
-        !pageInfo.type ||
-        !pageInfo.location ||
-        !pageInfo.gravity ||
-        !pageInfo.date_retour_prevue ||
-        !pageInfo.durre_injury ||
-        //! __
-        !pagePresc.traitement_date ||
-        !pagePresc.ordon_comment ||
-        !pagePresc.selectedPack_ids.length ||
-        !pagePresc.selectedMedicament_ids.length ||
-        //! __
-        !pageBilan.selectedBilans.length ||
-        !pageBilan.selectedRefs.length ||
-        !pageBilan.bilan_comment ||
-        !pageBilan.reference_comment ||
-        //! __
-        !pageContexte.circonstances ||
-        !pageContexte.conditions ||
-        !pageContexte.terrain ||
-        !pageContexte.reathletisation_individuelle ||
-        !pageContexte.reprise_groupe ||
-        !pageContexte.reprise_competition ||
-        //! __
-        !pageAdditio.rapport
-      ) {
-        Alert.alert('Enter tous les champs du blessure!');
-        return;
-      }
-    } else if (type_consultation === 'maladie') {
-      if (
-        !pageInfo.date ||
-        !pageInfo.type ||
-        !pageInfo.date_retour_prevue ||
-        !pageInfo.durre_injury ||
-        //! __
-        !pagePresc.traitement_date ||
-        !pagePresc.ordon_comment ||
-        !pagePresc.selectedPack_ids.length ||
-        !pagePresc.selectedMedicament_ids.length ||
-        //! __
-        !pageBilan.selectedBilans.length ||
-        !pageBilan.selectedRefs.length ||
-        !pageBilan.bilan_comment ||
-        !pageBilan.reference_comment ||
-        //! __
-        //! __
-        !pageAdditio.rapport
-      ) {
-        Alert.alert('Enter tous les champs du maladie!');
-        return;
-      }
-    } else {
-      Alert.alert('Unknown.');
-      return;
-    }
+    // if (type_consultation === 'blessure') {
+    //   if (
+    //     !pageInfo.date ||
+    //     !pageInfo.type ||
+    //     !pageInfo.location ||
+    //     !pageInfo.gravity ||
+    //     !pageInfo.date_retour_prevue ||
+    //     !pageInfo.durre_injury ||
+    //     //! __
+    //     !pagePresc.traitement_date ||
+    //     !pagePresc.ordon_comment ||
+    //     !pagePresc.selectedPack_ids.length ||
+    //     !pagePresc.selectedMedicament_ids.length ||
+    //     //! __
+    //     !pageBilan.selectedBilans.length ||
+    //     !pageBilan.selectedRefs.length ||
+    //     !pageBilan.bilan_comment ||
+    //     !pageBilan.reference_comment ||
+    //     //! __
+    //     !pageContexte.circonstances ||
+    //     !pageContexte.conditions ||
+    //     !pageContexte.terrain ||
+    //     !pageContexte.reathletisation_individuelle ||
+    //     !pageContexte.reprise_groupe ||
+    //     !pageContexte.reprise_competition ||
+    //     //! __
+    //     !pageAdditio.rapport
+    //   ) {
+    //     Alert.alert('Enter tous les champs du blessure!');
+    //     return;
+    //   }
+    // } else if (type_consultation === 'maladie') {
+    //   if (
+    //     !pageInfo.date ||
+    //     !pageInfo.type ||
+    //     !pageInfo.date_retour_prevue ||
+    //     !pageInfo.durre_injury ||
+    //     //! __
+    //     !pagePresc.traitement_date ||
+    //     !pagePresc.ordon_comment ||
+    //     !pagePresc.selectedPack_ids.length ||
+    //     !pagePresc.selectedMedicament_ids.length ||
+    //     //! __
+    //     !pageBilan.selectedBilans.length ||
+    //     !pageBilan.selectedRefs.length ||
+    //     !pageBilan.bilan_comment ||
+    //     !pageBilan.reference_comment ||
+    //     //! __
+    //     //! __
+    //     !pageAdditio.rapport
+    //   ) {
+    //     Alert.alert('Enter tous les champs du maladie!');
+    //     return;
+    //   }
+    // } else {
+    //   Alert.alert('Unknown.');
+    //   return;
+    // }
 
     const form = new FormData();
-
     form.append('date', formData.pageInfo.date.toUTCString() || null);
     form.append('type', formData.pageInfo.type || null);
     form.append(
@@ -226,26 +229,6 @@ export default function MaladieSteps({navigation, route}) {
       });
     }
 
-    // fetch('http://192.168.1.26:3000/api/save-data', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //   },
-    //   body: form,
-    // })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     console.log('Success:', data);
-    //     Alert.alert('Submitted successfully!');
-    //     setTimeout(() => {
-    //       navigation.navigate('ConsultationTypePopup');
-    //     }, 1000);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error:', error);
-    //     Alert.alert('Failed!');
-    //   });
-
     fetch('http://192.168.1.26:3000/api/save-data', {
       method: 'POST',
       headers: {
@@ -264,198 +247,6 @@ export default function MaladieSteps({navigation, route}) {
         Alert.alert('Failed!');
       });
   };
-
-  //? old #########################
-  //   return (
-  // <View style={styles.container}>
-  //   <View style={styles.topLine} />
-  //   <ProgressSteps
-  //     activeStepIconBorderColor="#007BFF"
-  //     completedProgressBarColor="#034387"
-  //     completedStepIconColor="#034387">
-  //     <ProgressStep
-  //       labelStyle={{color: '#007bff', fontFamily: 'Poppins-Bold'}}
-  //       label="Infos"
-  //       nextBtnStyle={styles.button}
-  //       nextBtnTextStyle={styles.buttonText}>
-  //       <View style={styles.stepContainer}>
-  //         <MaladiePage1
-  //           formData={formData.pageInfo}
-  //           updateFormData={data => updateFormData('pageInfo', data)}
-  //         />
-  //       </View>
-  //     </ProgressStep>
-  //     <ProgressStep
-  //       label="Prescription"
-  //       previousBtnStyle={styles.button}
-  //       previousBtnTextStyle={styles.buttonText}
-  //       nextBtnStyle={styles.button}
-  //       nextBtnTextStyle={styles.buttonText}>
-  //       <View style={styles.stepContainer}>
-  //         <MaladiePage2
-  //           formData={formData.pagePresc}
-  //           updateFormData={data => updateFormData('pagePresc', data)}
-  //         />
-  //       </View>
-  //     </ProgressStep>
-  //     <ProgressStep
-  //       label="Bilan Complémentaire et Avis Spécialisée"
-  //       previousBtnStyle={styles.button}
-  //       previousBtnTextStyle={styles.buttonText}
-  //       nextBtnStyle={styles.button}
-  //       nextBtnTextStyle={styles.buttonText}>
-  //       <View style={styles.stepContainer}>
-  //         <MaladiePage3
-  //           formData={formData.pageBilan}
-  //           updateFormData={data => updateFormData('pageBilan', data)}
-  //         />
-  //       </View>
-  //     </ProgressStep>
-  //     <ProgressStep
-  //       label="Informations additionnelles"
-  //       previousBtnStyle={styles.button}
-  //       previousBtnTextStyle={styles.buttonText}
-  //       finishBtnStyle={styles.button}
-  //       finishBtnTextStyle={styles.buttonText}
-  //       onSubmit={handleFinish}>
-  //       <View style={styles.stepContainer}>
-  //         <MaladiePage4
-  //           formData={formData.pageAdditio}
-  //           updateFormData={data => updateFormData('pageAdditio', data)}
-  //           navigation={navigation}
-  //         />
-  //       </View>
-  //     </ProgressStep>
-  //   </ProgressSteps>
-  // </View>
-  //   );
-  // }
-  //? ###############################
-
-  // return (
-  //   <>
-  //     <View style={styles.container}>
-  //       <View style={styles.topLine} />
-  //       <ProgressSteps
-  //         activeStepIconBorderColor="#007BFF"
-  //         completedProgressBarColor="#034387"
-  //         completedStepIconColor="#034387"
-  //       >
-  //         {/* 1-(MaladiePage1 or BlessurePage1 based on consultation type) */}
-  //         <ProgressStep
-  //           labelStyle={{ color: '#007bff', fontFamily: 'Poppins-Bold' }}
-  //           label="Infos"
-  //           nextBtnStyle={styles.button}
-  //           nextBtnTextStyle={styles.buttonText}
-  //         >
-  //           <View style={styles.stepContainer}>
-  //             {type_consultation === 'maladie' ? (
-  //               <MaladiePage1
-  //                 formData={formData.pageInfo}
-  //                 updateFormData={(data) => updateFormData('pageInfo', data)}
-  //               />
-  //             ) : (
-  //               <BlessurePage1
-  //                 formData={formData.pageInfo}
-  //                 updateFormData={(data) => updateFormData('pageInfo', data)}
-  //               />
-  //             )}
-  //           </View>
-  //         </ProgressStep>
-
-  //         {/* Conditional step based on type (only for blessure) */}
-  //         {type_consultation === 'blessure' && (
-  //           <ProgressStep
-  //             label="Contexte de la blessure"
-  //             previousBtnStyle={styles.button}
-  //             previousBtnTextStyle={styles.buttonText}
-  //             nextBtnStyle={styles.button}
-  //             nextBtnTextStyle={styles.buttonText}
-  //           >
-  //             <View style={styles.stepContainer}>
-  //               <BlessurePage2
-  //                 formData={formData.pageContexte}
-  //                 updateFormData={(data) => updateFormData('pageContexte', data)}
-  //               />
-  //             </View>
-  //           </ProgressStep>
-  //         )}
-
-  //         {/* Common Third Step (MaladiePage3 or BlessurePage3) */}
-  //         <ProgressStep
-  //           label="Prescription"
-  //           previousBtnStyle={styles.button}
-  //           previousBtnTextStyle={styles.buttonText}
-  //           nextBtnStyle={styles.button}
-  //           nextBtnTextStyle={styles.buttonText}
-  //         >
-  //           <View style={styles.stepContainer}>
-  //             {type_consultation === 'maladie' ? (
-  //               <BlessurePage3
-  //                 formData={formData.pagePresc}
-  //                 updateFormData={(data) => updateFormData('pagePresc', data)}
-  //               />
-  //             ) : (
-  //               <BlessurePage3
-  //                 formData={formData.pagePresc}
-  //                 updateFormData={(data) => updateFormData('pagePresc', data)}
-  //               />
-  //             )}
-  //           </View>
-  //         </ProgressStep>
-
-  //         {/* Common Fourth Step (MaladiePage3 or BlessurePage4) */}
-  //         <ProgressStep
-  //           label="Bilan Complémentaire et Avis Spécialisée"
-  //           previousBtnStyle={styles.button}
-  //           previousBtnTextStyle={styles.buttonText}
-  //           nextBtnStyle={styles.button}
-  //           nextBtnTextStyle={styles.buttonText}
-  //         >
-  //           <View style={styles.stepContainer}>
-  //             {type_consultation === 'maladie' ? (
-  //               <BlessurePage4
-  //                 formData={formData.pageBilan}
-  //                 updateFormData={(data) => updateFormData('pageBilan', data)}
-  //               />
-  //             ) : (
-  //               <BlessurePage4
-  //                 formData={formData.pageBilan}
-  //                 updateFormData={(data) => updateFormData('pageBilan', data)}
-  //               />
-  //             )}
-  //           </View>
-  //         </ProgressStep>
-
-  //         {/* Common Fifth Step (MaladiePage4 or BlessurePage5) */}
-  //         <ProgressStep
-  //           label="Informations additionnelles"
-  //           previousBtnStyle={styles.button}
-  //           previousBtnTextStyle={styles.buttonText}
-  //           finishBtnStyle={styles.button}
-  //           finishBtnTextStyle={styles.buttonText}
-  //           onSubmit={handleFinish}
-  //         >
-  //           <View style={styles.stepContainer}>
-  //             {type_consultation === 'maladie' ? (
-  //               <BlessurePage5
-  //                 formData={formData.pageAdditio}
-  //                 updateFormData={(data) => updateFormData('pageAdditio', data)}
-  //                 navigation={navigation}
-  //               />
-  //             ) : (
-  //               <BlessurePage5
-  //                 formData={formData.pageAdditio}
-  //                 updateFormData={(data) => updateFormData('pageAdditio', data)}
-  //                 navigation={navigation}
-  //               />
-  //             )}
-  //           </View>
-  //         </ProgressStep>
-  //       </ProgressSteps>
-  //     </View>
-  //   </>
-  // );
 
   return (
     <>
@@ -631,8 +422,6 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontFamily: 'Poppins-Bold',
   },
-  // kayna kayba abro me3e9ola lahoma yassir
-  // nassi7a akhouya hiya bda a 0 nite w bda mea el0, playlit html, mora css, moaraha js, shy l3ayba sayfet lia, w matzerbsh, rah houwa matan kola 10 vedio dayrfiha fhala exam tssayb shy challange hatto w kda rah koolshi f site dualo atwakal ela lh, ssfe unshaalah jay ghir lkhir
   progressStepsContainer: {
     marginVertical: 10,
     width: '60%',

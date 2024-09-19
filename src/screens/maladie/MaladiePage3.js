@@ -11,12 +11,8 @@ import MultiSelect from 'react-native-multiple-select';
 import prescriptionData from '../../../API MALADIE/prescription.json';
 
 const MaladiePage3 = ({formData, updateFormData}) => {
-  const {
-    bilan_comment,
-    reference_comment,
-    selectedRefs,
-    selectedBilans,
-  } = formData;
+  const {bilan_comment, reference_comment, selectedRefs, selectedBilans} =
+    formData;
 
   const consultationsData = prescriptionData.find(
     item => item.label === 'CONSULTATIONS MEDICALES',
@@ -52,7 +48,7 @@ const MaladiePage3 = ({formData, updateFormData}) => {
               updateFormData({selectedBilans: items})
             }
             selectedItems={selectedBilans}
-            selectText="Sélectionner"
+            selectText="Select..."
             searchInputPlaceholderText="Search Items..."
             submitButtonText="Choisir"
             autoCapitalize="none"
@@ -77,7 +73,7 @@ const MaladiePage3 = ({formData, updateFormData}) => {
               updateFormData({selectedRefs: items})
             }
             selectedItems={selectedRefs}
-            selectText="Sélectionner"
+            selectText="Select..."
             searchInputPlaceholderText="Search Items..."
             submitButtonText="Choisir"
             autoCapitalize="none"

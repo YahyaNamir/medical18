@@ -55,7 +55,7 @@ const MaladiePage1 = ({formData, updateFormData}) => {
             selectedValue={formData.type}
             onValueChange={itemValue => updateFormData({type: itemValue})}
             style={styles.picker}>
-            <Picker.Item label="Select Diagnostic" value="" />
+            <Picker.Item label="Select..." value="" />
             {maladieDiagnostics.map(item => (
               <Picker.Item
                 key={item.value}

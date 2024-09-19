@@ -1,0 +1,38 @@
+{
+  "CONSULTATION_TYPE": "Select the Type of Consultation",
+  "MALADY": "Malady",
+  "INJURY": "Injury",
+  "CHECKUP": "Check Up",
+  "WELCOME": "Welcome",
+  "DATE_OF_MALADY": "Date of Malady",
+  "LOCATION": "Location",
+  "GRAVITY": "Gravity",
+  "DIAGNOSTIC_M": "Diagnostic (Malady)",
+  "DIAGNOSTIC_B": "Diagnostic (Injury)",
+  "ESTIMATED_ABSENCE_DURATION": "Estimated Absence Duration",
+  "ESTIMATED_ABSENCE_TYPE": "Estimated Absence Type",
+
+  "CIRCUMSTANCES": "Circumstances",
+  "CONDITION": "Condition",
+  "TERRAIN": "Field",
+  "RECOVERY_STAGE": "Recovery Stage",
+  "INDIVIDUAL_REATHLETISATION": "Individual Reathletisation",
+  "GROUP_RESTART": "Group Restart",
+  "COMPETITION_RESTART": "Competition Restart",
+
+  "DATE": "Date",
+  "CARE_AND_EVALUATION": "Care and Evaluation",
+  "PRESCRIPTION": "Prescription",
+  "COMMENTS": "Comments",
+
+  "ADDITIONAL_ASSESSMENT": "Additional Assessment",
+  "SPECIALIST_ADVICE": "Specialist Advice",
+  "ASSESSMENT_INDICATOR": "Assessment Indicator",
+  "SPECIALIST_ADVICE_COMMENTS": "Specialist Advice Comments",
+
+  "MEDICAL_REPORT": "Medical Report",
+  "SELECTED_FILE": "Selected File",
+  "CHOOSE_FILE": "Choose a File",
+
+  "WRITE": "Write..."
+}

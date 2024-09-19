@@ -13,7 +13,7 @@ const BodyBack = () => {
   };
 
   const getFillColor = partId =>
-    selectedParts.includes(partId) ? '#004a94' : 'dodgerblue';
+    selectedParts.includes(partId) ? '#EF0107' : 'dodgerblue';
 
   return (
     <Svg width={364} height="700">

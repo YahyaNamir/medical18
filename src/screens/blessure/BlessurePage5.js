@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
+import { useTranslation } from 'react-i18next';
 import {View, Text, StyleSheet, TextInput, Button, Alert} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 
 const BlessurePage5 = ({formData, updateFormData}) => {
+  const {t} = useTranslation();
+
   const pickDocument = async () => {
     try {
       const res = await DocumentPicker.pickSingle({
@@ -24,21 +27,21 @@ const BlessurePage5 = ({formData, updateFormData}) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Rapport Médical :</Text>
+        <Text style={styles.label}>{t('MEDICAL_REPORT')} :</Text>
         <TextInput
           value={formData.rapport}
           onChangeText={text => updateFormData({rapport: text})}
-          placeholder="Rapport..."
+          placeholder={t('WRITE')}
           multiline
           numberOfLines={5}
           style={styles.textInput}
         />
       </View>
 
-      <Button title="Choisir un fichier" onPress={pickDocument} />
+      <Button title={t('CHOOSE_FILE')} onPress={pickDocument} />
       {formData.selectedDocument && (
         <Text style={styles.fileInfo}>
-          Fichier sélectionné: {formData.selectedDocument.name}
+          {t('SELECTED_FILE')} : {formData.selectedDocument.name}
         </Text>
       )}
     </View>
@@ -62,6 +65,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   textInput: {
+    maxHeight: 200,
     borderColor: '#CCC',
     borderWidth: 1,
     padding: 10,

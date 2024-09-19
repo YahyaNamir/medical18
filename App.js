@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -18,13 +20,24 @@ import MaladieSteps from './src/screens/maladie/MaladieSteps';
 import CheckUpSteps from './src/screens/checkUp/CheckUpSteps';
 import MaladieList from './src/screens/maladie/MaladieList';
 import MaladieListScreen from './src/screens/maladie/MaladieListScreen';
+import './i18n'; // Import the i18n configuration
+import {useTranslation} from 'react-i18next';
+import {TouchableOpacity, View} from 'react-native';
+import {Text} from 'react-native';
+import BlessurePage5 from './src/screens/blessure/BlessurePage5';
+import HeaderRight from './HeaderRight';
 
 const Stack = createStackNavigator();
 
 const App = () => {
+  const {t, i18n} = useTranslation();
+  const switchLanguage = lng => {
+    i18n.changeLanguage(lng);
+  };
+
   return (
     <NavigationContainer>
-      <Stack.Navigator
+      {/* <Stack.Navigator
         options={{
           headerShown: true,
           headerTitle: 'Home',
@@ -33,8 +46,8 @@ const App = () => {
           headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
           headerTitleAlign: 'center',
         }}
-        initialRouteName="ConsultationTypePopup">
-        <Stack.Screen
+        initialRouteName="ConsultationTypePopup"> */}
+      {/* <Stack.Screen
           options={{
             headerShown: true,
             headerTitle: 'Home',
@@ -45,11 +58,26 @@ const App = () => {
           }}
           name="ConsultationTypePopup"
           component={ConsultationTypePopup}
+        /> */}
+
+      <Stack.Navigator initialRouteName="ConsultationTypePopup">
+        <Stack.Screen
+          name="ConsultationTypePopup"
+          component={ConsultationTypePopup}
+          options={{
+            headerTitle: '',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+            headerRight: () => <HeaderRight />,
+          }}
         />
+
         <Stack.Screen
           options={{
             headerShown: true,
-            headerTitle: 'MaladieList',
+            headerTitle: '',
             headerStyle: {backgroundColor: '#1545c9'},
             headerTintColor: '#fff',
             headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
@@ -61,7 +89,7 @@ const App = () => {
         <Stack.Screen
           options={{
             headerShown: true,
-            headerTitle: 'Blessure 1/4',
+            headerTitle: 'Blessure 1/5',
             headerStyle: {backgroundColor: '#1545c9'},
             headerTintColor: '#fff',
             headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
@@ -73,7 +101,7 @@ const App = () => {
         <Stack.Screen
           options={{
             headerShown: true,
-            headerTitle: 'Blessure 2/4',
+            headerTitle: 'Blessure 2/5',
             headerStyle: {backgroundColor: '#1545c9'},
             headerTintColor: '#fff',
             headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
@@ -85,7 +113,7 @@ const App = () => {
         <Stack.Screen
           options={{
             headerShown: true,
-            headerTitle: 'Blessure 3/4',
+            headerTitle: 'Blessure 3/5',
             headerStyle: {backgroundColor: '#1545c9'},
             headerTintColor: '#fff',
             headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
@@ -97,7 +125,7 @@ const App = () => {
         <Stack.Screen
           options={{
             headerShown: true,
-            headerTitle: 'Blessure 4/4',
+            headerTitle: 'Blessure 4/5',
             headerStyle: {backgroundColor: '#1545c9'},
             headerTintColor: '#fff',
             headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
@@ -108,7 +136,19 @@ const App = () => {
         />
         <Stack.Screen
           options={{
-            headerTitle: 'Maladie',
+            headerShown: true,
+            headerTitle: 'Blessure 5/5',
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="BlessurePage5"
+          component={BlessurePage5}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: t('MALADY'),
             headerStyle: {backgroundColor: '#1545c9'},
             headerTintColor: '#fff',
             headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
@@ -120,7 +160,8 @@ const App = () => {
         <Stack.Screen
           options={{
             headerShown: true,
-            headerTitle: 'Blessure',
+            // headerRight: () => <HeaderRight />,
+            headerTitle: t('INJURY'),
             headerStyle: {backgroundColor: '#1545c9'},
             headerTintColor: '#fff',
             headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
@@ -132,7 +173,7 @@ const App = () => {
         <Stack.Screen
           options={{
             headerShown: true,
-            headerTitle: 'Check Up',
+            headerTitle: t('CHECKUP'),
             headerStyle: {backgroundColor: '#1545c9'},
             headerTintColor: '#fff',
             headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
@@ -231,5 +272,3 @@ const App = () => {
 };
 
 export default App;
-
-

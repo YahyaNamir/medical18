@@ -9,14 +9,13 @@ import {
 } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import prescriptionData from '../../../API MALADIE/prescription.json';
+import {useTranslation} from 'react-i18next';
 
 const BlessurePage4 = ({formData, updateFormData}) => {
-  const {
-    bilan_comment,
-    reference_comment,
-    selectedRefs,
-    selectedBilans,
-  } = formData;
+  const {t} = useTranslation();
+
+  const {bilan_comment, reference_comment, selectedRefs, selectedBilans} =
+    formData;
 
   const consultationsData = prescriptionData.find(
     item => item.label === 'CONSULTATIONS MEDICALES',
@@ -42,7 +41,7 @@ const BlessurePage4 = ({formData, updateFormData}) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.label}>Bilan complémentaire</Text>
+        <Text style={styles.label}>{t('ADDITIONAL_ASSESSMENT')}</Text>
         <View style={styles.multiSelectContainer}>
           <MultiSelect
             hideTags
@@ -52,7 +51,7 @@ const BlessurePage4 = ({formData, updateFormData}) => {
               updateFormData({selectedBilans: items})
             }
             selectedItems={selectedBilans}
-            selectText="Sélectionner"
+            selectText="Select..."
             searchInputPlaceholderText="Search Items..."
             submitButtonText="Choisir"
             autoCapitalize="none"
@@ -67,7 +66,7 @@ const BlessurePage4 = ({formData, updateFormData}) => {
             styleDropdownMenuSubsection={styles.multiSelect}
           />
         </View>
-        <Text style={styles.label}>Avis Spécialisé</Text>
+        <Text style={styles.label}>{t('SPECIALIST_ADVICE')}</Text>
         <View style={styles.multiSelectContainer}>
           <MultiSelect
             hideTags
@@ -77,7 +76,7 @@ const BlessurePage4 = ({formData, updateFormData}) => {
               updateFormData({selectedRefs: items})
             }
             selectedItems={selectedRefs}
-            selectText="Sélectionner"
+            selectText="Select..."
             searchInputPlaceholderText="Search Items..."
             submitButtonText="Choisir"
             autoCapitalize="none"
@@ -92,20 +91,20 @@ const BlessurePage4 = ({formData, updateFormData}) => {
             styleDropdownMenuSubsection={styles.multiSelect}
           />
         </View>
-        <Text style={styles.label}>Indicatif bilan</Text>
+        <Text style={styles.label}>{t('ASSESSMENT_INDICATOR')}</Text>
         <TextInput
           value={bilan_comment}
           onChangeText={text => updateFormData({bilan_comment: text})}
-          placeholder="Bilan..."
+          placeholder={t('WRITE')}
           multiline
           numberOfLines={2}
           style={styles.textInput}
         />
-        <Text style={styles.label}>Commentaire d'avis Spécialisés</Text>
+        <Text style={styles.label}>{t('SPECIALIST_ADVICE_COMMENTS')}</Text>
         <TextInput
           value={reference_comment}
           onChangeText={text => updateFormData({reference_comment: text})}
-          placeholder="Commentaire avis..."
+          placeholder={t('WRITE')}
           multiline
           numberOfLines={2}
           style={styles.textInput}
@@ -141,6 +140,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   textInput: {
+    maxHeight: 100,
     borderColor: '#CCC',
     borderWidth: 1,
     padding: 10,

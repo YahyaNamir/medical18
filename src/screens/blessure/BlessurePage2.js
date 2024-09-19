@@ -10,8 +10,11 @@ import {Picker} from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import pickerData from '../../../API MALADIE/bilan.json';
 import diagnosticsData from '../../../API MALADIE/diagnostic.json';
+import {useTranslation} from 'react-i18next';
 
 const BlessurePage2 = ({formData, updateFormData}) => {
+  const {t} = useTranslation();
+
   const [showDatePicker, setShowDatePicker] = useState(null);
 
   const handleDateChange = (event, selectedDate) => {
@@ -38,7 +41,7 @@ const BlessurePage2 = ({formData, updateFormData}) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.label}>Circonstances</Text>
+        <Text style={styles.label}>{t('CIRCUMSTANCES')}</Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.circonstances}
@@ -46,7 +49,7 @@ const BlessurePage2 = ({formData, updateFormData}) => {
               updateFormData({circonstances: itemValue})
             }
             style={styles.picker}>
-            <Picker.Item label="Select Circonstances" value="" />
+            <Picker.Item label="Select..." value="" />
             {maladieDiagnostics.map(item => (
               <Picker.Item
                 key={item.value}
@@ -57,13 +60,13 @@ const BlessurePage2 = ({formData, updateFormData}) => {
           </Picker>
         </View>
 
-        <Text style={styles.label}>Condition</Text>
+        <Text style={styles.label}>{t('CONDITION')}</Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.conditions}
             onValueChange={itemValue => updateFormData({conditions: itemValue})}
             style={styles.picker}>
-            <Picker.Item label="Select Condition" value="" />
+            <Picker.Item label="Select..." value="" />
             {maladieDiagnostics.map(item => (
               <Picker.Item
                 key={item.value}
@@ -74,13 +77,13 @@ const BlessurePage2 = ({formData, updateFormData}) => {
           </Picker>
         </View>
 
-        <Text style={styles.label}>Terrain</Text>
+        <Text style={styles.label}>{t('TERRAIN')}</Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.terrain}
             onValueChange={itemValue => updateFormData({terrain: itemValue})}
             style={styles.picker}>
-            <Picker.Item label="Select Terrain" value="" />
+            <Picker.Item label="Select..." value="" />
             {maladieDiagnostics.map(item => (
               <Picker.Item
                 key={item.value}
@@ -91,9 +94,9 @@ const BlessurePage2 = ({formData, updateFormData}) => {
           </Picker>
         </View>
 
-        <Text style={styles.labelEtape}>Étape de reprise</Text>
+        <Text style={styles.labelEtape}>{t('RECOVERY_STAGE')}</Text>
 
-        <Text style={styles.label}>Réathlétisation individuelle</Text>
+        <Text style={styles.label}>{t('INDIVIDUAL_REATHLETISATION')}</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker('reathletisation_individuelle')}>
@@ -104,7 +107,7 @@ const BlessurePage2 = ({formData, updateFormData}) => {
           </Text>
         </TouchableOpacity>
 
-        <Text style={styles.label}>Reprise groupe</Text>
+        <Text style={styles.label}>{t('GROUP_RESTART')}</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker('reprise_groupe')}>
@@ -115,7 +118,7 @@ const BlessurePage2 = ({formData, updateFormData}) => {
           </Text>
         </TouchableOpacity>
 
-        <Text style={styles.label}>Reprise compétition</Text>
+        <Text style={styles.label}>{t('COMPETITION_RESTART')}</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker('reprise_competition')}>
@@ -157,12 +160,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   labelEtape: {
-    fontSize: 18,
+    fontSize: 20,
     color: 'black',
     marginVertical: 10,
     fontFamily: 'Poppins-Bold',
   },
   label: {
+    color: 'black',
     fontSize: 16,
     marginVertical: 10,
     fontFamily: 'Poppins-Bold',

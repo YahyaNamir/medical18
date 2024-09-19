@@ -86,7 +86,7 @@ const MaladiePage2 = ({formData, updateFormData}) => {
               updateFormData({selectedPack_ids: items})
             }
             selectedItems={selectedPack_ids}
-            selectText="Sélectionner soins"
+            selectText="Select..."
             searchInputPlaceholderText="Rechercher soins..."
             tagRemoveIconColor="#CCC"
             tagBorderColor="#CCC"
@@ -111,7 +111,7 @@ const MaladiePage2 = ({formData, updateFormData}) => {
             updateFormData({selectedMedicament_ids: items})
           }
           selectedItems={selectedMedicament_ids}
-          selectText="Select Médicaments"
+          selectText="Select..."
           searchInputPlaceholderText="Search Médicaments..."
           // tagRemoveIconColor="#CCC"
           // tagBorderColor="#CCC"

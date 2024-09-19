@@ -14,8 +14,12 @@ import BodyFront from './BodyFront';
 import BodyBack from './BodyBack';
 import diagnosticsData from '../../../API MALADIE/diagnostic.json';
 import Slider from '@react-native-community/slider';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useTranslation} from 'react-i18next';
 
 const BlessurePage1 = ({formData, updateFormData}) => {
+  const {t} = useTranslation();
+
   const route = useRoute();
   const {type_consultation} = route.params;
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -51,7 +55,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.label}>Date de la maladie</Text>
+        <Text style={styles.label}>{t('DATE_OF_MALADY')}</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker(true)}>
@@ -72,20 +76,15 @@ const BlessurePage1 = ({formData, updateFormData}) => {
           <>
             <View style={styles.buttonContainer}>
               <TouchableOpacity
-                style={[styles.toggleButton, showFront && styles.activeButton]}
-                onPress={() => setShowFront(true)}>
-                <Text style={styles.buttonText}>Front</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.toggleButton, !showFront && styles.activeButton]}
-                onPress={() => setShowFront(false)}>
-                <Text style={styles.buttonText}>Back</Text>
+                style={styles.toggleButton}
+                onPress={() => setShowFront(!showFront)}>
+                <Icon name="cached" size={20} color="#fff" />
               </TouchableOpacity>
             </View>
 
             {showFront ? <BodyFront /> : <BodyBack />}
 
-            <Text style={styles.label}>Location</Text>
+            <Text style={styles.label}>{t('LOCATION')}</Text>
             <View style={styles.inputContainer}>
               <Picker
                 selectedValue={formData.location}
@@ -93,7 +92,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
                   updateFormData({location: itemValue})
                 }
                 style={styles.picker}>
-                <Picker.Item label="Select Diagnostic" value="" />
+                <Picker.Item label="Select..." value="" />
                 {maladieDiagnostics.map(item => (
                   <Picker.Item
                     key={item.value}
@@ -104,25 +103,25 @@ const BlessurePage1 = ({formData, updateFormData}) => {
               </Picker>
             </View>
 
-            <Text style={styles.label}>Gravité</Text>
+            <Text style={styles.label}>{t('GRAVITY')}</Text>
             <View style={styles.sliderContainer}>
               <Slider
                 style={{width: '100%', height: 40, marginTop: 10}}
                 minimumValue={0}
                 maximumValue={5}
                 step={1}
-                value={formData.gravity || 1}
+                value={formData.gravity || 0}
                 onValueChange={value => updateFormData({gravity: value})}
                 minimumTrackTintColor="#0051ff"
                 maximumTrackTintColor="#5a5858"
                 thumbTintColor="#0051ff"
               />
-              <Text style={styles.sliderValue}>{formData.gravity}</Text>
+              <Text style={styles.sliderValue}>{formData.gravity || 0}</Text>
             </View>
           </>
         )}
 
-        <Text style={styles.label}>Diagnostic {typeconsu}</Text>
+        <Text style={styles.label}>{type_consultation === 'blessure' ? t('DIAGNOSTIC_B') : t('DIAGNOSTIC_M')}</Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.type}
@@ -138,7 +137,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
           </Picker>
         </View>
 
-        <Text style={styles.label}>Durée d'absence estimée</Text>
+        <Text style={styles.label}>{t('ESTIMATED_ABSENCE_DURATION')}</Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.date_retour_prevue}
@@ -152,7 +151,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
           </Picker>
         </View>
 
-        <Text style={styles.label}>Type d'absence estimée</Text>
+        <Text style={styles.label}>{t('ESTIMATED_ABSENCE_TYPE')}</Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.durre_injury}
@@ -230,23 +229,15 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginVertical: 20,
+    justifyContent: 'flex-start',
+    marginVertical: 10,
   },
   toggleButton: {
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
-    backgroundColor: '#0051ff9d',
-  },
-  activeButton: {
     backgroundColor: '#0051ff',
     color: 'black',
-  },
-  buttonText: {
-    fontSize: 16,
-    color: '#ffffff',
-    fontFamily: 'Poppins-Bold',
   },
   sliderContainer: {
     marginVertical: 10,

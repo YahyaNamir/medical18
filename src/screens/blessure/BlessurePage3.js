@@ -13,8 +13,11 @@ import MultiSelect from 'react-native-multiple-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import prescriptionData from '../../../API MALADIE/prescription.json';
 import medicamentsData from '../../../API MALADIE/medicaments.json';
+import {useTranslation} from 'react-i18next';
 
 const BlessurePage3 = ({formData, updateFormData}) => {
+  const {t} = useTranslation();
+
   const {
     traitement_date = new Date(),
     selectedPack_ids,
@@ -57,7 +60,7 @@ const BlessurePage3 = ({formData, updateFormData}) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.label}>Date</Text>
+        <Text style={styles.label}>{t('DATE')}</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker(true)}>
@@ -76,7 +79,7 @@ const BlessurePage3 = ({formData, updateFormData}) => {
           />
         )}
 
-        <Text style={styles.label}>Soins et Evaluation</Text>
+        <Text style={styles.label}>{t('CARE_AND_EVALUATION')}</Text>
         {
           <MultiSelect
             hideTags
@@ -86,7 +89,7 @@ const BlessurePage3 = ({formData, updateFormData}) => {
               updateFormData({selectedPack_ids: items})
             }
             selectedItems={selectedPack_ids}
-            selectText="Sélectionner soins"
+            selectText="Select..."
             searchInputPlaceholderText="Rechercher soins..."
             tagRemoveIconColor="#CCC"
             tagBorderColor="#CCC"
@@ -102,7 +105,7 @@ const BlessurePage3 = ({formData, updateFormData}) => {
           />
         }
 
-        <Text style={styles.label}>Ordonnance</Text>
+        <Text style={styles.label}>{t('PRESCRIPTION')}</Text>
         <MultiSelect
           hideTags
           items={medicaments}
@@ -111,7 +114,7 @@ const BlessurePage3 = ({formData, updateFormData}) => {
             updateFormData({selectedMedicament_ids: items})
           }
           selectedItems={selectedMedicament_ids}
-          selectText="Select Médicaments"
+          selectText="Select..."
           searchInputPlaceholderText="Search Médicaments..."
           // tagRemoveIconColor="#CCC"
           // tagBorderColor="#CCC"
@@ -126,14 +129,14 @@ const BlessurePage3 = ({formData, updateFormData}) => {
           styleMainWrapper={styles.inputContainer}
         />
 
-        <Text style={styles.label}>Commentaires</Text>
+        <Text style={styles.label}>{t('COMMENTS')}</Text>
         <TextInput
           style={styles.textInput}
           multiline
           numberOfLines={2}
           onChangeText={text => updateFormData({ordon_comment: text})}
           value={ordon_comment}
-          placeholder="Commentaire ordonance ..."
+          placeholder={t('WRITE')}
         />
       </ScrollView>
     </View>
@@ -190,6 +193,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   textInput: {
+    maxHeight: 100,
     borderColor: '#CCC',
     borderWidth: 1,
     padding: 10,
