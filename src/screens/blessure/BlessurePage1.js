@@ -109,7 +109,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
                 style={{width: '100%', height: 40, marginTop: 10}}
                 minimumValue={0}
                 maximumValue={5}
-                step={2}
+                step={1}
                 value={formData.gravity || 0}
                 onValueChange={value => updateFormData({gravity: value})}
                 minimumTrackTintColor="#0051ff"
