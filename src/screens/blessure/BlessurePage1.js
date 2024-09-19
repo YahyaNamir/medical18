@@ -106,7 +106,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
             <Text style={styles.label}>{t('GRAVITY')}</Text>
             <View style={styles.sliderContainer}>
               <Slider
-                style={{width: '100%', height: 40, marginTop: 10}}
+                // style={{width: '100%', height: 40, marginTop: 10}}
                 minimumValue={0}
                 maximumValue={5}
                 step={1}
