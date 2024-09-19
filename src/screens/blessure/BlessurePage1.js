@@ -112,7 +112,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
                 step={1}
                 value={formData.gravity || 0}
                 onValueChange={value => updateFormData({gravity: value})}
-                minimumTrackTintColor="#0051ff"
+                // minimumTrackTintColor="#0051ff"
                 maximumTrackTintColor="#5a5858"
                 thumbTintColor="#0051ff"
               />
