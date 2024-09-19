@@ -82,7 +82,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
               </TouchableOpacity>
             </View>
 
-            {/* {showFront ? <BodyFront /> : <BodyBack />} */}
+            {showFront ? <BodyFront /> : <BodyBack />}
 
             <Text style={styles.label}>{t('LOCATION')}</Text>
             <View style={styles.inputContainer}>
