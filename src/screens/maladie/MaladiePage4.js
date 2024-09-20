@@ -34,9 +34,9 @@
 //       </View>
 
 //       <Button title="Choisir un fichier" onPress={() => {}} />
-//       {formData.selectedDocument && (
+//       {formData.file && (
 //         <Text style={styles.fileInfo}>
-//           Fichier sélectionné: {formData.selectedDocument.name}
+//           Fichier sélectionné: {formData.file.name}
 //         </Text>
 //       )}
 //     </View>

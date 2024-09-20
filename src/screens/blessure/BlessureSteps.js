@@ -46,7 +46,7 @@ export default function MaladieSteps({navigation, route}) {
     },
     pageAdditio: {
       rapport: '',
-      selectedDocument: null,
+      file: null,
     },
     pageContexte: {
       circonstances: '',
@@ -93,64 +93,64 @@ export default function MaladieSteps({navigation, route}) {
     const isMaladie = type_consultation === 'maladie';
     const isBlessure = type_consultation === 'blessure';
 
-    // if (type_consultation === 'blessure') {
-    //   if (
-    //     !pageInfo.date ||
-    //     !pageInfo.type ||
-    //     !pageInfo.location ||
-    //     !pageInfo.gravity ||
-    //     !pageInfo.date_retour_prevue ||
-    //     !pageInfo.durre_injury ||
-    //     //! __
-    //     !pagePresc.traitement_date ||
-    //     !pagePresc.ordon_comment ||
-    //     !pagePresc.selectedPack_ids.length ||
-    //     !pagePresc.selectedMedicament_ids.length ||
-    //     //! __
-    //     !pageBilan.selectedBilans.length ||
-    //     !pageBilan.selectedRefs.length ||
-    //     !pageBilan.bilan_comment ||
-    //     !pageBilan.reference_comment ||
-    //     //! __
-    //     !pageContexte.circonstances ||
-    //     !pageContexte.conditions ||
-    //     !pageContexte.terrain ||
-    //     !pageContexte.reathletisation_individuelle ||
-    //     !pageContexte.reprise_groupe ||
-    //     !pageContexte.reprise_competition ||
-    //     //! __
-    //     !pageAdditio.rapport
-    //   ) {
-    //     Alert.alert('Enter tous les champs du blessure!');
-    //     return;
-    //   }
-    // } else if (type_consultation === 'maladie') {
-    //   if (
-    //     !pageInfo.date ||
-    //     !pageInfo.type ||
-    //     !pageInfo.date_retour_prevue ||
-    //     !pageInfo.durre_injury ||
-    //     //! __
-    //     !pagePresc.traitement_date ||
-    //     !pagePresc.ordon_comment ||
-    //     !pagePresc.selectedPack_ids.length ||
-    //     !pagePresc.selectedMedicament_ids.length ||
-    //     //! __
-    //     !pageBilan.selectedBilans.length ||
-    //     !pageBilan.selectedRefs.length ||
-    //     !pageBilan.bilan_comment ||
-    //     !pageBilan.reference_comment ||
-    //     //! __
-    //     //! __
-    //     !pageAdditio.rapport
-    //   ) {
-    //     Alert.alert('Enter tous les champs du maladie!');
-    //     return;
-    //   }
-    // } else {
-    //   Alert.alert('Unknown.');
-    //   return;
-    // }
+    if (type_consultation === 'blessure') {
+      if (
+        !pageInfo.date ||
+        !pageInfo.type ||
+        !pageInfo.location ||
+        !pageInfo.gravity ||
+        !pageInfo.date_retour_prevue ||
+        !pageInfo.durre_injury ||
+        //! ________________
+        !pagePresc.traitement_date ||
+        !pagePresc.ordon_comment ||
+        !pagePresc.selectedPack_ids.length ||
+        !pagePresc.selectedMedicament_ids.length ||
+        //! ________________
+        !pageBilan.selectedBilans.length ||
+        !pageBilan.selectedRefs.length ||
+        !pageBilan.bilan_comment ||
+        !pageBilan.reference_comment ||
+        //! ________________
+        !pageContexte.circonstances ||
+        !pageContexte.conditions ||
+        !pageContexte.terrain ||
+        !pageContexte.reathletisation_individuelle ||
+        !pageContexte.reprise_groupe ||
+        !pageContexte.reprise_competition ||
+        //! ________________
+        !pageAdditio.rapport
+      ) {
+        Alert.alert('Enter tous les champs du blessure!');
+        return;
+      }
+    } else if (type_consultation === 'maladie') {
+      if (
+        !pageInfo.date ||
+        !pageInfo.type ||
+        !pageInfo.date_retour_prevue ||
+        !pageInfo.durre_injury ||
+        //! __
+        !pagePresc.traitement_date ||
+        !pagePresc.ordon_comment ||
+        !pagePresc.selectedPack_ids.length ||
+        !pagePresc.selectedMedicament_ids.length ||
+        //! __
+        !pageBilan.selectedBilans.length ||
+        !pageBilan.selectedRefs.length ||
+        !pageBilan.bilan_comment ||
+        !pageBilan.reference_comment ||
+        //! __
+        //! __
+        !pageAdditio.rapport
+      ) {
+        Alert.alert('Enter tous les champs du Maladie');
+        return;
+      }
+    } else {
+      Alert.alert('Unknown.');
+      return;
+    }
 
     const form = new FormData();
     form.append('date', formData.pageInfo.date.toUTCString() || null);
@@ -186,10 +186,15 @@ export default function MaladieSteps({navigation, route}) {
     form.append('bilan_comment', formData.pageBilan.bilan_comment || null);
 
     form.append('rapport', formData.pageAdditio.rapport || null);
-    form.append(
-      'selectedDocument',
-      formData.pageAdditio.selectedDocument || null,
-    );
+    if (formData.pageAdditio.file) {
+      form.append('file', {
+        uri: formData.pageAdditio.file.uri,
+        name: formData.pageAdditio.file.name,
+        type: formData.pageAdditio.file.type || 'application/octet-stream',
+      });
+    } else {
+      form.append('file', null);
+    }
 
     form.append(
       'reathletisation_individuelle',
@@ -221,22 +226,19 @@ export default function MaladieSteps({navigation, route}) {
     form.append('type_consultation', type_consultation || null);
     //! ____________________
 
-    if (formData.pageAdditio.selectedDocument) {
-      form.append('pageAdditio_selectedDocument', {
-        uri: formData.pageAdditio.selectedDocument.uri,
-        type: 'application/pdf',
-        name: 'document.pdf',
+    if (formData.file) {
+      form.append('file', {
+        uri: formData.file.uri,
+        type: formData.file.type || 'application/pdf',
+        name: formData.file.name || 'document.pdf',
       });
     }
 
     fetch('http://192.168.1.26:3000/api/save-data', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
       body: form,
     })
-      .then(response => response.text())
+      .then(response => response.json())
       .then(data => {
         console.log('Success:', data);
         Alert.alert('Submitted successfully!');

@@ -1,25 +1,26 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import {View, Text, StyleSheet, TextInput, Button, Alert} from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 
-const BlessurePage5 = ({formData, updateFormData}) => {
-  const {t} = useTranslation();
+const BlessurePage5 = ({ formData, updateFormData }) => {
+  const { t } = useTranslation();
 
   const pickDocument = async () => {
     try {
       const res = await DocumentPicker.pickSingle({
         type: [DocumentPicker.types.allFiles],
       });
-      console.log(res);
+      console.log('Selected file:', res); 
+      console.log('File name:', res.name);
 
-      updateFormData({selectedDocument: res});
+      updateFormData({ file: res });
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
-        console.log('Is cancell');
+        console.log('Selection canceled');
       } else {
         console.error('DocumentPicker Error: ', err);
-        Alert.alert('Erreur');
+        Alert.alert('Error selecting file');
       }
     }
   };
@@ -27,10 +28,10 @@ const BlessurePage5 = ({formData, updateFormData}) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>{t('MEDICAL_REPORT')} :</Text>
+        <Text style={styles.label}>{t('MEDICAL_REPORT')}:</Text>
         <TextInput
           value={formData.rapport}
-          onChangeText={text => updateFormData({rapport: text})}
+          onChangeText={text => updateFormData({ rapport: text })}
           placeholder={t('WRITE')}
           multiline
           numberOfLines={5}
@@ -38,12 +39,10 @@ const BlessurePage5 = ({formData, updateFormData}) => {
         />
       </View>
 
-      <Button title={t('CHOOSE_FILE')} onPress={pickDocument} />
-      {formData.selectedDocument && (
-        <Text style={styles.fileInfo}>
-          {t('SELECTED_FILE')} : {formData.selectedDocument.name}
-        </Text>
-      )}
+      <Button
+        title={formData.file?.name ? formData.file.name : t('CHOOSE_FILE')}
+        onPress={pickDocument}
+      />
     </View>
   );
 };
@@ -72,18 +71,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#fff',
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
     fontFamily: 'Poppins-Regular',
     fontSize: 16,
     color: '#000',
-  },
-  fileInfo: {
-    marginTop: 10,
-    fontSize: 14,
-    color: '#333',
   },
 });
 

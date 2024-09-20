@@ -160,7 +160,7 @@ const App = () => {
         <Stack.Screen
           options={{
             headerShown: true,
-            // headerRight: () => <HeaderRight />,
+            headerRight: () => <HeaderRight />,
             headerTitle: t('INJURY'),
             headerStyle: {backgroundColor: '#1545c9'},
             headerTintColor: '#fff',

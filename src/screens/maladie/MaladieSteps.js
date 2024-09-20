@@ -43,7 +43,7 @@ export default function MaladieSteps({navigation, route}) {
     },
     pageAdditio: {
       rapport: '',
-      selectedDocument: null,
+      file: null,
     },
     pageContexte: {
       circonstances: '',
@@ -124,10 +124,7 @@ export default function MaladieSteps({navigation, route}) {
       form.append('bilan_comment', formData.pageBilan.bilan_comment || null);
 
       form.append('rapport', formData.pageAdditio.rapport || null);
-      form.append(
-        'selectedDocument',
-        formData.pageAdditio.selectedDocument || null,
-      );
+      form.append('file', formData.pageAdditio.file || null);
 
       form.append(
         'reathletisation_individuelle',
@@ -163,9 +160,9 @@ export default function MaladieSteps({navigation, route}) {
       form.append('type_consultation', type_consultation || null);
       //! ____________________
 
-      if (formData.pageAdditio.selectedDocument) {
-        form.append('pageAdditio_selectedDocument', {
-          uri: formData.pageAdditio.selectedDocument.uri,
+      if (formData.pageAdditio.file) {
+        form.append('pageAdditio_file', {
+          uri: formData.pageAdditio.file.uri,
           type: 'application/pdf',
           name: 'document.pdf',
         });
