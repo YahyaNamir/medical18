@@ -20,7 +20,7 @@ const BlessurePage5 = ({ formData, updateFormData }) => {
         console.log('Selection canceled');
       } else {
         console.error('DocumentPicker Error: ', err);
-        AlertAlert.alert('Error selecting file');
+        Alert.alert('Error selecting file');
       }
     }
   };
