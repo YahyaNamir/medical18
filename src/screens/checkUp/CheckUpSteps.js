@@ -7,7 +7,7 @@ import CheckUpPage3 from './CheckUpPage3';
 
 export default function CheckUpSteps({navigation}) {
   const handleFinish = () => {
-    // Alert.alert('Submitted successfully!');
+    Alert.alert('Submitted successfully!');
     navigation.navigate('ConsultationTypePopup');
   };
 
