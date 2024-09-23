@@ -159,6 +159,17 @@ const App = () => {
         />
         <Stack.Screen
           options={{
+            headerTitle: t('CheckUpSteps'),
+            headerStyle: {backgroundColor: '#1545c9'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
+            headerTitleAlign: 'center',
+          }}
+          name="CheckUpSteps "
+          component={CheckUpSteps}
+        />
+        <Stack.Screen
+          options={{
             headerShown: true,
             headerRight: () => <HeaderRight />,
             headerTitle: t('INJURY'),
@@ -272,3 +283,5 @@ const App = () => {
 };
 
 export default App;
+
+

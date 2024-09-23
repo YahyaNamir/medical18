@@ -41,7 +41,7 @@ const BlessurePage4 = ({formData, updateFormData}) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.label}>{t('ADDITIONAL_ASSESSMENT')}</Text>
+        <Text style={styles.label}>{t('ADDITIONAL_ASSESSMENT')}*</Text>
         <View style={styles.multiSelectContainer}>
           <MultiSelect
             hideTags
@@ -66,7 +66,7 @@ const BlessurePage4 = ({formData, updateFormData}) => {
             styleDropdownMenuSubsection={styles.multiSelect}
           />
         </View>
-        <Text style={styles.label}>{t('SPECIALIST_ADVICE')}</Text>
+        <Text style={styles.label}>{t('SPECIALIST_ADVICE')}*</Text>
         <View style={styles.multiSelectContainer}>
           <MultiSelect
             hideTags
@@ -91,7 +91,7 @@ const BlessurePage4 = ({formData, updateFormData}) => {
             styleDropdownMenuSubsection={styles.multiSelect}
           />
         </View>
-        <Text style={styles.label}>{t('ASSESSMENT_INDICATOR')}</Text>
+        <Text style={styles.label}>{t('ASSESSMENT_INDICATOR')}*</Text>
         <TextInput
           value={bilan_comment}
           onChangeText={text => updateFormData({bilan_comment: text})}
@@ -100,7 +100,7 @@ const BlessurePage4 = ({formData, updateFormData}) => {
           numberOfLines={2}
           style={styles.textInput}
         />
-        <Text style={styles.label}>{t('SPECIALIST_ADVICE_COMMENTS')}</Text>
+        <Text style={styles.label}>{t('SPECIALIST_ADVICE_COMMENTS')}*halla</Text>
         <TextInput
           value={reference_comment}
           onChangeText={text => updateFormData({reference_comment: text})}

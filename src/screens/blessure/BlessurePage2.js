@@ -41,7 +41,7 @@ const BlessurePage2 = ({formData, updateFormData}) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.label}>{t('CIRCUMSTANCES')}</Text>
+        <Text style={styles.label}>{t('CIRCUMSTANCES')}*</Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.circonstances}
@@ -60,7 +60,7 @@ const BlessurePage2 = ({formData, updateFormData}) => {
           </Picker>
         </View>
 
-        <Text style={styles.label}>{t('CONDITION')}</Text>
+        <Text style={styles.label}>{t('CONDITION')}*</Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.conditions}
@@ -77,7 +77,7 @@ const BlessurePage2 = ({formData, updateFormData}) => {
           </Picker>
         </View>
 
-        <Text style={styles.label}>{t('TERRAIN')}</Text>
+        <Text style={styles.label}>{t('TERRAIN')}*</Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.terrain}
@@ -96,7 +96,7 @@ const BlessurePage2 = ({formData, updateFormData}) => {
 
         <Text style={styles.labelEtape}>{t('RECOVERY_STAGE')}</Text>
 
-        <Text style={styles.label}>{t('INDIVIDUAL_REATHLETISATION')}</Text>
+        <Text style={styles.label}>{t('INDIVIDUAL_REATHLETISATION')}*</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker('reathletisation_individuelle')}>
@@ -107,7 +107,7 @@ const BlessurePage2 = ({formData, updateFormData}) => {
           </Text>
         </TouchableOpacity>
 
-        <Text style={styles.label}>{t('GROUP_RESTART')}</Text>
+        <Text style={styles.label}>{t('GROUP_RESTART')}*</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker('reprise_groupe')}>
@@ -118,7 +118,7 @@ const BlessurePage2 = ({formData, updateFormData}) => {
           </Text>
         </TouchableOpacity>
 
-        <Text style={styles.label}>{t('COMPETITION_RESTART')}</Text>
+        <Text style={styles.label}>{t('COMPETITION_RESTART')}*</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker('reprise_competition')}>

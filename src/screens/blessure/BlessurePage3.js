@@ -60,7 +60,7 @@ const BlessurePage3 = ({formData, updateFormData}) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.label}>{t('DATE')}</Text>
+        <Text style={styles.label}>{t('DATE')}*</Text>
         <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker(true)}>
@@ -79,7 +79,7 @@ const BlessurePage3 = ({formData, updateFormData}) => {
           />
         )}
 
-        <Text style={styles.label}>{t('CARE_AND_EVALUATION')}</Text>
+        <Text style={styles.label}>{t('CARE_AND_EVALUATION')}*</Text>
         {
           <MultiSelect
             hideTags
@@ -105,7 +105,7 @@ const BlessurePage3 = ({formData, updateFormData}) => {
           />
         }
 
-        <Text style={styles.label}>{t('PRESCRIPTION')}</Text>
+        <Text style={styles.label}>{t('PRESCRIPTION')}*</Text>
         <MultiSelect
           hideTags
           items={medicaments}
@@ -129,7 +129,7 @@ const BlessurePage3 = ({formData, updateFormData}) => {
           styleMainWrapper={styles.inputContainer}
         />
 
-        <Text style={styles.label}>{t('COMMENTS')}</Text>
+        <Text style={styles.label}>{t('COMMENTS')}*</Text>
         <TextInput
           style={styles.textInput}
           multiline

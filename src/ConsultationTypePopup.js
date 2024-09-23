@@ -28,7 +28,7 @@ const ConsultationTypePopup = ({navigation}) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => handleNavigation('checkup')}>
+        onPress={() => navigation.navigate('CheckUpSteps')}>
         <Icon name="check-circle" size={20} color="#fff" />
         <Text style={styles.buttonText}>{t('CHECKUP')}</Text>
       </TouchableOpacity>

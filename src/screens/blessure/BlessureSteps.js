@@ -2,23 +2,19 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Alert, Text} from 'react-native';
 import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
-// import MaladiePage1 from '../maladie/MaladiePage1';
-// import MaladiePage2 from '../maladie/MaladiePage2';
-// import MaladiePage3 from '../maladie/MaladiePage3';
-// import MaladiePage4 from '../maladie/MaladiePage4';
+
 import BlessurePage1 from './BlessurePage1';
 import BlessurePage2 from './BlessurePage2';
 import BlessurePage3 from './BlessurePage3';
 import BlessurePage4 from './BlessurePage4';
 import BlessurePage5 from './BlessurePage5';
 import {useTranslation} from 'react-i18next';
+import CheckUpSteps from '../checkUp/CheckUpSteps';
 
-export default function MaladieSteps({navigation, route}) {
+export default function BlessureSteps({navigation, route}) {
   const {t} = useTranslation();
-
+  const [currentPage, setCurrentPage] = useState(0);
   const {type_consultation} = route.params;
-
-  const [pass, setPass] = useState(false);
   const [formData, setFormData] = useState({
     pageInfo: {
       date: new Date(),
@@ -86,72 +82,96 @@ export default function MaladieSteps({navigation, route}) {
     }));
   };
 
-  const handleFinish = () => {
-    const {pageInfo, pagePresc, pageBilan, pageAdditio, pageContexte} =
-      formData;
-
-    const isMaladie = type_consultation === 'maladie';
-    const isBlessure = type_consultation === 'blessure';
-
+  const validatePageInfo = (type_consultation, formData) => {
     if (type_consultation === 'blessure') {
-      if (
-        !pageInfo.date ||
-        !pageInfo.type ||
-        !pageInfo.location ||
-        !pageInfo.gravity ||
-        !pageInfo.date_retour_prevue ||
-        !pageInfo.durre_injury ||
-        //! ________________
-        !pagePresc.traitement_date ||
-        !pagePresc.ordon_comment ||
-        !pagePresc.selectedPack_ids.length ||
-        !pagePresc.selectedMedicament_ids.length ||
-        //! ________________
-        !pageBilan.selectedBilans.length ||
-        !pageBilan.selectedRefs.length ||
-        !pageBilan.bilan_comment ||
-        !pageBilan.reference_comment ||
-        //! ________________
-        !pageContexte.circonstances ||
-        !pageContexte.conditions ||
-        !pageContexte.terrain ||
-        !pageContexte.reathletisation_individuelle ||
-        !pageContexte.reprise_groupe ||
-        !pageContexte.reprise_competition ||
-        //! ________________
-        !pageAdditio.rapport
-      ) {
-        Alert.alert('Enter tous les champs du blessure!');
-        return;
-      }
+      return (
+        formData.pageInfo.type !== '' &&
+        formData.pageInfo.location !== '' &&
+        formData.pageInfo.gravity !== '' &&
+        formData.pageInfo.date_retour_prevue !== '' &&
+        formData.pageInfo.durre_injury !== '' &&
+        formData.pageInfo.date !== ''
+      );
     } else if (type_consultation === 'maladie') {
-      if (
-        !pageInfo.date ||
-        !pageInfo.type ||
-        !pageInfo.date_retour_prevue ||
-        !pageInfo.durre_injury ||
-        //! __
-        !pagePresc.traitement_date ||
-        !pagePresc.ordon_comment ||
-        !pagePresc.selectedPack_ids.length ||
-        !pagePresc.selectedMedicament_ids.length ||
-        //! __
-        !pageBilan.selectedBilans.length ||
-        !pageBilan.selectedRefs.length ||
-        !pageBilan.bilan_comment ||
-        !pageBilan.reference_comment ||
-        //! __
-        //! __
-        !pageAdditio.rapport
-      ) {
-        Alert.alert('Enter tous les champs du Maladie');
-        return;
-      }
-    } else {
-      Alert.alert('Unknown.');
-      return;
+      return (
+        formData.pageInfo.type !== '' &&
+        formData.pageInfo.date_retour_prevue !== '' &&
+        formData.pageInfo.durre_injury !== '' &&
+        formData.pageInfo.date !== ''
+      );
     }
+    return false;
+  };
 
+  const validatePrescription = formData => {
+    return (
+      formData.pagePresc.ordon_comment !== '' &&
+      formData.pagePresc.selectedPack_ids.length > 0 &&
+      formData.pagePresc.selectedMedicament_ids.length > 0 &&
+      formData.pagePresc.traitement_date !== ''
+    );
+  };
+  const validateContext = formData => {
+    const today = new Date().toISOString().split('T')[0];
+    return (
+      formData.pageContexte.circonstances !== '' &&
+      formData.pageContexte.conditions !== '' &&
+      formData.pageContexte.terrain !== '' &&
+      formData.pageContexte.reathletisation_individuelle
+        .toISOString()
+        .split('T')[0] !== today &&
+      formData.pageContexte.reprise_groupe.toISOString().split('T')[0] !==
+        today &&
+      formData.pageContexte.reprise_competition.toISOString().split('T')[0] !==
+        today
+    );
+  };
+
+  const validateBilan = formData => {
+    return (
+      formData.pageBilan.reference_comment !== '' &&
+      formData.pageBilan.bilan_comment !== '' &&
+      formData.pageBilan.selectedRefs.length > 0 &&
+      formData.pageBilan.selectedBilans.length > 0
+    );
+  };
+
+  const validateAdditio = formData => {
+    return formData.pageAdditio.rapport !== '';
+  };
+
+  const validateBlessure = (currentPage, type_consultation, formData) => {
+    switch (currentPage) {
+      case 0:
+        return validatePageInfo(type_consultation, formData);
+      case 1:
+        return validateContext(formData);
+      case 2:
+        return validatePrescription(formData);
+      case 3:
+        return validateBilan(formData);
+      case 4:
+        return validateAdditio(formData);
+      default:
+        return false;
+    }
+  };
+  const validateMaladie = (currentPage, type_consultation, formData) => {
+    switch (currentPage) {
+      case 0:
+        return validatePageInfo(type_consultation, formData);
+      case 1:
+        return validatePrescription(formData);
+      case 2:
+        return validateBilan(formData);
+      case 3:
+        return validateAdditio(formData);
+      default:
+        return false;
+    }
+  };
+
+  const handleFinish = () => {
     const form = new FormData();
     form.append('date', formData.pageInfo.date.toUTCString() || null);
     form.append('type', formData.pageInfo.type || null);
@@ -234,20 +254,9 @@ export default function MaladieSteps({navigation, route}) {
       });
     }
 
-    fetch('http://192.168.1.26:3000/api/save-data', {
-      method: 'POST',
-      body: form,
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-        Alert.alert('Submitted successfully!');
-        navigation.navigate('ConsultationTypePopup');
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        Alert.alert('Failed!');
-      });
+    console.log(form);
+    Alert.alert('Submitted successfully!');
+    navigation.navigate('ConsultationTypePopup');
   };
 
   return (
@@ -255,15 +264,23 @@ export default function MaladieSteps({navigation, route}) {
       {type_consultation === 'maladie' ? (
         <View style={styles.container}>
           <View style={styles.topLine} />
+
           <ProgressSteps
-            style={styles.progressStepsContainer}
-            activeStepIconBorderColor="#007BFF"
+            activeStepIconBorderColor="#0079fa"
             completedProgressBarColor="#034387"
             completedStepIconColor="#034387">
             <ProgressStep
-              labelStyle={{color: '#007bff', fontFamily: 'Poppins-Bold'}}
               label="Infos"
               nextBtnStyle={styles.button}
+              // nextBtnDisabled={
+              // !validateMaladie(currentPage, type_consultation, formData)
+              // }
+              onPrevious={() => {
+                if (currentPage > 0) {
+                  setCurrentPage(currentPage - 1);
+                }
+              }}
+              onNext={() => setCurrentPage(currentPage + 1)}
               nextBtnTextStyle={styles.buttonText}>
               <View style={styles.stepContainer}>
                 <BlessurePage1
@@ -272,11 +289,21 @@ export default function MaladieSteps({navigation, route}) {
                 />
               </View>
             </ProgressStep>
+
             <ProgressStep
               label="Prescription"
               previousBtnStyle={styles.button}
               previousBtnTextStyle={styles.buttonText}
               nextBtnStyle={styles.button}
+              // nextBtnDisabled={
+              // !validateMaladie(currentPage, type_consultation, formData)
+              // }
+              onPrevious={() => {
+                if (currentPage > 0) {
+                  setCurrentPage(currentPage - 1);
+                }
+              }}
+              onNext={() => setCurrentPage(currentPage + 1)}
               nextBtnTextStyle={styles.buttonText}>
               <View style={styles.stepContainer}>
                 <BlessurePage3
@@ -285,11 +312,21 @@ export default function MaladieSteps({navigation, route}) {
                 />
               </View>
             </ProgressStep>
+
             <ProgressStep
               label="Bilan Complémentaire et Avis Spécialisée"
               previousBtnStyle={styles.button}
               previousBtnTextStyle={styles.buttonText}
               nextBtnStyle={styles.button}
+              // nextBtnDisabled={
+              // !validateMaladie(currentPage, type_consultation, formData)
+              // }
+              onPrevious={() => {
+                if (currentPage > 0) {
+                  setCurrentPage(currentPage - 1);
+                }
+              }}
+              onNext={() => setCurrentPage(currentPage + 1)}
               nextBtnTextStyle={styles.buttonText}>
               <View style={styles.stepContainer}>
                 <BlessurePage4
@@ -298,12 +335,22 @@ export default function MaladieSteps({navigation, route}) {
                 />
               </View>
             </ProgressStep>
+
             <ProgressStep
               label="Informations additionnelles"
               previousBtnStyle={styles.button}
               previousBtnTextStyle={styles.buttonText}
               finishBtnStyle={styles.button}
               finishBtnTextStyle={styles.buttonText}
+              // nextBtnDisabled={
+              // !validateMaladie(currentPage, type_consultation, formData)
+              // }
+              onPrevious={() => {
+                if (currentPage > 0) {
+                  setCurrentPage(currentPage - 1);
+                }
+              }}
+              onNext={() => setCurrentPage(currentPage + 1)}
               onSubmit={handleFinish}>
               <View style={styles.stepContainer}>
                 <BlessurePage5
@@ -318,14 +365,23 @@ export default function MaladieSteps({navigation, route}) {
       ) : type_consultation === 'blessure' ? (
         <View style={styles.container}>
           <View style={styles.topLine} />
+
           <ProgressSteps
             activeStepIconBorderColor="#0079fa"
             completedProgressBarColor="#034387"
             completedStepIconColor="#034387">
             <ProgressStep
-              labelStyle={{color: '#007bff', fontFamily: 'Poppins-Bold'}}
               label="Infos"
               nextBtnStyle={styles.button}
+              nextBtnDisabled={
+                !validateBlessure(currentPage, type_consultation, formData)
+              }
+              onPrevious={() => {
+                if (currentPage > 0) {
+                  setCurrentPage(currentPage - 1);
+                }
+              }}
+              onNext={() => setCurrentPage(currentPage + 1)}
               nextBtnTextStyle={styles.buttonText}>
               <View style={styles.stepContainer}>
                 <BlessurePage1
@@ -334,11 +390,21 @@ export default function MaladieSteps({navigation, route}) {
                 />
               </View>
             </ProgressStep>
+
             <ProgressStep
               label="Contexte de la blessure"
               previousBtnStyle={styles.button}
               previousBtnTextStyle={styles.buttonText}
               nextBtnStyle={styles.button}
+              nextBtnDisabled={
+                !validateBlessure(currentPage, type_consultation, formData)
+              }
+              onPrevious={() => {
+                if (currentPage > 0) {
+                  setCurrentPage(currentPage - 1);
+                }
+              }}
+              onNext={() => setCurrentPage(currentPage + 1)}
               nextBtnTextStyle={styles.buttonText}>
               <View style={styles.stepContainer}>
                 <BlessurePage2
@@ -347,11 +413,21 @@ export default function MaladieSteps({navigation, route}) {
                 />
               </View>
             </ProgressStep>
+
             <ProgressStep
               label="Prescription"
               previousBtnStyle={styles.button}
               previousBtnTextStyle={styles.buttonText}
               nextBtnStyle={styles.button}
+              nextBtnDisabled={
+                !validateBlessure(currentPage, type_consultation, formData)
+              }
+              onPrevious={() => {
+                if (currentPage > 0) {
+                  setCurrentPage(currentPage - 1);
+                }
+              }}
+              onNext={() => setCurrentPage(currentPage + 1)}
               nextBtnTextStyle={styles.buttonText}>
               <View style={styles.stepContainer}>
                 <BlessurePage3
@@ -360,11 +436,21 @@ export default function MaladieSteps({navigation, route}) {
                 />
               </View>
             </ProgressStep>
+
             <ProgressStep
               label="Bilan Complémentaire et Avis Spécialisée"
               previousBtnStyle={styles.button}
               previousBtnTextStyle={styles.buttonText}
               nextBtnStyle={styles.button}
+              nextBtnDisabled={
+                !validateBlessure(currentPage, type_consultation, formData)
+              }
+              onPrevious={() => {
+                if (currentPage > 0) {
+                  setCurrentPage(currentPage - 1);
+                }
+              }}
+              onNext={() => setCurrentPage(currentPage + 1)}
               nextBtnTextStyle={styles.buttonText}>
               <View style={styles.stepContainer}>
                 <BlessurePage4
@@ -373,24 +459,35 @@ export default function MaladieSteps({navigation, route}) {
                 />
               </View>
             </ProgressStep>
+
             <ProgressStep
               label="Informations additionnelles"
               previousBtnStyle={styles.button}
               previousBtnTextStyle={styles.buttonText}
               finishBtnStyle={styles.button}
               finishBtnTextStyle={styles.buttonText}
+              nextBtnDisabled={
+                !validateBlessure(currentPage, type_consultation, formData)
+              }
+              onPrevious={() => {
+                if (currentPage > 0) {
+                  setCurrentPage(currentPage - 1);
+                }
+              }}
+              onNext={() => setCurrentPage(currentPage + 1)}
               onSubmit={handleFinish}>
               <View style={styles.stepContainer}>
                 <BlessurePage5
                   formData={formData.pageAdditio}
                   updateFormData={data => updateFormData('pageAdditio', data)}
+                  navigation={navigation}
                 />
               </View>
             </ProgressStep>
           </ProgressSteps>
         </View>
       ) : (
-        <Text>Soon...</Text>
+        navigation.navigate('ConsultationTypePopup')
       )}
     </>
   );
