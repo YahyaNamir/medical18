@@ -1,20 +1,18 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
+import {useTranslation} from 'react-i18next';
+import {View, Text, StyleSheet, TextInput, Button, Alert} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 
-const BlessurePage5 = ({ formData, updateFormData }) => {
-  const { t } = useTranslation();
+const BlessurePage5 = ({formData, updateFormData}) => {
+  const {t} = useTranslation();
 
   const pickDocument = async () => {
     try {
       const res = await DocumentPicker.pickSingle({
         type: [DocumentPicker.types.allFiles],
       });
-      console.log('Selected file:', res); 
-      console.log('File name:', res.name);
-
-      updateFormData({ file: res });
+      console.log('Selected file:', res);
+      updateFormData({file: res});
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         console.log('Selection canceled');
@@ -28,10 +26,10 @@ const BlessurePage5 = ({ formData, updateFormData }) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>{t('MEDICAL_REPORT')}:</Text>
+        <Text style={styles.label}>{t('MEDICAL_REPORT')}:*</Text>
         <TextInput
           value={formData.rapport}
-          onChangeText={text => updateFormData({ rapport: text })}
+          onChangeText={text => updateFormData({rapport: text})}
           placeholder={t('WRITE')}
           multiline
           numberOfLines={5}
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#fff',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,

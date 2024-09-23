@@ -100,7 +100,7 @@ const BlessurePage4 = ({formData, updateFormData}) => {
           numberOfLines={2}
           style={styles.textInput}
         />
-        <Text style={styles.label}>{t('SPECIALIST_ADVICE_COMMENTS')}*halla</Text>
+        <Text style={styles.label}>{t('SPECIALIST_ADVICE_COMMENTS')}*</Text>
         <TextInput
           value={reference_comment}
           onChangeText={text => updateFormData({reference_comment: text})}

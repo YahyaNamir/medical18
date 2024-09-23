@@ -254,7 +254,7 @@ export default function BlessureSteps({navigation, route}) {
       });
     }
 
-    console.log(form);
+    console.log(formData.pageAdditio.file);
     Alert.alert('Submitted successfully!');
     navigation.navigate('ConsultationTypePopup');
   };
@@ -272,9 +272,9 @@ export default function BlessureSteps({navigation, route}) {
             <ProgressStep
               label="Infos"
               nextBtnStyle={styles.button}
-              // nextBtnDisabled={
-              // !validateMaladie(currentPage, type_consultation, formData)
-              // }
+              nextBtnDisabled={
+              !validateMaladie(currentPage, type_consultation, formData)
+              }
               onPrevious={() => {
                 if (currentPage > 0) {
                   setCurrentPage(currentPage - 1);
@@ -295,9 +295,9 @@ export default function BlessureSteps({navigation, route}) {
               previousBtnStyle={styles.button}
               previousBtnTextStyle={styles.buttonText}
               nextBtnStyle={styles.button}
-              // nextBtnDisabled={
-              // !validateMaladie(currentPage, type_consultation, formData)
-              // }
+              nextBtnDisabled={
+              !validateMaladie(currentPage, type_consultation, formData)
+              }
               onPrevious={() => {
                 if (currentPage > 0) {
                   setCurrentPage(currentPage - 1);
@@ -318,9 +318,9 @@ export default function BlessureSteps({navigation, route}) {
               previousBtnStyle={styles.button}
               previousBtnTextStyle={styles.buttonText}
               nextBtnStyle={styles.button}
-              // nextBtnDisabled={
-              // !validateMaladie(currentPage, type_consultation, formData)
-              // }
+              nextBtnDisabled={
+              !validateMaladie(currentPage, type_consultation, formData)
+              }
               onPrevious={() => {
                 if (currentPage > 0) {
                   setCurrentPage(currentPage - 1);
@@ -342,9 +342,9 @@ export default function BlessureSteps({navigation, route}) {
               previousBtnTextStyle={styles.buttonText}
               finishBtnStyle={styles.button}
               finishBtnTextStyle={styles.buttonText}
-              // nextBtnDisabled={
-              // !validateMaladie(currentPage, type_consultation, formData)
-              // }
+              nextBtnDisabled={
+              !validateMaladie(currentPage, type_consultation, formData)
+              }
               onPrevious={() => {
                 if (currentPage > 0) {
                   setCurrentPage(currentPage - 1);
