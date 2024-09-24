@@ -16,7 +16,7 @@ const CheckUpPage2 = () => {
     date: '',
     cat: '',
     arretSportif: '',
-    reathletisation: '',
+    // reathletisation: '',
     repriseGroupe: '',
     competition: '',
   });
