@@ -14,7 +14,7 @@ const CheckUpPage2 = () => {
     observation: '',
     pathologie: '',
     date: '',
-    cat: '',
+    // cat: '',
     arretSportif: '',
     reathletisation: '',
     repriseGroupe: '',
