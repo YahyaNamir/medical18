@@ -11,7 +11,7 @@ const CheckUpPage2 = () => {
   });
 
   const [formData, setFormData] = useState({
-    // observation: '',
+    observation: '',
     pathologie: '',
     date: '',
     cat: '',
