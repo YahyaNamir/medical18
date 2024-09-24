@@ -1,0 +1,24 @@
+date_arrive: '2024-09-24';
+date_dispute: '2024-09-07';
+temp_jeu: 120;
+conclusion: apte;
+comment: CCC;
+nombre_match: 2;
+file: null;
+pathalogies: [
+  {
+    id: 342,
+    check_up_id: 237,
+    date: '2024-09-17',
+    pack_ids: [54, 50],
+    diagnostic: ['déchirure', 'pubalgie'],
+    date_retour_prevue: 4,
+    durre_injury: 7,
+    pathalogie_label_id: 4,
+    date_individuelle: '',
+    date_reprise: '',
+    date_competition: '',
+    observation: 'OBservation',
+    label: 'Pathologie cardiaque',
+  },
+];

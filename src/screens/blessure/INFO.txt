@@ -1,0 +1,52 @@
+pathologie : 
+<Text style={styles.label}>{type_consultation === 'blessure' ? t('DIAGNOSTIC_B') : t('DIAGNOSTIC_M')}*</Text>
+<View style={styles.inputContainer}>
+  <Picker
+    selectedValue={formData.type}
+    onValueChange={itemValue => updateFormData({type: itemValue})}
+    style={styles.picker}>
+    {maladieDiagnostics.map(item => (
+      <Picker.Item
+        key={item.value}
+        label={item.label}
+        value={item.value}
+      />
+    ))}
+  </Picker>
+
+  Date: 
+  <TouchableOpacity
+          style={styles.datePickerButton}
+          onPress={() => setShowDatePicker(true)}>
+          <Text style={styles.input}>{formData.date.toDateString()}</Text>
+        </TouchableOpacity>
+
+        {showDatePicker && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={formData.date}
+            mode="date"
+            display="default"
+            onChange={handleDateChange}
+          />
+        )}
+        ## here what u will ned for this two btw :
+        import diagnosticsData from '../../../API MALADIE/diagnostic.json';
+        const [showDatePicker, setShowDatePicker] = useState(false);
+
+           const handleDateChange = (event, selectedDate) => {
+          const currentDate = selectedDate || formData.date;
+          setShowDatePicker(false);
+          updateFormData({date: currentDate});
+        };
+      
+        const maladieDiagnostics = diagnosticsData
+          .filter(item => item.type_consultation === 'maladie')
+          .flatMap(item =>
+            item.children.map(child => ({
+              label: child.child,
+              value: child.child_id,
+            })),
+          );## and also this import :
+          
+          
