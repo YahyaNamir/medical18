@@ -1,9 +1,8 @@
 pathologie : 
-<Text style={styles.label}>{type_consultation === 'blessure' ? t('DIAGNOSTIC_B') : t('DIAGNOSTIC_M')}*</Text>
 <View style={styles.inputContainer}>
   <Picker
-    selectedValue={formData.type}
-    onValueChange={itemValue => updateFormData({type: itemValue})}
+    selectedValue={formData.check_up_id}
+    onValueChange={itemValue => updateFormData({check_up_id: itemValue})}
     style={styles.picker}>
     {maladieDiagnostics.map(item => (
       <Picker.Item
@@ -47,6 +46,120 @@ pathologie :
               label: child.child,
               value: child.child_id,
             })),
-          );## and also this import :
-          
-          
+          );
+
+          lest contie now in CAT (en club):
+                  {
+          <MultiSelect
+            hideTags
+            items={consultations}
+            uniqueKey="id"
+            onSelectedItemsChange={items =>
+              updateFormData({pack_ids: items})
+            }
+            selectedItems={pack_ids}
+            selectText="Select..."
+            searchInputPlaceholderText="Rechercher soins..."
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#CCC"
+            selectedItemTextColor="#7979f7"
+            selectedItemIconColor="#7979f7"
+            itemTextColor="#000"
+            displayKey="name"
+            searchInputStyle={{color: '#7979f7'}}
+            submitButtonColor="#7979f7"
+            submitButtonText="Choisir"
+            styleMainWrapper={styles.inputContainer}
+          />
+        }
+         ## here's now in arret sportif, it conatint two select: 
+        <View style={styles.inputContainer}>
+          <Picker
+            selectedValue={formData.date_retour_prevue}
+            onValueChange={itemValue =>
+              updateFormData({date_retour_prevue: itemValue})
+            }
+            style={styles.picker}>
+            {[...Array(30).keys()].map(i => (
+              <Picker.Item key={i + 1} label={`${i + 1}`} value={i + 1} />
+            ))}
+          </Picker>
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Picker
+            selectedValue={formData.durre_injury}
+            onValueChange={itemValue =>
+              updateFormData({durre_injury: itemValue})
+            }
+            style={styles.picker}>
+            <Picker.Item label="Jour" value="1" />
+            <Picker.Item label="Semaines" value="7" />
+            <Picker.Item label="Mois" value="30" />
+          </Picker> 
+
+         ## now the thre date in date reprise: 
+
+           <Text style={styles.label}>{t('INDIVIDUAL_REATHLETISATION')}*</Text>
+        <TouchableOpacity
+          style={styles.datePickerButton}
+          onPress={() => setShowDatePicker('reathletisation_individuelle')}>
+          <Text style={styles.input}>
+            {formData.reathletisation_individuelle
+              ? formData.reathletisation_individuelle.toDateString()
+              : 'Select Date'}
+          </Text>
+        </TouchableOpacity>
+
+        <Text style={styles.label}>{t('GROUP_RESTART')}*</Text>
+        <TouchableOpacity
+          style={styles.datePickerButton}
+          onPress={() => setShowDatePicker('reprise_groupe')}>
+          <Text style={styles.input}>
+            {formData.reprise_groupe
+              ? formData.reprise_groupe.toDateString()
+              : 'Select Date'}
+          </Text>
+        </TouchableOpacity>
+
+        <Text style={styles.label}>{t('COMPETITION_RESTART')}*</Text>
+        <TouchableOpacity
+          style={styles.datePickerButton}
+          onPress={() => setShowDatePicker('reprise_competition')}>
+          <Text style={styles.input}>
+            {formData.reprise_competition
+              ? formData.reprise_competition.toDateString()
+              : 'Select Date'}
+          </Text>
+        </TouchableOpacity>
+
+        {showDatePicker && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={
+              showDatePicker === 'reathletisation_individuelle'
+                ? formData.reathletisation_individuelle
+                : showDatePicker === 'reprise_groupe'
+                ? formData.reprise_groupe
+                : formData.reprise_competition
+            }
+            mode="date"
+            display="default"
+            onChange={handleDateChange}
+          />
+        )}##### HERE THE WHOLE BJECT IF U NEED IT:     pageTable: {
+      id: '',
+      check_up_id: '',
+      date: new Date(),
+      pack_ids: [],
+      diagnostic: [],
+      date_retour_prevue: 0,
+      durre_injury: 0,
+      pathalogie_label_id: '',
+      date_individuelle:new Date(),
+      date_reprise:new Date(),
+      date_competition:new Date(),
+      observation: '',
+      label: '',
+    },
