@@ -18,7 +18,7 @@ const CheckUpPage2 = () => {
     arretSportif: '',
     reathletisation: '',
     repriseGroupe: '',
-    competition: '',
+    // competition: '',
   });
 
   const handleCheckboxChange = test => {
