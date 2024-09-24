@@ -1,5 +1,5 @@
-date_arrive: 2024 - 09 - 24;
-date_dispute: 2024 - 09 - 07;
+date_arrive: 2024-09-24;
+date_dispute: 2024-09-07;
 temp_jeu: 120;
 conclusion: apte;
 comment: CCC;

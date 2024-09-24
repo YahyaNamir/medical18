@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   View,
@@ -5,7 +6,6 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  TextInput,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -40,17 +40,6 @@ const BlessurePage1 = ({formData, updateFormData}) => {
       })),
     );
 
-  const typeconsu = type_consultation === 'blessure' ? 'Blessure' : 'Maladie';
-
-  const handleChange = text => {
-    const value = Number(text);
-
-    if (!isNaN(value) && value >= 1 && value <= 5) {
-      updateFormData({gravity: value});
-    } else if (text === '') {
-      updateFormData({gravity: null});
-    }
-  };
 
   return (
     <View style={styles.container}>
