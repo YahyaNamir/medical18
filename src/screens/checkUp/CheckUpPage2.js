@@ -157,7 +157,7 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
               </Text>
             </TouchableOpacity>
           </View>
- <Collapsible collapsed={collapsed[index]}>
+          <Collapsible collapsed={collapsed[index]}>
             <Table>
               <Row
                 data={[
@@ -168,6 +168,7 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
                       const selectedOption = pathologiesOptions.find(
                         option => option.id === itemValue,
                       );
+
                       updatePathalogyField(
                         index,
                         'pathalogie_label_id',
