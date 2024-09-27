@@ -157,7 +157,7 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
               </Text>
             </TouchableOpacity>
           </View>
-          {/* <Collapsible collapsed={collapsed[index]}> */}
+ <Collapsible collapsed={collapsed[index]}>
             <Table>
               <Row
                 data={[
