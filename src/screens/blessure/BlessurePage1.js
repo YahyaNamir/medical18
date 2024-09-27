@@ -40,7 +40,6 @@ const BlessurePage1 = ({formData, updateFormData}) => {
       })),
     );
 
-
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -105,12 +104,17 @@ const BlessurePage1 = ({formData, updateFormData}) => {
                 maximumTrackTintColor="#5a5858"
                 thumbTintColor="#0051ff"
               />
-              <Text style={styles.sliderValue}>{formData.gravity  || 0}</Text>
+              <Text style={styles.sliderValue}>{formData.gravity || 0}</Text>
             </View>
           </>
         )}
 
-        <Text style={styles.label}>{type_consultation === 'blessure' ? t('DIAGNOSTIC_B') : t('DIAGNOSTIC_M')}*</Text>
+        <Text style={styles.label}>
+          {type_consultation === 'blessure'
+            ? t('DIAGNOSTIC_B')
+            : t('DIAGNOSTIC_M')}
+          *
+        </Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.type}
@@ -126,7 +130,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
           </Picker>
         </View>
 
-        <Text style={styles.label}>{t('ESTIMATED_ABSENCE_DURATION')}*</Text>
+        <Text style={styles.label}>{t('ABSENCE_DURATION')}*</Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.date_retour_prevue}
@@ -140,7 +144,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
           </Picker>
         </View>
 
-        <Text style={styles.label}>{t('ESTIMATED_ABSENCE_TYPE')}*</Text>
+        <Text style={styles.label}>{t('ABSENCE_TYPE')}*</Text>
         <View style={styles.inputContainer}>
           <Picker
             selectedValue={formData.durre_injury}
@@ -430,7 +434,7 @@ export default BlessurePage1;
 //             {!formData.type && errors.type && (
 //               <Text style={styles.error}>{errors.type}</Text>
 //             )}
-//             <Text style={styles.label}>{t('ESTIMATED_ABSENCE_DURATION')}</Text>
+//             <Text style={styles.label}>{t('ABSENCE_DURATION')}</Text>
 //             <View style={styles.inputContainer}>
 //               <Picker
 //                 selectedValue={formData.date_retour_prevue}
@@ -447,7 +451,7 @@ export default BlessurePage1;
 //               <Text style={styles.error}>{errors.date_retour_prevue}</Text>
 //             )}
 
-//             <Text style={styles.label}>{t('ESTIMATED_ABSENCE_TYPE')}</Text>
+//             <Text style={styles.label}>{t('ABSENCE_TYPE')}</Text>
 //             <View style={styles.inputContainer}>
 //               <Picker
 //                 selectedValue={formData.durre_injury}

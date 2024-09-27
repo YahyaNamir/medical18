@@ -1,146 +1,341 @@
-import React, {useState} from 'react';
-import {View, TextInput, Button, ScrollView, StyleSheet} from 'react-native';
-import CheckBox from 'react-native-check-box';
-import {Table, Row} from 'react-native-table-component';
+import React, {useRef, useState} from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+  Button,
+  Animated,
+  Easing,
+} from 'react-native';
+import {Table, Row, Rows} from 'react-native-table-component';
 
-const CheckUpPage2 = () => {
-  const [checkboxes, setCheckboxes] = useState({
-    test1: false,
-    test2: false,
-    test3: false,
-  });
+import DateTimePicker from '@react-native-community/datetimepicker';
+import MultiSelect from 'react-native-multiple-select';
+import {useTranslation} from 'react-i18next';
+import prescriptionData from '../../../API MALADIE/prescription.json';
+import {Picker} from '@react-native-picker/picker';
 
-  const [formData, setFormData] = useState({
-    observation: '',
-    pathologie: '',
-    date: '',
-    cat: '',
-    arretSportif: '',
-    reathletisation: '',
-    repriseGroupe: '',
-    competition: '',
-  });
+const CheckUpPage2 = ({formData, updateFormData}) => {
+  const {t} = useTranslation();
+  const pathologyCounter = useRef(1);
 
-  const handleCheckboxChange = test => {
-    setCheckboxes(prev => ({...prev, [test]: !prev[test]}));
-  };
+  const [pathalogies, setPathalogies] = useState([]);
 
-  const handleInputChange = (name, value) => {
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSave = () => {
-    console.log('Form Data:', formData);
-  };
-
-  const tableHeadFirstRow = [
-    'Observation',
-    'Pathologie',
-    'Date',
-    'CAT (en club)',
-  ];
-  const tableHeadSecondRow = [
-    'Arrêt sportif',
-    'Réathlétisation individuelle',
-    'Reprise groupe',
-    'Compétition',
+  const pathologiesOptions = [
+    {id: '1', name: 'Allergie nourriture/insectes'},
+    {id: '2', name: "Pathologie ou Blessure sur l'appareil locomoteur"},
+    {id: '3', name: 'Allergie médicaments'},
+    {id: '4', name: 'Infections'},
+    {id: '5', name: 'Pathologie cardiaque'},
+    {id: '6', name: 'Pathologie gastro-intestinale'},
+    {id: '7', name: 'Pathologie respiratoire'},
+    {id: '8', name: 'Pathologie neurologique'},
+    {id: '9', name: 'Autres pathologies ...'},
   ];
 
+  const consultationsData = prescriptionData.find(
+    item => item.label === 'CONSULTATIONS MEDICALES',
+  );
+  const consultations = consultationsData
+    ? consultationsData.children.map(child => ({
+        id: child.child_id,
+        name: child.child,
+      }))
+    : [];
+
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [currentDateField, setCurrentDateField] = useState('');
+  const [currentPathalogyIndex, setCurrentPathalogyIndex] = useState(null);
+
+  const handleDateChange = (event, selectedDate) => {
+    if (event.type === 'set' && selectedDate) {
+      setShowDatePicker(false);
+      if (currentPathalogyIndex !== null) {
+        const updatedPathalogies = [...pathalogies];
+        updatedPathalogies[currentPathalogyIndex][currentDateField] =
+          selectedDate;
+
+        updateFormData('pageTable', {pathalogies: updatedPathalogies});
+
+        setPathalogies(updatedPathalogies);
+      }
+    } else {
+      setShowDatePicker(false);
+    }
+  };
+
+  const addPathalogy = () => {
+    const newPathalogy = {
+      id: pathologyCounter.current++,
+      check_up_id: '',
+      date: new Date(),
+      pack_ids: [],
+      diagnostic: [],
+      date_retour_prevue: '',
+      durre_injury: '',
+      pathalogie_label_id: '',
+      date_individuelle: new Date(),
+      date_reprise: new Date(),
+      date_competition: new Date(),
+      observation: '',
+      label: '',
+    };
+    setPathalogies(prevPathalogies => {
+      const updatedPathalogies = [...prevPathalogies, newPathalogy];
+      updateFormData({pathalogies: updatedPathalogies});
+      return updatedPathalogies;
+    });
+  };
+
+  const updateFormDataAndSetState = (field, value) => {
+    updateFormData('pageTable', {pathalogies: [...pathalogies]});
+    return value;
+  };
+
+  const updatePathalogyField = (index, field, value) => {
+    setPathalogies(prevPathalogies => {
+      const updatedPathalogies = [...prevPathalogies];
+      updatedPathalogies[index][field] = value;
+      updateFormDataAndSetState('pathalogies', updatedPathalogies);
+      return updatedPathalogies;
+    });
+  };
+
+  const soinsPodologiquesData = prescriptionData.find(
+    item => item.label === 'SOINS PODOLOGIQUES',
+  );
+  const soinsPodologiques = soinsPodologiquesData
+    ? soinsPodologiquesData.children.map(child => ({
+        id: child.child_id,
+        name: child.child,
+      }))
+    : [];
+  const removePathology = index => {
+    const updatedPathalogies = pathalogies.filter((_, i) => i !== index);
+
+    setPathalogies(updatedPathalogies);
+
+    updateFormData('pageTable', {pathalogies: updatedPathalogies});
+  };
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.checkboxContainer}>
-        <CheckBox
-          isChecked={checkboxes.test1}
-          onClick={() => handleCheckboxChange('test1')}
-          rightText={'Test 1'}
-          rightTextStyle={styles.checkboxText}
-        />
-        <CheckBox
-          isChecked={checkboxes.test2}
-          onClick={() => handleCheckboxChange('test2')}
-          rightText={'Test 2'}
-          rightTextStyle={styles.checkboxText}
-        />
-        <CheckBox
-          isChecked={checkboxes.test3}
-          onClick={() => handleCheckboxChange('test3')}
-          rightText={'Test 3'}
-          rightTextStyle={styles.checkboxText}
-        />
-      </View>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <TouchableOpacity style={styles.addButton} onPress={addPathalogy}>
+        <Text style={styles.addButtonText}>{t('Add Pathalogy')}</Text>
+      </TouchableOpacity>
 
-      <Table borderStyle={{borderWidth: 1, borderColor: '#C0C0C0'}}>
-        <Row
-          data={tableHeadFirstRow}
-          flexArr={[1, 1, 1, 1]}
-          style={styles.head}
-          textStyle={styles.headerText}
-        />
+      {pathalogies.map((pathalogy, index) => (
+        <View key={index} style={styles.pathalogyContainer}>
+          <Text style={styles.label}>{index + 1}</Text>
+          <TouchableOpacity
+            style={styles.removeButton}
+            onPress={() => removePathology(index)}>
+            <Text style={styles.removeButtonText}>X</Text>
+          </TouchableOpacity>
 
-        <Row
-          data={[
-            <TextInput
-              style={styles.input}
-              value={formData.observation}
-              onChangeText={text => handleInputChange('observation', text)}
-            />,
-            <TextInput
-              style={styles.input}
-              value={formData.pathologie}
-              onChangeText={text => handleInputChange('pathologie', text)}
-            />,
-            <TextInput
-              style={styles.input}
-              value={formData.date}
-              onChangeText={text => handleInputChange('date', text)}
-            />,
-            <TextInput
-              style={styles.input}
-              value={formData.cat}
-              onChangeText={text => handleInputChange('cat', text)}
-            />,
-          ]}
-          flexArr={[1, 1, 1, 1]}
-          style={styles.row}
-        />
-        <Row
-          data={tableHeadSecondRow}
-          flexArr={[1, 1, 1, 1]}
-          style={styles.head}
-          textStyle={styles.headerText}
-        />
-        <Row
-          data={[
-            <TextInput
-              style={styles.input}
-              value={formData.arretSportif}
-              onChangeText={text => handleInputChange('arretSportif', text)}
-            />,
-            <TextInput
-              style={styles.input}
-              value={formData.reathletisation}
-              onChangeText={text => handleInputChange('reathletisation', text)}
-            />,
-            <TextInput
-              style={styles.input}
-              value={formData.repriseGroupe}
-              onChangeText={text => handleInputChange('repriseGroupe', text)}
-            />,
-            <TextInput
-              style={styles.input}
-              value={formData.competition}
-              onChangeText={text => handleInputChange('competition', text)}
-            />,
-          ]}
-          flexArr={[1, 1, 1, 1]}
-          style={styles.row}
-        />
-      </Table>
+          <Table>
+            <Row
+              data={[
+                <Text style={styles.label}>{t('Select Pathology')}*</Text>,
+                <Picker
+                  selectedValue={pathalogy.check_up_id}
+                  onValueChange={itemValue =>
+                    updatePathalogyField(index, 'check_up_id', itemValue)
+                  }
+                  style={styles.picker}>
+                  {pathologiesOptions.map(option => (
+                    <Picker.Item
+                      key={option.id}
+                      label={option.name}
+                      value={option.id}
+                    />
+                  ))}
+                </Picker>,
+              ]}
+            />
+            <Row
+              data={[
+                <Text style={styles.label}>{t('Pathologie')}*</Text>,
+                <MultiSelect
+                  hideTags
+                  items={consultations}
+                  uniqueKey="id"
+                  onSelectedItemsChange={items =>
+                    updatePathalogyField(index, 'pack_ids', items)
+                  }
+                  selectedItems={pathalogy.pack_ids}
+                  selectText={t('Select...')}
+                  searchInputPlaceholderText={t('Rechercher soins...')}
+                  tagRemoveIconColor="#CCC"
+                  selectedItemTextColor="#7979f7"
+                  selectedItemIconColor="#7979f7"
+                  itemTextColor="#000"
+                  displayKey="name"
+                  searchInputStyle={styles.searchInput}
+                  submitButtonColor="#7979f7"
+                  submitButtonText={t('Choisir')}
+                  styleMainWrapper={styles.inputContainer}
+                />,
+              ]}
+            />
+            <Row
+              data={[
+                <Text style={styles.label}>{t('Date')}*</Text>,
+                <TouchableOpacity
+                  style={styles.datePickerButton}
+                  onPress={() => {
+                    setShowDatePicker(true);
+                    setCurrentDateField('date');
+                    setCurrentPathalogyIndex(index);
+                  }}>
+                  <Text style={styles.input}>
+                    {pathalogy.date.toDateString()}
+                  </Text>
+                </TouchableOpacity>,
+              ]}
+            />
+            <Row
+              data={[
+                <Text style={styles.label}>{t('CAT (en club)')}* </Text>,
+                <MultiSelect
+                  hideTags
+                  items={soinsPodologiques}
+                  uniqueKey="id"
+                  onSelectedItemsChange={items =>
+                    updatePathalogyField(index, 'diagnostic', items)
+                  }
+                  selectedItems={pathalogy.diagnostic}
+                  selectText={t('Select...')}
+                  searchInputPlaceholderText={t('Search Médicaments...')}
+                  tagTextColor="#CCC"
+                  selectedItemTextColor="#7979f7"
+                  selectedItemIconColor="#7979f7"
+                  itemTextColor="#000"
+                  displayKey="name"
+                  searchInputStyle={styles.searchInput}
+                  submitButtonColor="#7979f7"
+                  submitButtonText={t('Choisir')}
+                  styleMainWrapper={styles.inputContainer}
+                />,
+              ]}
+            />
+            <Row
+              data={[<Text style={styles.labelD}>{t('Arret Sportif')}</Text>]}
+            />
+            <Row
+              data={[
+                <Text style={styles.label}>{t('ABSENCE_DURATION')}*</Text>,
+                <Picker
+                  selectedValue={pathalogy.date_retour_prevue}
+                  onValueChange={itemValue =>
+                    updatePathalogyField(index, 'date_retour_prevue', itemValue)
+                  }
+                  style={styles.picker}>
+                  {[...Array(30).keys()].map(i => (
+                    <Picker.Item key={i + 1} label={`${i + 1}`} value={i + 1} />
+                  ))}
+                </Picker>,
+              ]}
+            />
+            <Row
+              data={[
+                <Text style={styles.label}>{t('ABSENCE_TYPE')}*</Text>,
+                <Picker
+                  selectedValue={pathalogy.durre_injury}
+                  onValueChange={itemValue =>
+                    updatePathalogyField(index, 'durre_injury', itemValue)
+                  }
+                  style={styles.picker}>
+                  <Picker.Item label="Jour" value="1" />
+                  <Picker.Item label="Semaines" value="7" />
+                  <Picker.Item label="Mois" value="30" />
+                </Picker>,
+              ]}
+            />
+            <Row
+              data={[<Text style={styles.labelD}>{t('Date Reprise')} </Text>]}
+            />
 
-      <Button title="Save" onPress={handleSave} />
+            <Row
+              data={[
+                <Text style={styles.label}>
+                  {t('INDIVIDUAL_REATHLETISATION')}{' '}
+                </Text>,
+                <TouchableOpacity
+                  style={styles.datePickerButton}
+                  onPress={() => {
+                    setShowDatePicker(true);
+                    setCurrentDateField('date_individuelle');
+                    setCurrentPathalogyIndex(index);
+                  }}>
+                  <Text style={styles.input}>
+                    {pathalogy.date_individuelle.toDateString()}
+                  </Text>
+                </TouchableOpacity>,
+              ]}
+            />
+            <Row
+              data={[
+                <Text style={styles.label}>{t('Reprise Groupe')} </Text>,
+                <TouchableOpacity
+                  style={styles.datePickerButton}
+                  onPress={() => {
+                    setShowDatePicker(true);
+                    setCurrentDateField('date_reprise');
+                    setCurrentPathalogyIndex(index);
+                  }}>
+                  <Text style={styles.input}>
+                    {pathalogy.date_reprise.toDateString()}
+                  </Text>
+                </TouchableOpacity>,
+              ]}
+            />
+            <Row
+              data={[
+                <Text style={styles.label}>{t('Compétition')}</Text>,
+                <TouchableOpacity
+                  style={styles.datePickerButton}
+                  onPress={() => {
+                    setShowDatePicker(true);
+                    setCurrentDateField('date_competition');
+                    setCurrentPathalogyIndex(index);
+                  }}>
+                  <Text style={styles.input}>
+                    {pathalogy.date_competition.toDateString()}
+                  </Text>
+                </TouchableOpacity>,
+              ]}
+            />
+            <Row
+              data={[
+                <Text style={styles.label}>{t('Observation')}</Text>,
+                <TextInput
+                  value={pathalogy.observation}
+                  onChangeText={text =>
+                    updatePathalogyField(index, 'observation', text)
+                  }
+                  placeholder={t('WRITE')}
+                  multiline
+                  style={styles.textInput}
+                />,
+              ]}
+            />
+          </Table>
+        </View>
+      ))}
+
+      {showDatePicker && (
+        <DateTimePicker
+          value={new Date()}
+          mode="date"
+          display="default"
+          onChange={handleDateChange}
+        />
+      )}
+
+      {/* <Button title={t('Finish')} onPress={() => console.log(pathalogies)} /> */}
     </ScrollView>
   );
 };
@@ -148,33 +343,114 @@ const CheckUpPage2 = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: 25,
+    backgroundColor: '#f0f4f8',
+    justifyContent: 'center',
   },
-  checkboxContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 16,
+  scrollContainer: {
+    paddingBottom: 20,
   },
-  checkboxText: {
-    fontSize: 16,
+  addButton: {
+    backgroundColor: '#0f4dc9',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
   },
-  head: {
-    height: 40,
-    backgroundColor: '#f1f8ff',
+  addButtonText: {
+    fontFamily: 'Poppins-Bold',
+    color: '#fff',
+    fontSize: 15,
   },
-  headerText: {
+  pathalogyContainer: {
+    marginBottom: 20,
+    padding: 20,
+    borderRadius: 8,
+    backgroundColor: '#ffffff',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  removeButton: {
+    marginBottom: 20,
     textAlign: 'center',
-    fontWeight: 'bold',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 30,
+    height: 30,
+    backgroundColor: '#f44336',
+    borderRadius: 50,
   },
-  row: {
+  removeButtonText: {
+    fontFamily: 'Poppins-Bold',
+    color: '#fff',
+  },
+  label: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 15,
+    marginBottom: 5,
+    color: '#333',
+  },
+  labelD: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 16,
+    marginBottom: 8,
+    marginTop: 8,
+    color: '#000000',
+  },
+  picker: {
     height: 50,
+    width: '100%',
+    marginBottom: 15,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    backgroundColor: '#f9f9f9',
+  },
+  tableRow: {
+    marginBottom: 15,
+  },
+  inputContainer: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    backgroundColor: '#f9f9f9',
+  },
+  datePickerButton: {
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 15,
+    backgroundColor: '#f9f9f9',
   },
   input: {
-    borderColor: '#C0C0C0',
+    fontFamily: 'Poppins-Regular',
+    fontSize: 15,
+    color: '#555',
+  },
+  searchInput: {
+    backgroundColor: '#f0f0f0',
+    borderRadius: 8,
+    padding: 10,
     borderWidth: 1,
-    height: 40,
-    padding: 8,
-    textAlign: 'center',
+    borderColor: '#ccc',
+  },
+  textInput: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 10,
+    minHeight: 40,
+    backgroundColor: '#ffffff',
+    fontFamily: 'Poppins-Regular',
+    color: '#333',
   },
 });
 

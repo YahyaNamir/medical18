@@ -152,7 +152,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
             </View>
             {errors.type && <Text style={styles.error}>{errors.type}</Text>}
 
-            <Text style={styles.label}>{t('ESTIMATED_ABSENCE_DURATION')}</Text>
+            <Text style={styles.label}>{t('ABSENCE_DURATION')}</Text>
             <View style={styles.inputContainer}>
               <Picker
                 selectedValue={values.date_retour_prevue}
@@ -168,7 +168,7 @@ const BlessurePage1 = ({formData, updateFormData}) => {
               <Text style={styles.error}>{errors.date_retour_prevue}</Text>
             )}
 
-            <Text style={styles.label}>{t('ESTIMATED_ABSENCE_TYPE')}</Text>
+            <Text style={styles.label}>{t('ABSENCE_TYPE')}</Text>
             <View style={styles.inputContainer}>
               <Picker
                 selectedValue={values.durre_injury}

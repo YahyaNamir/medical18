@@ -1,9 +1,9 @@
-import {View, StyleSheet, Alert} from 'react-native';
 import React, {useState} from 'react';
+import {Alert, StyleSheet, View} from 'react-native';
 import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
-import CheckUpPage1 from './CheckUpPage1';
-import CheckUpPage2 from './CheckUpPage2';
 import CheckUpPage3 from './CheckUpPage3';
+import CheckUpPage2 from './CheckUpPage2';
+import CheckUpPage1 from './CheckUpPage1';
 
 export default function CheckUpSteps({navigation}) {
   const [currentPage, setCurrentPage] = useState(0);
@@ -16,25 +16,42 @@ export default function CheckUpSteps({navigation}) {
       temp_jeu: '',
     },
     pageTable: {
-      id: '',
-      check_up_id: '',
-      date: new Date(),
-      pack_ids: [],
-      diagnostic: [],
-      date_retour_prevue: 0,
-      durre_injury: 0,
-      pathalogie_label_id: '',
-      date_individuelle:new Date(),
-      date_reprise:new Date(),
-      date_competition:new Date(),
-      observation: '',
-      label: '',
+      pathalogies: [
+        {
+          id: '',
+          check_up_id: '',
+          date: new Date(),
+          pack_ids: [],
+          diagnostic: [],
+          date_retour_prevue: '',
+          durre_injury: '',
+          pathalogie_label_id: '',
+          date_individuelle: new Date(),
+          date_reprise: new Date(),
+          date_competition: new Date(),
+          observation: '',
+          label: '',
+        },
+      ],
+    },
+    pageCons: {
+      file: null,
+      comment: '',
+      conclusion: '',
     },
   });
+
   const handleFinish = () => {
+    const formattedFormData = createFormData();
     Alert.alert('Submitted successfully!');
+    console.log(JSON.stringify(formData, null, 2),);
     navigation.navigate('ConsultationTypePopup');
+    // console.log(
+    //   'Pathalogies array on finish:',
+    //   JSON.stringify(formData.pageTable.pathalogies, null, 2),
+    // );
   };
+
   const updateFormData = (page, data) => {
     setFormData(prevData => ({
       ...prevData,
@@ -59,9 +76,41 @@ export default function CheckUpSteps({navigation}) {
       case 0:
         return validateInfo(formData);
       default:
-        return false;
+        return true;
     }
   };
+
+  const createFormData = () => {
+    const formDataObj = new FormData();
+
+    formDataObj.append(
+      'date_arrive',
+      formData.pageInfo.date_arrive.toISOString(),
+    );
+    formDataObj.append('nombre_match', formData.pageInfo.nombre_match);
+    formDataObj.append(
+      'date_dispute',
+      formData.pageInfo.date_dispute.toISOString(),
+    );
+    formDataObj.append('temp_jeu', formData.pageInfo.temp_jeu);
+
+    formData.pageTable.pathalogies.forEach(pathalogy => {
+      formDataObj.append('pathalogies[]', JSON.stringify(pathalogy));
+    });
+
+    if (formData.pageCons.file) {
+      formDataObj.append('file', {
+        uri: formData.pageCons.file.uri,
+        name: formData.pageCons.file.name,
+        type: formData.pageCons.file.type,
+      });
+    }
+    formDataObj.append('comment', formData.pageCons.comment);
+    formDataObj.append('conclusion', formData.pageCons.conclusion);
+
+    return formDataObj;
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topLine} />
@@ -73,14 +122,7 @@ export default function CheckUpSteps({navigation}) {
           labelStyle={{color: '#007bff', fontFamily: 'Poppins-Bold'}}
           label="Infos"
           nextBtnStyle={styles.button}
-          nextBtnTextStyle={styles.buttonText}
-          // nextBtnDisabled={!validateCheck(currentPage, formData)}
-          // onPrevious={() => {
-          //   if (currentPage > 0) {
-          //     setCurrentPage(currentPage - 1);
-          //   }
-          // }}
-        >
+          nextBtnTextStyle={styles.buttonText}>
           <View style={styles.stepContainer}>
             <CheckUpPage1
               formData={formData.pageInfo}
@@ -97,7 +139,7 @@ export default function CheckUpSteps({navigation}) {
           <View>
             <CheckUpPage2
               formData={formData.pageTable}
-              updateFormData={data => updateFormData('pageInfo', data)}
+              updateFormData={data => updateFormData('pageTable', data)}
             />
           </View>
         </ProgressStep>
@@ -109,7 +151,10 @@ export default function CheckUpSteps({navigation}) {
           finishBtnTextStyle={styles.buttonText}
           onSubmit={handleFinish}>
           <View style={styles.stepContainer}>
-            <CheckUpPage3 />
+            <CheckUpPage3
+              formData={formData.pageCons}
+              updateFormData={data => updateFormData('pageCons', data)}
+            />
           </View>
         </ProgressStep>
       </ProgressSteps>

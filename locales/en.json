@@ -13,8 +13,8 @@
   "GRAVITY": "Gravity",
   "DIAGNOSTIC_M": "Diagnostic (Malady)",
   "DIAGNOSTIC_B": "Diagnostic (Injury)",
-  "ESTIMATED_ABSENCE_DURATION": "Estimated Absence Duration",
-  "ESTIMATED_ABSENCE_TYPE": "Estimated Absence Type",
+  "ABSENCE_DURATION": "Absence Duration",
+  "ABSENCE_TYPE": "Absence Type",
 
   "CIRCUMSTANCES": "Circumstances",
   "CONDITION": "Condition",

@@ -159,7 +159,7 @@ const App = () => {
         />
         <Stack.Screen
           options={{
-            headerTitle: t('CheckUpSteps'),
+            headerTitle: t('Check Up'),
             headerStyle: {backgroundColor: '#1545c9'},
             headerTintColor: '#fff',
             headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},

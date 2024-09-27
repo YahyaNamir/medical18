@@ -15,10 +15,33 @@ pathalogies: [
     date_retour_prevue: 4,
     durre_injury: 7,
     pathalogie_label_id: 4,
+    date_individuelle: '2024-09-17',
+    date_reprise: '2024-09-17',
+    date_competition: '2024-09-17',
+    observation: 'OBservation',
+    label: 'Pathologie cardiaque',
+  }
+];
+
+
+
+
+
+
+
+pathalogies: [
+  {
+    id: '',
+    check_up_id: '',
+    date: '',
+    pack_ids: [],
+    diagnostic: [],
+    date_retour_prevue: '',
+    durre_injury: '',
+    pathalogie_label_id: '',
     date_individuelle: '',
     date_reprise: '',
     date_competition: '',
-    observation: 'OBservation',
-    label: 'Pathologie cardiaque',
-  },
-];
+    observation: '',
+    label: '',
+  },]

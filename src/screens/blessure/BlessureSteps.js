@@ -272,14 +272,14 @@ export default function BlessureSteps({navigation, route}) {
             <ProgressStep
               label="Infos"
               nextBtnStyle={styles.button}
-              nextBtnDisabled={
-              !validateMaladie(currentPage, type_consultation, formData)
-              }
-              onPrevious={() => {
-                if (currentPage > 0) {
-                  setCurrentPage(currentPage - 1);
-                }
-              }}
+              // nextBtnDisabled={
+              // !validateMaladie(currentPage, type_consultation, formData)
+              // }
+              // onPrevious={() => {
+              //   if (currentPage > 0) {
+              //     setCurrentPage(currentPage - 1);
+              //   }
+              // }}
               onNext={() => setCurrentPage(currentPage + 1)}
               nextBtnTextStyle={styles.buttonText}>
               <View style={styles.stepContainer}>
@@ -295,14 +295,14 @@ export default function BlessureSteps({navigation, route}) {
               previousBtnStyle={styles.button}
               previousBtnTextStyle={styles.buttonText}
               nextBtnStyle={styles.button}
-              nextBtnDisabled={
-              !validateMaladie(currentPage, type_consultation, formData)
-              }
-              onPrevious={() => {
-                if (currentPage > 0) {
-                  setCurrentPage(currentPage - 1);
-                }
-              }}
+              // nextBtnDisabled={
+              // !validateMaladie(currentPage, type_consultation, formData)
+              // }
+              // onPrevious={() => {
+              //   if (currentPage > 0) {
+              //     setCurrentPage(currentPage - 1);
+              //   }
+              // }}
               onNext={() => setCurrentPage(currentPage + 1)}
               nextBtnTextStyle={styles.buttonText}>
               <View style={styles.stepContainer}>
