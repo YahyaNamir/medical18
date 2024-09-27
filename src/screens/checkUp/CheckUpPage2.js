@@ -130,7 +130,7 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
         <View key={index} style={styles.pathalogyContainer}>
           <Text style={styles.label}>{index + 1}</Text>
           <TouchableOpacity
-            // style={styles.removeButton}
+            style={styles.removeButton}
             onPress={() => removePathology(index)}>
             <Text style={styles.removeButtonText}>X</Text>
           </TouchableOpacity>
