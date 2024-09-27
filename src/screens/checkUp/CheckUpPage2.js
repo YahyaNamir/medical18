@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import {
   Easing,
 } from 'react-native';
 import {Table, Row, Rows} from 'react-native-table-component';
+import Collapsible from 'react-native-collapsible';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import MultiSelect from 'react-native-multiple-select';
@@ -20,9 +21,17 @@ import {Picker} from '@react-native-picker/picker';
 
 const CheckUpPage2 = ({formData, updateFormData}) => {
   const {t} = useTranslation();
-  const pathologyCounter = useRef(1);
+  const pathologyCounter = useRef(0);
 
-  const [pathalogies, setPathalogies] = useState([]);
+  const [pathologies, setPathologies] = useState(formData.pathologies || []);
+  const [collapsed, setCollapsed] = useState(pathologies.map(() => true));
+  const toggleExpand = index => {
+    setCollapsed(prevState => {
+      const newState = [...prevState];
+      newState[index] = !newState[index];
+      return newState;
+    });
+  };
 
   const pathologiesOptions = [
     {id: '1', name: 'Allergie nourriture/insectes'},
@@ -54,18 +63,23 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
     if (event.type === 'set' && selectedDate) {
       setShowDatePicker(false);
       if (currentPathalogyIndex !== null) {
-        const updatedPathalogies = [...pathalogies];
-        updatedPathalogies[currentPathalogyIndex][currentDateField] =
+        const updatedPathologies = [...pathologies];
+        updatedPathologies[currentPathalogyIndex][currentDateField] =
           selectedDate;
 
-        updateFormData('pageTable', {pathalogies: updatedPathalogies});
+        // updateFormData('pageTable', {pathologies: updatedPathologies});
+        updateFormData('pageTable', {pathologies: updatedPathologies});
 
-        setPathalogies(updatedPathalogies);
+        setPathologies(updatedPathologies);
       }
     } else {
       setShowDatePicker(false);
     }
   };
+
+  useEffect(() => {
+    setPathologies(formData.pathologies || []);
+  }, [formData.pathologies]);
 
   const addPathalogy = () => {
     const newPathalogy = {
@@ -83,24 +97,24 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
       observation: '',
       label: '',
     };
-    setPathalogies(prevPathalogies => {
-      const updatedPathalogies = [...prevPathalogies, newPathalogy];
-      updateFormData({pathalogies: updatedPathalogies});
-      return updatedPathalogies;
+    setPathologies(prevPathologies => {
+      const updatedPathologies = [...prevPathologies, newPathalogy];
+      updateFormData({pathologies: updatedPathologies});
+      return updatedPathologies;
     });
   };
 
   const updateFormDataAndSetState = (field, value) => {
-    updateFormData('pageTable', {pathalogies: [...pathalogies]});
+    updateFormData('pageTable', {pathologies: [...pathologies]});
     return value;
   };
 
   const updatePathalogyField = (index, field, value) => {
-    setPathalogies(prevPathalogies => {
-      const updatedPathalogies = [...prevPathalogies];
-      updatedPathalogies[index][field] = value;
-      updateFormDataAndSetState('pathalogies', updatedPathalogies);
-      return updatedPathalogies;
+    setPathologies(prevPathologies => {
+      const updatedPathologies = [...prevPathologies];
+      updatedPathologies[index][field] = value;
+      updateFormDataAndSetState('pathologies', updatedPathologies);
+      return updatedPathologies;
     });
   };
 
@@ -114,215 +128,245 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
       }))
     : [];
   const removePathology = index => {
-    const updatedPathalogies = pathalogies.filter((_, i) => i !== index);
-
-    setPathalogies(updatedPathalogies);
-
-    updateFormData('pageTable', {pathalogies: updatedPathalogies});
+    const updatedPathologies = pathologies.filter((_, i) => i !== index);
+    setPathologies(updatedPathologies);
+    updateFormData('pageTable', {pathologies: updatedPathologies});
   };
+
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <TouchableOpacity style={styles.addButton} onPress={addPathalogy}>
         <Text style={styles.addButtonText}>{t('Add Pathalogy')}</Text>
       </TouchableOpacity>
 
-      {pathalogies.map((pathalogy, index) => (
+      {pathologies.map((pathalogy, index) => (
         <View key={index} style={styles.pathalogyContainer}>
-          <Text style={styles.label}>{index + 1}</Text>
-          <TouchableOpacity
-            style={styles.removeButton}
-            onPress={() => removePathology(index)}>
-            <Text style={styles.removeButtonText}>X</Text>
-          </TouchableOpacity>
+          <View style={styles.containerBu}>
+            <Text style={styles.index}>{index + 1}</Text>
+            <TouchableOpacity
+              style={styles.removeButton}
+              onPress={() => removePathology(index)}>
+              <Text style={styles.removeButtonText}>X</Text>
+            </TouchableOpacity>
 
-          <Table>
-            <Row
-              data={[
-                <Text style={styles.label}>{t('Select Pathology')}*</Text>,
-                <Picker
-                  selectedValue={pathalogy.check_up_id}
-                  onValueChange={itemValue =>
-                    updatePathalogyField(index, 'check_up_id', itemValue)
-                  }
-                  style={styles.picker}>
-                  {pathologiesOptions.map(option => (
-                    <Picker.Item
-                      key={option.id}
-                      label={option.name}
-                      value={option.id}
-                    />
-                  ))}
-                </Picker>,
-              ]}
-            />
-            <Row
-              data={[
-                <Text style={styles.label}>{t('Pathologie')}*</Text>,
-                <MultiSelect
-                  hideTags
-                  items={consultations}
-                  uniqueKey="id"
-                  onSelectedItemsChange={items =>
-                    updatePathalogyField(index, 'pack_ids', items)
-                  }
-                  selectedItems={pathalogy.pack_ids}
-                  selectText={t('Select...')}
-                  searchInputPlaceholderText={t('Rechercher soins...')}
-                  tagRemoveIconColor="#CCC"
-                  selectedItemTextColor="#7979f7"
-                  selectedItemIconColor="#7979f7"
-                  itemTextColor="#000"
-                  displayKey="name"
-                  searchInputStyle={styles.searchInput}
-                  submitButtonColor="#7979f7"
-                  submitButtonText={t('Choisir')}
-                  styleMainWrapper={styles.inputContainer}
-                />,
-              ]}
-            />
-            <Row
-              data={[
-                <Text style={styles.label}>{t('Date')}*</Text>,
-                <TouchableOpacity
-                  style={styles.datePickerButton}
-                  onPress={() => {
-                    setShowDatePicker(true);
-                    setCurrentDateField('date');
-                    setCurrentPathalogyIndex(index);
-                  }}>
-                  <Text style={styles.input}>
-                    {pathalogy.date.toDateString()}
-                  </Text>
-                </TouchableOpacity>,
-              ]}
-            />
-            <Row
-              data={[
-                <Text style={styles.label}>{t('CAT (en club)')}* </Text>,
-                <MultiSelect
-                  hideTags
-                  items={soinsPodologiques}
-                  uniqueKey="id"
-                  onSelectedItemsChange={items =>
-                    updatePathalogyField(index, 'diagnostic', items)
-                  }
-                  selectedItems={pathalogy.diagnostic}
-                  selectText={t('Select...')}
-                  searchInputPlaceholderText={t('Search Médicaments...')}
-                  tagTextColor="#CCC"
-                  selectedItemTextColor="#7979f7"
-                  selectedItemIconColor="#7979f7"
-                  itemTextColor="#000"
-                  displayKey="name"
-                  searchInputStyle={styles.searchInput}
-                  submitButtonColor="#7979f7"
-                  submitButtonText={t('Choisir')}
-                  styleMainWrapper={styles.inputContainer}
-                />,
-              ]}
-            />
-            <Row
-              data={[<Text style={styles.labelD}>{t('Arret Sportif')}</Text>]}
-            />
-            <Row
-              data={[
-                <Text style={styles.label}>{t('ABSENCE_DURATION')}*</Text>,
-                <Picker
-                  selectedValue={pathalogy.date_retour_prevue}
-                  onValueChange={itemValue =>
-                    updatePathalogyField(index, 'date_retour_prevue', itemValue)
-                  }
-                  style={styles.picker}>
-                  {[...Array(30).keys()].map(i => (
-                    <Picker.Item key={i + 1} label={`${i + 1}`} value={i + 1} />
-                  ))}
-                </Picker>,
-              ]}
-            />
-            <Row
-              data={[
-                <Text style={styles.label}>{t('ABSENCE_TYPE')}*</Text>,
-                <Picker
-                  selectedValue={pathalogy.durre_injury}
-                  onValueChange={itemValue =>
-                    updatePathalogyField(index, 'durre_injury', itemValue)
-                  }
-                  style={styles.picker}>
-                  <Picker.Item label="Jour" value="1" />
-                  <Picker.Item label="Semaines" value="7" />
-                  <Picker.Item label="Mois" value="30" />
-                </Picker>,
-              ]}
-            />
-            <Row
-              data={[<Text style={styles.labelD}>{t('Date Reprise')} </Text>]}
-            />
+            <TouchableOpacity onPress={() => toggleExpand(index)}>
+              <Text style={styles.toggleButton}>
+                {collapsed[index]
+                  ? t('Afficher les détails')
+                  : t('Masquer les détails')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <Collapsible collapsed={collapsed[index]}>
+            <Table>
+              <Row
+                data={[
+                  <Text style={styles.label}>{t('Select Pathology')}*</Text>,
+                  <Picker
+                    selectedValue={pathalogy.label}
+                    onValueChange={itemValue => {
+                      const selectedOption = pathologiesOptions.find(
+                        option => option.id === itemValue,
+                      );
+                      updatePathalogyField(
+                        index,
+                        'pathalogie_label_id',
+                        itemValue,
+                      );
+                      updatePathalogyField(
+                        index,
+                        'label',
+                        selectedOption ? selectedOption.name : '',
+                      );
+                    }}
+                    style={styles.picker}>
+                    {pathologiesOptions.map(option => (
+                      <Picker.Item
+                        key={option.id}
+                        label={option.name}
+                        value={option.id}
+                      />
+                    ))}
+                  </Picker>,
+                ]}
+              />
+              <Row
+                data={[
+                  <Text style={styles.label}>{t('Pathologie')}*</Text>,
+                  <MultiSelect
+                    hideTags
+                    items={consultations}
+                    uniqueKey="id"
+                    onSelectedItemsChange={items =>
+                      updatePathalogyField(index, 'pack_ids', items)
+                    }
+                    selectedItems={pathalogy.pack_ids}
+                    selectText={t('Select...')}
+                    searchInputPlaceholderText={t('Rechercher soins...')}
+                    tagRemoveIconColor="#CCC"
+                    selectedItemTextColor="#7979f7"
+                    selectedItemIconColor="#7979f7"
+                    itemTextColor="#000"
+                    displayKey="name"
+                    searchInputStyle={styles.searchInput}
+                    submitButtonColor="#7979f7"
+                    submitButtonText={t('Choisir')}
+                    styleMainWrapper={styles.inputContainer}
+                  />,
+                ]}
+              />
+              <Row
+                data={[
+                  <Text style={styles.label}>{t('Date')}*</Text>,
+                  <TouchableOpacity
+                    style={styles.datePickerButton}
+                    onPress={() => {
+                      setShowDatePicker(true);
+                      setCurrentDateField('date');
+                      setCurrentPathalogyIndex(index);
+                    }}>
+                    <Text style={styles.input}>
+                      {pathalogy.date.toDateString()}
+                    </Text>
+                  </TouchableOpacity>,
+                ]}
+              />
+              <Row
+                data={[
+                  <Text style={styles.label}>{t('CAT (en club)')}* </Text>,
+                  <MultiSelect
+                    hideTags
+                    items={soinsPodologiques}
+                    uniqueKey="id"
+                    onSelectedItemsChange={items =>
+                      updatePathalogyField(index, 'diagnostic', items)
+                    }
+                    selectedItems={pathalogy.diagnostic}
+                    selectText={t('Select...')}
+                    searchInputPlaceholderText={t('Search Médicaments...')}
+                    tagTextColor="#CCC"
+                    selectedItemTextColor="#7979f7"
+                    selectedItemIconColor="#7979f7"
+                    itemTextColor="#000"
+                    displayKey="name"
+                    searchInputStyle={styles.searchInput}
+                    submitButtonColor="#7979f7"
+                    submitButtonText={t('Choisir')}
+                    styleMainWrapper={styles.inputContainer}
+                  />,
+                ]}
+              />
+              <Row
+                data={[<Text style={styles.labelD}>{t('Arret Sportif')}</Text>]}
+              />
+              <Row
+                data={[
+                  <Text style={styles.label}>{t('ABSENCE_DURATION')}*</Text>,
+                  <Picker
+                    selectedValue={pathalogy.date_retour_prevue}
+                    onValueChange={itemValue =>
+                      updatePathalogyField(
+                        index,
+                        'date_retour_prevue',
+                        itemValue,
+                      )
+                    }
+                    style={styles.picker}>
+                    {[...Array(30).keys()].map(i => (
+                      <Picker.Item
+                        key={i + 1}
+                        label={`${i + 1}`}
+                        value={i + 1}
+                      />
+                    ))}
+                  </Picker>,
+                ]}
+              />
+              <Row
+                data={[
+                  <Text style={styles.label}>{t('ABSENCE_TYPE')}*</Text>,
+                  <Picker
+                    selectedValue={pathalogy.durre_injury}
+                    onValueChange={itemValue =>
+                      updatePathalogyField(index, 'durre_injury', itemValue)
+                    }
+                    style={styles.picker}>
+                    <Picker.Item label="Jour" value="1" />
+                    <Picker.Item label="Semaines" value="7" />
+                    <Picker.Item label="Mois" value="30" />
+                  </Picker>,
+                ]}
+              />
+              <Row
+                data={[<Text style={styles.labelD}>{t('Date Reprise')} </Text>]}
+              />
 
-            <Row
-              data={[
-                <Text style={styles.label}>
-                  {t('INDIVIDUAL_REATHLETISATION')}{' '}
-                </Text>,
-                <TouchableOpacity
-                  style={styles.datePickerButton}
-                  onPress={() => {
-                    setShowDatePicker(true);
-                    setCurrentDateField('date_individuelle');
-                    setCurrentPathalogyIndex(index);
-                  }}>
-                  <Text style={styles.input}>
-                    {pathalogy.date_individuelle.toDateString()}
-                  </Text>
-                </TouchableOpacity>,
-              ]}
-            />
-            <Row
-              data={[
-                <Text style={styles.label}>{t('Reprise Groupe')} </Text>,
-                <TouchableOpacity
-                  style={styles.datePickerButton}
-                  onPress={() => {
-                    setShowDatePicker(true);
-                    setCurrentDateField('date_reprise');
-                    setCurrentPathalogyIndex(index);
-                  }}>
-                  <Text style={styles.input}>
-                    {pathalogy.date_reprise.toDateString()}
-                  </Text>
-                </TouchableOpacity>,
-              ]}
-            />
-            <Row
-              data={[
-                <Text style={styles.label}>{t('Compétition')}</Text>,
-                <TouchableOpacity
-                  style={styles.datePickerButton}
-                  onPress={() => {
-                    setShowDatePicker(true);
-                    setCurrentDateField('date_competition');
-                    setCurrentPathalogyIndex(index);
-                  }}>
-                  <Text style={styles.input}>
-                    {pathalogy.date_competition.toDateString()}
-                  </Text>
-                </TouchableOpacity>,
-              ]}
-            />
-            <Row
-              data={[
-                <Text style={styles.label}>{t('Observation')}</Text>,
-                <TextInput
-                  value={pathalogy.observation}
-                  onChangeText={text =>
-                    updatePathalogyField(index, 'observation', text)
-                  }
-                  placeholder={t('WRITE')}
-                  multiline
-                  style={styles.textInput}
-                />,
-              ]}
-            />
-          </Table>
+              <Row
+                data={[
+                  <Text style={styles.label}>
+                    {t('INDIVIDUAL_REATHLETISATION')}{' '}
+                  </Text>,
+                  <TouchableOpacity
+                    style={styles.datePickerButton}
+                    onPress={() => {
+                      setShowDatePicker(true);
+                      setCurrentDateField('date_individuelle');
+                      setCurrentPathalogyIndex(index);
+                    }}>
+                    <Text style={styles.input}>
+                      {pathalogy.date_individuelle.toDateString()}
+                    </Text>
+                  </TouchableOpacity>,
+                ]}
+              />
+              <Row
+                data={[
+                  <Text style={styles.label}>{t('Reprise Groupe')} </Text>,
+                  <TouchableOpacity
+                    style={styles.datePickerButton}
+                    onPress={() => {
+                      setShowDatePicker(true);
+                      setCurrentDateField('date_reprise');
+                      setCurrentPathalogyIndex(index);
+                    }}>
+                    <Text style={styles.input}>
+                      {pathalogy.date_reprise.toDateString()}
+                    </Text>
+                  </TouchableOpacity>,
+                ]}
+              />
+              <Row
+                data={[
+                  <Text style={styles.label}>{t('Compétition')}</Text>,
+                  <TouchableOpacity
+                    style={styles.datePickerButton}
+                    onPress={() => {
+                      setShowDatePicker(true);
+                      setCurrentDateField('date_competition');
+                      setCurrentPathalogyIndex(index);
+                    }}>
+                    <Text style={styles.input}>
+                      {pathalogy.date_competition.toDateString()}
+                    </Text>
+                  </TouchableOpacity>,
+                ]}
+              />
+              <Row
+                data={[
+                  <Text style={styles.label}>{t('Observation')}</Text>,
+                  <TextInput
+                    value={pathalogy.observation}
+                    onChangeText={text =>
+                      updatePathalogyField(index, 'observation', text)
+                    }
+                    placeholder={t('WRITE')}
+                    multiline
+                    style={styles.textInput}
+                  />,
+                ]}
+              />
+            </Table>
+          </Collapsible>
         </View>
       ))}
 
@@ -335,7 +379,7 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
         />
       )}
 
-      {/* <Button title={t('Finish')} onPress={() => console.log(pathalogies)} /> */}
+      {/* <Button title={t('Finish')} onPress={() => console.log(pathologies)} /> */}
     </ScrollView>
   );
 };
@@ -388,6 +432,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#f44336',
     borderRadius: 50,
   },
+  containerBu: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // width: '100%',
+  },
+
   removeButtonText: {
     fontFamily: 'Poppins-Bold',
     color: '#fff',
@@ -397,6 +449,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginBottom: 5,
     color: '#333',
+  },
+  index: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 16,
+    marginBottom: 5,
+    color: '#333',
+    display: 'flex',
   },
   labelD: {
     fontFamily: 'Poppins-Bold',
@@ -451,6 +510,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     fontFamily: 'Poppins-Regular',
     color: '#333',
+  },
+  toggleButton: {
+    color: '#0f4dc9',
+    marginLeft: 10,
+    fontWeight: 'bold',
   },
 });
 

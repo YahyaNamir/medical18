@@ -16,9 +16,9 @@ export default function CheckUpSteps({navigation}) {
       temp_jeu: '',
     },
     pageTable: {
-      pathalogies: [
+      pathologies: [
         {
-          id: '',
+          id: 1,
           check_up_id: '',
           date: new Date(),
           pack_ids: [],
@@ -44,11 +44,11 @@ export default function CheckUpSteps({navigation}) {
   const handleFinish = () => {
     const formattedFormData = createFormData();
     Alert.alert('Submitted successfully!');
-    console.log(JSON.stringify(formData, null, 2),);
+    console.log(JSON.stringify(formData, null, 2));
     navigation.navigate('ConsultationTypePopup');
     // console.log(
-    //   'Pathalogies array on finish:',
-    //   JSON.stringify(formData.pageTable.pathalogies, null, 2),
+    //   'Pathologies array on finish:',
+    //   JSON.stringify(formData.pageTable.pathologies, null, 2),
     // );
   };
 
@@ -94,8 +94,8 @@ export default function CheckUpSteps({navigation}) {
     );
     formDataObj.append('temp_jeu', formData.pageInfo.temp_jeu);
 
-    formData.pageTable.pathalogies.forEach(pathalogy => {
-      formDataObj.append('pathalogies[]', JSON.stringify(pathalogy));
+    formData.pageTable.pathologies.forEach(pathalogy => {
+      formDataObj.append('pathologies[]', JSON.stringify(pathalogy));
     });
 
     if (formData.pageCons.file) {
