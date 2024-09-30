@@ -34,7 +34,7 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
   };
 
   const pathologiesOptions = [
-    // {id: '1', name: 'Allergie nourriture/insectes'},
+    {id: '1', name: 'Allergie nourriture/insectes'},
     {id: '2', name: "Pathologie ou Blessure sur l'appareil locomoteur"},
     {id: '3', name: 'Allergie médicaments'},
     {id: '4', name: 'Infections'},
