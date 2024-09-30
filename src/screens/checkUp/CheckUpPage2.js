@@ -163,7 +163,7 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
                 data={[
                   <Text style={styles.label}>{t('Select Pathology')}*</Text>,
                   <Picker
-                    // selectedValue={pathalogy.label}
+                    selectedValue={pathalogy.label}
                     onValueChange={itemValue => {
                       const selectedOption = pathologiesOptions.find(
                         option => option.id === itemValue,
