@@ -23,25 +23,3 @@ pathalogies: [
   }
 ];
 
-
-
-
-
-
-
-pathalogies: [
-  {
-    id: '',
-    check_up_id: '',
-    date: '',
-    pack_ids: [],
-    diagnostic: [],
-    date_retour_prevue: '',
-    durre_injury: '',
-    pathalogie_label_id: '',
-    date_individuelle: '',
-    date_reprise: '',
-    date_competition: '',
-    observation: '',
-    label: '',
-  },]
