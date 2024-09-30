@@ -38,7 +38,7 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
     {id: '2', name: "Pathologie ou Blessure sur l'appareil locomoteur"},
     {id: '3', name: 'Allergie médicaments'},
     {id: '4', name: 'Infections'},
-    {id: '5', name: 'Pathologie cardiaque'},
+    // {id: '5', name: 'Pathologie cardiaque'},
     {id: '6', name: 'Pathologie gastro-intestinale'},
     {id: '7', name: 'Pathologie respiratoire'},
     {id: '8', name: 'Pathologie neurologique'},
