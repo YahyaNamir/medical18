@@ -46,10 +46,6 @@ export default function CheckUpSteps({navigation}) {
     Alert.alert('Submitted successfully!');
     console.log(JSON.stringify(formData, null, 2));
     navigation.navigate('ConsultationTypePopup');
-    // console.log(
-    //   'Pathologies array on finish:',
-    //   JSON.stringify(formData.pageTable.pathologies, null, 2),
-    // );
   };
 
   const updateFormData = (page, data) => {
