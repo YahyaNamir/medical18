@@ -7,6 +7,8 @@ import CheckUpPage1 from './CheckUpPage1';
 
 export default function CheckUpSteps({navigation}) {
   const [currentPage, setCurrentPage] = useState(0);
+  const [checkID, setCheckID] = useState(0);
+  const generateUniqueID = () => Date.now().toString();
 
   const [formData, setFormData] = useState({
     pageInfo: {
@@ -19,7 +21,7 @@ export default function CheckUpSteps({navigation}) {
       pathologies: [
         {
           id: 1,
-          check_up_id: '',
+          check_up_id: checkID,
           date: new Date(),
           pack_ids: [],
           diagnostic: [],
@@ -41,11 +43,24 @@ export default function CheckUpSteps({navigation}) {
     },
   });
 
+  const removePathology = index => {
+    setFormData(prevData => ({
+      ...prevData,
+      pageTable: {
+        ...prevData.pageTable,
+        pathologies: prevData.pageTable.pathologies.filter(
+          (_, i) => i !== index,
+        ),
+      },
+    }));
+  };
+
   const handleFinish = () => {
     const formattedFormData = createFormData();
     Alert.alert('Submitted successfully!');
     console.log(JSON.stringify(formData, null, 2));
     navigation.navigate('ConsultationTypePopup');
+    setCheckID(checkID + 1);
     // console.log(
     //   'Pathologies array on finish:',
     //   JSON.stringify(formData.pageTable.pathologies, null, 2),
@@ -140,6 +155,9 @@ export default function CheckUpSteps({navigation}) {
             <CheckUpPage2
               formData={formData.pageTable}
               updateFormData={data => updateFormData('pageTable', data)}
+              removePathology={removePathology}
+              checkID={checkID}
+              setCheckID={setCheckID}
             />
           </View>
         </ProgressStep>

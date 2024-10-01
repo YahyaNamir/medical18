@@ -19,9 +19,15 @@ import {useTranslation} from 'react-i18next';
 import prescriptionData from '../../../API MALADIE/prescription.json';
 import {Picker} from '@react-native-picker/picker';
 
-const CheckUpPage2 = ({formData, updateFormData}) => {
+const CheckUpPage2 = ({
+  formData,
+  updateFormData,
+  removePathology,
+  checkID,
+  setCheckID,
+}) => {
   const {t} = useTranslation();
-  const pathologyCounter = useRef(0);
+  const pathologyCounter = useRef(1);
 
   const [pathologies, setPathologies] = useState(formData.pathologies || []);
   const [collapsed, setCollapsed] = useState(pathologies.map(() => true));
@@ -79,12 +85,13 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
 
   useEffect(() => {
     setPathologies(formData.pathologies || []);
+    setCollapsed(formData.pathologies.map(() => true));
   }, [formData.pathologies]);
 
   const addPathalogy = () => {
     const newPathalogy = {
-      id: pathologyCounter.current++,
-      check_up_id: '',
+      id: ++pathologyCounter.current,
+      check_up_id: checkID,
       date: new Date(),
       pack_ids: [],
       diagnostic: [],
@@ -100,6 +107,8 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
     setPathologies(prevPathologies => {
       const updatedPathologies = [...prevPathologies, newPathalogy];
       updateFormData({pathologies: updatedPathologies});
+      setCollapsed(prevState => [...prevState, true]);
+
       return updatedPathologies;
     });
   };
@@ -127,11 +136,11 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
         name: child.child,
       }))
     : [];
-  const removePathology = index => {
-    const updatedPathologies = pathologies.filter((_, i) => i !== index);
-    setPathologies(updatedPathologies);
-    updateFormData('pageTable', {pathologies: updatedPathologies});
-  };
+  // const removePathology = index => {
+  //   const updatedPathologies = pathologies.filter((_, i) => i !== index);
+  //   setPathologies(updatedPathologies);
+  //   updateFormData('pageTable', {pathologies: updatedPathologies});
+  // };
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -158,6 +167,8 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
             </TouchableOpacity>
           </View>
           <Collapsible collapsed={collapsed[index]}>
+            <Button title="Remove" onPress={() => removePathology(index)} />
+
             <Table>
               <Row
                 data={[
@@ -379,8 +390,6 @@ const CheckUpPage2 = ({formData, updateFormData}) => {
           onChange={handleDateChange}
         />
       )}
-
-      {/* <Button title={t('Finish')} onPress={() => console.log(pathologies)} /> */}
     </ScrollView>
   );
 };
