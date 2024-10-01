@@ -61,7 +61,7 @@ export default function CheckUpSteps({navigation}) {
 
     const outputData = {
       date_arrive: formData.pageInfo.date_arrive.toISOString().split('T')[0],
-      // date_dispute: formData.pageInfo.date_dispute.toISOString().split('T')[0],
+      date_dispute: formData.pageInfo.date_dispute.toISOString().split('T')[0],
       temp_jeu: formData.pageInfo.temp_jeu,
       conclusion: formData.pageCons.conclusion,
       comment: formData.pageCons.comment,
