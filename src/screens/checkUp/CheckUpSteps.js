@@ -58,13 +58,22 @@ export default function CheckUpSteps({navigation}) {
   const handleFinish = () => {
     const formattedFormData = createFormData();
     Alert.alert('Submitted successfully!');
-    console.log(JSON.stringify(formData, null, 2));
+
+    const outputData = {
+      date_arrive: formData.pageInfo.date_arrive.toISOString().split('T')[0],
+      date_dispute: formData.pageInfo.date_dispute.toISOString().split('T')[0],
+      temp_jeu: formData.pageInfo.temp_jeu,
+      conclusion: formData.pageCons.conclusion,
+      comment: formData.pageCons.comment,
+      nombre_match: formData.pageInfo.nombre_match,
+      file: formData.pageCons.file,
+      pathologies: formData.pageTable.pathologies,
+    };
+
+    console.log(JSON.stringify(outputData, null, 2));
+
     navigation.navigate('ConsultationTypePopup');
     setCheckID(checkID + 1);
-    // console.log(
-    //   'Pathologies array on finish:',
-    //   JSON.stringify(formData.pageTable.pathologies, null, 2),
-    // );
   };
 
   const updateFormData = (page, data) => {
