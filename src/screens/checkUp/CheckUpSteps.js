@@ -63,7 +63,7 @@ export default function CheckUpSteps({navigation}) {
       date_arrive: formData.pageInfo.date_arrive.toISOString().split('T')[0],
       date_dispute: formData.pageInfo.date_dispute.toISOString().split('T')[0],
       temp_jeu: formData.pageInfo.temp_jeu,
-      // conclusion: formData.pageCons.conclusion,
+      conclusion: formData.pageCons.conclusion,
       comment: formData.pageCons.comment,
       nombre_match: formData.pageInfo.nombre_match,
       file: formData.pageCons.file,
@@ -73,7 +73,7 @@ export default function CheckUpSteps({navigation}) {
     console.log(JSON.stringify(outputData, null, 2));
 
     navigation.navigate('ConsultationTypePopup');
-    setCheckID(checkID + 1);
+    setCheckID(prev => prev + 1);
   };
 
   const updateFormData = (page, data) => {

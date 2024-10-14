@@ -20,7 +20,7 @@ import MaladieSteps from './src/screens/maladie/MaladieSteps';
 import CheckUpSteps from './src/screens/checkUp/CheckUpSteps';
 import MaladieList from './src/screens/maladie/MaladieList';
 import MaladieListScreen from './src/screens/maladie/MaladieListScreen';
-import './i18n'; // Import the i18n configuration
+import './i18n';
 import {useTranslation} from 'react-i18next';
 import {TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native';
@@ -37,29 +37,6 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      {/* <Stack.Navigator
-        options={{
-          headerShown: true,
-          headerTitle: 'Home',
-          headerStyle: {backgroundColor: '#1545c9'},
-          headerTintColor: '#fff',
-          headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
-          headerTitleAlign: 'center',
-        }}
-        initialRouteName="ConsultationTypePopup"> */}
-      {/* <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitle: 'Home',
-            headerStyle: {backgroundColor: '#1545c9'},
-            headerTintColor: '#fff',
-            headerTitleStyle: {fontSize: 16, fontFamily: 'Poppins-Bold'},
-            headerTitleAlign: 'center',
-          }}
-          name="ConsultationTypePopup"
-          component={ConsultationTypePopup}
-        /> */}
-
       <Stack.Navigator initialRouteName="ConsultationTypePopup">
         <Stack.Screen
           name="ConsultationTypePopup"

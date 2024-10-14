@@ -151,13 +151,12 @@ const CheckUpPage2 = ({
       {pathologies.map((pathalogy, index) => (
         <View key={index} style={styles.pathalogyContainer}>
           <View style={styles.containerBu}>
-            <Text style={styles.index}>{index + 1}</Text>
+            <Text style={styles.index}>{pathalogy.id}</Text>
             <TouchableOpacity
               style={styles.removeButton}
               onPress={() => removePathology(index)}>
               <Text style={styles.removeButtonText}>X</Text>
             </TouchableOpacity>
-
             <TouchableOpacity onPress={() => toggleExpand(index)}>
               <Text style={styles.toggleButton}>
                 {collapsed[index]

@@ -14,7 +14,7 @@ const ConsultationTypePopup = ({navigation}) => {
     <View style={styles.container}>
       <Text style={styles.header}>{t('CONSULTATION_TYPE')}</Text>
 
-      {/* <TouchableOpacity
+      <TouchableOpacity
         style={styles.button}
         onPress={() => handleNavigation('maladie')}>
         <Icon name="medical-services" size={20} color="#fff" />
@@ -25,7 +25,7 @@ const ConsultationTypePopup = ({navigation}) => {
         onPress={() => handleNavigation('blessure')}>
         <Icon name="healing" size={20} color="#fff" />
         <Text style={styles.buttonText}>{t('INJURY')}</Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('CheckUpSteps')}>
