@@ -89,7 +89,7 @@ export default function CheckUpSteps({navigation}) {
   const validateInfo = formData => {
     return (
       formData.pageInfo.date_arrive !== '' &&
-      // formData.pageInfo.date_dispute !== '' &&
+      formData.pageInfo.date_dispute !== '' &&
       formData.pageInfo.temp_jeu !== '' &&
       formData.pageInfo.nombre_match !== ''
     );
