@@ -19,7 +19,7 @@ const CheckUpPage3 = ({ formData, updateFormData }) => {
         console.log('Selection canceled');
       } else {
         console.error('DocumentPicker Error: ', err);
-        Alert.alert('Error selecting file');
+        // Alert.alert('Error selecting file');
       }
     }
   };
