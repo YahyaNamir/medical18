@@ -1,11 +1,11 @@
-import { Picker } from '@react-native-picker/picker';
+import {Picker} from '@react-native-picker/picker';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
+import {useTranslation} from 'react-i18next';
+import {View, Text, StyleSheet, TextInput, Button, Alert} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 
-const CheckUpPage3 = ({ formData, updateFormData }) => {
-  const { t } = useTranslation();
+const CheckUpPage3 = ({formData, updateFormData}) => {
+  const {t} = useTranslation();
 
   const pickDocument = async () => {
     try {
@@ -13,7 +13,7 @@ const CheckUpPage3 = ({ formData, updateFormData }) => {
         type: [DocumentPicker.types.allFiles],
       });
       console.log('Selected file:', res);
-      updateFormData({ file: res });
+      updateFormData({file: res});
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         console.log('Selection canceled');
@@ -27,12 +27,13 @@ const CheckUpPage3 = ({ formData, updateFormData }) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>{t('Initial Internship StatusEtat de début de stage')}*</Text>
+        <Text style={styles.label}>
+          {t('Initial Internship StatusEtat de début de stage')}*
+        </Text>
         <Picker
           selectedValue={formData.conclusion}
-          onValueChange={itemValue => updateFormData({ conclusion: itemValue })}
-          style={styles.textInput}
-        >
+          onValueChange={itemValue => updateFormData({conclusion: itemValue})}
+          style={styles.textInput}>
           <Picker.Item label={t('Jour')} value="1" />
           <Picker.Item label={t('Semaines')} value="7" />
           <Picker.Item label={t('Mois')} value="30" />
@@ -49,14 +50,13 @@ const CheckUpPage3 = ({ formData, updateFormData }) => {
         <Text style={styles.label}>{t('COMMENT')}</Text>
         <TextInput
           value={formData.comment}
-          onChangeText={text => updateFormData({ comment: text })}
+          onChangeText={text => updateFormData({comment: text})}
           placeholder={t('WRITE')}
           multiline
           numberOfLines={5}
           style={styles.textInput}
         />
       </View>
-      
     </View>
   );
 };
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#fff',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
