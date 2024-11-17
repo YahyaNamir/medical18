@@ -36,7 +36,7 @@ const CheckUpPage3 = ({formData, updateFormData}) => {
           style={styles.textInput}>
           <Picker.Item label={t('Jour')} value="1" />
           <Picker.Item label={t('Semaines')} value="7" />
-          {/* <Picker.Item label={t('Mois')} value="30" /> */}
+          <Picker.Item label={t('Mois')} value="30" />
         </Picker>
       </View>
 
